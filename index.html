@@ -409,6 +409,137 @@
     </script>
 </section>
 
+<section data-markdown>
+    <script type="text/template">
+##HYPERWORKS安裝心得
+<p>我覺得這個軟體看起來功能非常強大,但是,下載的步驟真的是非常的繁雜,同一個帳號不但沒辦法同時下載HYPERWORK及套件,每當安裝一個新套件我都要再重新輸入資訊,光是這點,就覺得非常的繁雜.</p>
+    </script>
+</section>
+
+<section data-markdown>
+    <script type="text/template">
+##HYPERWORK安裝完成開啟影片
+<iframe width="560" height="315" src="https://www.youtube.com/embed/Cnwr_1R02O8" frameborder="0" allowfullscreen></iframe>
+    </script>
+</section>
+
+<section data-markdown>
+    <script type="text/template">
+##SOLIDTHINKING下載安裝影片1
+<iframe width="560" height="315" src="https://www.youtube.com/embed/Pi-yj1aOYIY" frameborder="0" allowfullscreen></iframe>
+    </script>
+</section>
+
+<section data-markdown>
+    <script type="text/template">
+##SOLIDTHINKING下載安裝影片2
+<iframe width="560" height="315" src="https://www.youtube.com/embed/NUZcSrdiZ3Q" frameborder="0" allowfullscreen></iframe>
+    </script>
+</section>
+
+<section data-markdown>
+    <script type="text/template">
+##SOLIDTHINKING下載安裝影片3
+<iframe width="560" height="315" src="https://www.youtube.com/embed/N5pdNQoJXQM" frameborder="0" allowfullscreen></iframe>
+    </script>
+</section>
+
+<section data-markdown>
+    <script type="text/template">
+##FEKO下載安裝影片
+
+    </script>
+</section>
+
+<section data-markdown>
+    <script type="text/template">
+##四連桿機構的運動路徑方程式推導
+<p>PLLP 方程式推導</p>
+<p>已知 Point a, Length ac, Length cb 與 Point b, 求 c 點座標.</p>
+
+    </script>
+</section>
+
+<section data-markdown>
+    <script type="text/template">
+PLLP
+from sympy import symbols, sqrt, solve, cos, sin, Abs
+
+ inputs
+ax, ay, bx, by, ac, cb = symbols('ax ay bx by ac cb')
+intermediate variables
+ab, dab, bac, degree= symbols('ab dab bac degree')
+ad, bd = symbols('ad bd')
+outputs
+cx, cy = symbols('cx cy')
+從 a, b 點座標求 ab
+ab = sqrt((ax-bx)**2+(ay-by)**2)
+從三角形已知三邊長, 求解 cx, cy
+data = solve([ac**2-((ax-cx)**2+(ay-cy)**2), cb**2-((cx-bx)**2+(cy-by)**2)], [cx, cy])
+第1組解
+print("cx = ", data[0][0])
+print("cy = ", data[0][1])
+第2組解
+print("cx = ", data[1][0])
+print("cy = ", data[1][1])
+</pre>
+    </script>
+</section>
+
+<section data-markdown>
+    <script type="text/template">
+
+<p>數值分析驗證程式碼:</p>
+<pre class="brush: python">
+from math import pi, cos, sin, sqrt, acos
+
+radian = 180/pi
+degree = pi/180
+
+PLAP
+def plap(ax, ay, ac, bac, bx, by, pos):
+    if pos == 0:
+        cx= ac*cos(bac - acos((ax**2 - 2*ax*bx + ay**2 - 2*ay*by + bx**2 + by**2 + abs(ax - bx)**2 - abs(ay - by)**2)/(2*sqrt(ax**2 - 2*ax*bx + ay**2 - 2*ay*by + bx**2 + by**2)*abs(ax - bx)))) + ax 
+        cy= ac*sin(bac - acos((ax**2 - 2*ax*bx + ay**2 - 2*ay*by + bx**2 + by**2 + abs(ax - bx)**2 - abs(ay - by)**2)/(2*sqrt(ax**2 - 2*ax*bx + ay**2 - 2*ay*by + bx**2 + by**2)*abs(ax - bx)))) + ay
+    else:
+        cx= ac*cos(bac + acos((ax**2 - 2*ax*bx + ay**2 - 2*ay*by + bx**2 + by**2 + abs(ax - bx)**2 - abs(ay - by)**2)/(2*sqrt(ax**2 - 2*ax*bx + ay**2 - 2*ay*by + bx**2 + by**2)*abs(ax - bx)))) + ax 
+        cy= ac*sin(bac + acos((ax**2 - 2*ax*bx + ay**2 - 2*ay*by + bx**2 + by**2 + abs(ax - bx)**2 - abs(ay - by)**2)/(2*sqrt(ax**2 - 2*ax*bx + ay**2 - 2*ay*by + bx**2 + by**2)*abs(ax - bx)))) + ay
+    return cx, cy
+</pre>
+    </script>
+</section>
+
+
+
+    <section data-markdown>
+    <script type="text/template">
+##線上 Fossil SCM 倉儲
+<a href="https://mde2a2.kmol.info/cdag1/home">cdag1</a>
+<p>線上倉儲可儲存三種不同格式的檔案</p>
+<p>第一種:Fossil Wiki</p>
+<p>Fossil 是一個分散式版本控制系統、缺陷跟蹤管理系統以及在軟體開發中使用的wiki軟體伺服器，它由D.理察·希普建立</p>
+
+
+    </script>
+</section>
+
+  <section data-markdown>
+    <script type="text/template">
+<p>第二種:Markdown</p>
+<p>Markdown的目標是實現「易讀易寫」。
+
+不過最需要強調的便是它的可讀性。一份使用Markdown格式撰寫的文件應該可以直接以純文字發佈，並且看起來不會像是由許多標籤或是格式指令所構成。Markdown語法受到一些既有text-to-HTML格式的影響，包括Setext、atx、Textile、reStructuredText、Grutatext 和 EtText，然而最大靈感來源其實是純文字的電子郵件格式。</p>
+
+<p>第三種:plain text(純文本)</p>
+<p>在計算中，純文本是僅表示可讀材料的字符但不表示其圖形表示的數據（例如文件內容），也不表示其他對象（圖像等）</p>
+
+    </script>
+</section>
+
+
+
+
+
 
 
 
