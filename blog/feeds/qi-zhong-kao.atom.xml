@@ -38,9 +38,9 @@
 &lt;h2&gt;4.分組協同零件展示&lt;/h2&gt;
 &lt;p&gt;&lt;p&gt;利用 &lt;a href="https://github.com/JinJunho/Madeleine.js"&gt;Madeleine 程式庫&lt;/a&gt;, 擷取位於 ./../data/spikeball.stl 位置的零件 stl 格式檔案:&lt;/p&gt;&lt;/p&gt;
 &lt;p&gt;&lt;link href="./../data/madeleine/src/css/Madeleine.css" rel="stylesheet"&gt;
-&lt;script src="./../data/madeleine/src/stats.js"&gt;&lt;/script&gt;
-&lt;script src="./../data/madeleine/src/detector.js"&gt;&lt;/script&gt;
-&lt;script src="./../data/madeleine/src/three.min.js"&gt;&lt;/script&gt;
+&lt;script src="./../data/madeleine/src/user/stats.js"&gt;&lt;/script&gt;
+&lt;script src="./../data/madeleine/src/user/detector.js"&gt;&lt;/script&gt;
+&lt;script src="./../data/madeleine/src/user/three.min.js"&gt;&lt;/script&gt;
 &lt;script src="./../data/madeleine/src/Madeleine.js"&gt;&lt;/script&gt;&lt;/p&gt;
 &lt;div id="target" class="madeleine"&gt;&lt;/div&gt;
 
