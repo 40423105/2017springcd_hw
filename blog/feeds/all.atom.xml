@@ -37,11 +37,11 @@
 &lt;iframe width="560" height="315" src="https://www.youtube.com/embed/Z7YtRHOAq8w" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;&lt;/p&gt;
 &lt;h2&gt;4.分組協同零件展示&lt;/h2&gt;
 &lt;p&gt;&lt;p&gt;利用 &lt;a href="https://github.com/JinJunho/Madeleine.js"&gt;Madeleine 程式庫&lt;/a&gt;, 擷取位於 ./../data/spikeball.stl 位置的零件 stl 格式檔案:&lt;/p&gt;&lt;/p&gt;
-&lt;p&gt;&lt;link href="./../data/madeleine/src/css/Madeleine.css" rel="stylesheet"&gt;
-&lt;script src="./../data/madeleine/src/user/stats.js"&gt;&lt;/script&gt;
-&lt;script src="./../data/madeleine/src/user/detector.js"&gt;&lt;/script&gt;
-&lt;script src="./../data/madeleine/src/user/three.min.js"&gt;&lt;/script&gt;
-&lt;script src="./../data/madeleine/src/Madeleine.js"&gt;&lt;/script&gt;&lt;/p&gt;
+&lt;p&gt;&lt;link href="./../madeleine/src/css/Madeleine.css" rel="stylesheet"&gt;
+&lt;script src="./../madeleine/src/user/stats.js"&gt;&lt;/script&gt;
+&lt;script src="./../madeleine/src/user/detector.js"&gt;&lt;/script&gt;
+&lt;script src="./../madeleine/src/user/three.min.js"&gt;&lt;/script&gt;
+&lt;script src="./../madeleine/src/Madeleine.js"&gt;&lt;/script&gt;&lt;/p&gt;
 &lt;div id="target" class="madeleine"&gt;&lt;/div&gt;
 
 &lt;script&gt;
@@ -49,7 +49,7 @@ window.onload = function(){
     var madeleine = new Madeleine({
       target: 'target', // target div id
       data: './../data/spikeball.stl', // data path
-      path: './../data/madeleine/src/' // path to source directory from current html file
+      path: './../madeleine/src/' // path to source directory from current html file
     });
 }; 
 &lt;/script&gt;
