@@ -1,6 +1,6 @@
 /**
- * @author alteredq / https://alteredqualia.com/
- * @author mr.doob / https://mrdoob.com/
+ * @author alteredq / http://alteredqualia.com/
+ * @author mr.doob / http://mrdoob.com/
  */
 
 Detector = {
