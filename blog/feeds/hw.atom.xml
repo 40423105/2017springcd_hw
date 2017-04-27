@@ -5,13 +5,72 @@
 &lt;p&gt;4./法運算
 &lt;/p&gt;
 &lt;h2&gt;1.+法運算&lt;/h2&gt;
-&lt;p&gt;&lt;iframe width="560" height="315" src="https://www.youtube.com/embed/qCmBzuyp-Tg" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;&lt;/p&gt;
+&lt;p&gt;+法程式碼(add.py)
+&lt;pre class="brush: python"&gt;
+def add (a,b): //def用於定義函式和類型的方法
+    return a+b //將a+b值傳回主程式中
+&lt;/pre&gt;
++法程式碼(print.py)
+&lt;pre class="brush: python"&gt;
+import sys //插入sys檔案中所有函式
+sys.path.append("./m1")//資料夾路徑
+import add //導入 add.py&lt;/p&gt;
+&lt;p&gt;sum = add.add (1,2) //乘法演算&lt;/p&gt;
+&lt;p&gt;print(sum) //輸出結果
+&lt;/pre&gt;
++法運算測試影片&lt;/p&gt;
+&lt;iframe width="560" height="315" src="https://www.youtube.com/embed/qCmBzuyp-Tg" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;
+
 &lt;h2&gt;2.-法運算&lt;/h2&gt;
-&lt;p&gt;&lt;iframe width="560" height="315" src="https://www.youtube.com/embed/aViu9vAxVN4" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;&lt;/p&gt;
+&lt;p&gt;-法程式碼(add.py)
+&lt;pre class="brush: python"&gt;
+def add (a,b): //def用於定義函式和類型的方法
+    return a-b //將a-b值傳回主程式中
+&lt;/pre&gt;
+-法程式碼(print.py)
+&lt;pre class="brush: python"&gt;
+import sys //插入sys檔案中所有函式
+sys.path.append("./m1") //資料夾路徑
+import add //導入 add.py&lt;/p&gt;
+&lt;p&gt;sum = add.add (1,2) //乘法演算&lt;/p&gt;
+&lt;p&gt;print(sum) //輸出結果
+&lt;/pre&gt;
+-法運算測試影片&lt;/p&gt;
+&lt;iframe width="560" height="315" src="https://www.youtube.com/embed/aViu9vAxVN4" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;
+
 &lt;h2&gt;3.*法運算&lt;/h2&gt;
-&lt;p&gt;&lt;iframe width="560" height="315" src="https://www.youtube.com/embed/-q_WUfGj4Iw" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;&lt;/p&gt;
+&lt;p&gt;乘法程式碼(add.py)
+&lt;pre class="brush: python"&gt;
+def add (a,b): //def用於定義函式和類型的方法
+    return a* b //將a乘b值傳回主程式中
+&lt;/pre&gt;
+乘法程式碼(print.py)
+&lt;pre class="brush: python"&gt;
+import sys //插入sys檔案中所有函式
+sys.path.append("./m1") //資料夾路徑
+import add //導入 add.py&lt;/p&gt;
+&lt;p&gt;sum = add.add (1,2) //乘法演算&lt;/p&gt;
+&lt;p&gt;print(sum) //輸出結果
+&lt;/pre&gt;
+乘法運算測試影片&lt;/p&gt;
+&lt;iframe width="560" height="315" src="https://www.youtube.com/embed/-q_WUfGj4Iw" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;
+
 &lt;h2&gt;4./法運算&lt;/h2&gt;
-&lt;p&gt;&lt;iframe width="560" height="315" src="https://www.youtube.com/embed/Vp4LImlT6fw" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;&lt;/p&gt;</summary><category term="HW"></category></entry><entry><title>協同產品設計實習 第六週作業</title><link href="./xie-tong-chan-pin-she-ji-shi-xi-di-liu-zhou-zuo-ye.html" rel="alternate"></link><published>2017-04-01T12:08:00+08:00</published><updated>2017-04-01T12:08:00+08:00</updated><author><name>40423105</name></author><id>tag:,2017-04-01:./xie-tong-chan-pin-she-ji-shi-xi-di-liu-zhou-zuo-ye.html</id><summary type="html">&lt;p&gt;1.利用onshape畫出四連桿以及八連桿&lt;/p&gt;
+&lt;p&gt;/法程式碼(add.py)
+&lt;pre class="brush: python"&gt;
+def add (a,b): //def用於定義函式和類型的方法
+    return a/b //將a/b值傳回主程式中
+&lt;/pre&gt;
+/法程式碼(print.py)
+&lt;pre class="brush: python"&gt;
+import sys//插入sys檔案中所有函式
+sys.path.append("./m1") //資料夾路徑
+import add//導入 add.py&lt;/p&gt;
+&lt;p&gt;sum = add.add (1,2) // /法演算&lt;/p&gt;
+&lt;p&gt;print(sum) //輸出結果
+&lt;/pre&gt;
+/法運算測試影片&lt;/p&gt;
+&lt;iframe width="560" height="315" src="https://www.youtube.com/embed/Vp4LImlT6fw" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;</summary><category term="HW"></category></entry><entry><title>協同產品設計實習 第六週作業</title><link href="./xie-tong-chan-pin-she-ji-shi-xi-di-liu-zhou-zuo-ye.html" rel="alternate"></link><published>2017-04-01T12:08:00+08:00</published><updated>2017-04-01T12:08:00+08:00</updated><author><name>40423105</name></author><id>tag:,2017-04-01:./xie-tong-chan-pin-she-ji-shi-xi-di-liu-zhou-zuo-ye.html</id><summary type="html">&lt;p&gt;1.利用onshape畫出四連桿以及八連桿&lt;/p&gt;
 &lt;p&gt;2.將畫好的零件利用v-rep做連桿動作模擬&lt;/p&gt;
 
 
