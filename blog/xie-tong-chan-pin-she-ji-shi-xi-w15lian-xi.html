@@ -482,9 +482,9 @@ ctx.stroke()
 <h2>2.第二個 800x600 的畫布, 請畫出只有一齒輪廓, 且充滿畫布 80% 範圍的正齒輪, 且該齒輪廓下方水平線, 連接兩端齒根圓點交的直線以紅色繪製, 且在齒輪下方以藍色字元寫上自己的學號.</h2>
 <!-- 導入 Brython 標準程式庫 -->
 
-<script src="../data/Brython-3.3.1/brython.js"></script>
+<script src="../data/brython.js"></script>
 
-<script src="../data/Brython-3.3.1/brython_stdlib.js"></script>
+<script src="../data/brython_stdlib.js"></script>
 
 <!-- 啟動 Brython -->
 
@@ -497,7 +497,7 @@ brython({debug:1, pythonpath:['./../data/py']});
 
 <!-- 以下實際利用  Brython 繪圖-->
 
-<canvas id="onegear3" width="800" height="600"></canvas>
+<canvas id="onegear1" width="800" height="600"></canvas>
 
 <div id="onegear_div" width="800" height="20"></div>
 
@@ -530,14 +530,14 @@ class Spur(object):
         # 齒輪漸開線分成 15 線段繪製
         imax = 15
         # 在輸入的畫布上繪製直線, 由圓心到節圓 y 軸頂點畫一直線
-        self.create_line(midx+rp, midy, midx-rp, midy)
+        self.create_line(midx, midy, midx, midy-rp)
         # 畫出 rp 圓, 畫圓函式尚未定義
-        # create_oval(midx-rp, midy-rp, midx+rp, midy+rp, width=2)
+        #create_oval(midx-rp, midy-rp, midx+rp, midy+rp, width=2)
         # a 為模數 (代表公制中齒的大小), 模數為節圓直徑(稱為節徑)除以齒數
         # 模數也就是齒冠大小
         a=2*rp/n
         # d 為齒根大小, 為模數的 1.157 或 1.25倍, 這裡採 1.25 倍
-        d=1.25*rp/n
+        d=2.5*rp/n
         # ra 為齒輪的外圍半徑
         ra=rp+a
         # 畫出 ra 圓, 畫圓函式尚未定義
@@ -622,23 +622,22 @@ class Spur(object):
             # lfx 為齒頂圓上的左側 x 座標, lfy 則為 y 座標
             # 下列為齒頂圓上用來近似圓弧的直線
             self.create_line(lfx,lfy,rfx,rfy,fill=color)
-canvas = doc['onegear3']
+canvas = doc['onegear1']
 ctx = canvas.getContext("2d")
 x = (canvas.width)/2
-y = (canvas.height)/2
-r  = 0.8*(canvas.height/4)
+y = (canvas.height)/2+2400
+r = 8*(canvas.height/2)
 # 齒數
-n = 1
+n = 20
 # 壓力角
-pa = 3
-Spur(ctx).Gear(x, y, r, n, pa, "black")
+pa = 20
+Spur(ctx).Gear(x, y, r, n, pa, "blue")
 
 ctx.beginPath()
 ctx.fillStyle = "#0000FF"
 ctx.font = "20px ScriptS"
-ctx.fillText("40423105 ",360,320)
+ctx.fillText("40423105 ",360,620)
 ctx.stroke()
-
 </script>
 
 <h2>3.由最右邊齒數 16 齒開始囓合, 依序增加 2 齒, 當排至平面四齒囓合後, 第五位組員則以垂直方向向下囓合兩個齒輪後, 轉由右至左水平排列</h2>
@@ -1001,7 +1000,7 @@ ctx.fillText("40443111 ",x_g8-20, y_g8)
 ctx.stroke()
 </script>
 
-<h2>4.</h2>
+<h2>4.請依照上述規劃, 在 Onshape 完成相同齒輪組的囓合協同繪圖.</h2>
 <p><iframe src="https://player.vimeo.com/video/219786602" width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
 <p><a href="https://vimeo.com/219786602">國立虎尾科技大學_協同產品設計實習_設計二甲_40423137_陳慶豪_協同產品設計實習第十五週練習</a> from <a href="https://vimeo.com/user45109608">40423137</a> on <a href="https://vimeo.com">Vimeo</a>.</p></p>
             </div>
