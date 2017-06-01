@@ -486,15 +486,6 @@ ctx.stroke()
 
 <script src="../data/brython_stdlib.js"></script>
 
-<!-- 啟動 Brython -->
-
-<script>
-window.onload=function(){
-// 設定 data/py 為共用程式路徑
-brython({debug:1, pythonpath:['./../data/py']});
-}
-</script>
-
 <!-- 以下實際利用  Brython 繪圖-->
 
 <canvas id="onegear1" width="800" height="600"></canvas>
@@ -641,21 +632,13 @@ ctx.stroke()
 </script>
 
 <h2>3.由最右邊齒數 16 齒開始囓合, 依序增加 2 齒, 當排至平面四齒囓合後, 第五位組員則以垂直方向向下囓合兩個齒輪後, 轉由右至左水平排列</h2>
-<!-- 導入 Brython 標準程式庫 -->
-
-<script src="../data/Brython-3.3.1/brython.js"></script>
-
-<script src="../data/Brython-3.3.1/brython_stdlib.js"></script>
-
-<!-- 啟動 Brython -->
-
+<p><!-- 啟動 Brython -->
 <script>
 window.onload=function(){
 // 設定 data/py 為共用程式路徑
 brython({debug:1, pythonpath:['./../data/py']});
 }
-</script>
-
+</script></p>
 <!-- 以下實際利用  Brython 繪圖-->
 
 <canvas id='gear3' width='1200' height='800'></canvas>
