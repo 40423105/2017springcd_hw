@@ -97,7 +97,7 @@
 &lt;h2&gt;模擬影片&lt;/h2&gt;
 &lt;p&gt;&lt;p&gt;&lt;iframe width="560" height="315" src="https://www.youtube.com/embed/12Tex9wk5eQ" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;&lt;p&gt;&lt;/p&gt;
 &lt;h2&gt;Arduino程式碼&lt;/h2&gt;
-&lt;script src="https://gist.github.com/anonymous/0273cb124a81e1bd0885313848b263b4.js"&gt;&lt;/script&gt;</summary><category term="HW"></category></entry><entry><title>協同產品設計實習 w15練習</title><link href="./xie-tong-chan-pin-she-ji-shi-xi-w15lian-xi.html" rel="alternate"></link><published>2017-06-01T12:08:00+08:00</published><updated>2017-06-01T12:08:00+08:00</updated><author><name>40423105</name></author><id>tag:,2017-06-01:./xie-tong-chan-pin-she-ji-shi-xi-w15lian-xi.html</id><summary type="html">&lt;!-- PELICAN_END_SUMMARY --&gt;
+&lt;script src="https://gist.github.com/anonymous/0273cb124a81e1bd0885313848b263b4.js"&gt;&lt;/script&gt;</summary><category term="期末報告"></category></entry><entry><title>協同產品設計實習 w15練習</title><link href="./xie-tong-chan-pin-she-ji-shi-xi-w15lian-xi.html" rel="alternate"></link><published>2017-06-01T12:08:00+08:00</published><updated>2017-06-01T12:08:00+08:00</updated><author><name>40423105</name></author><id>tag:,2017-06-01:./xie-tong-chan-pin-she-ji-shi-xi-w15lian-xi.html</id><summary type="html">&lt;!-- PELICAN_END_SUMMARY --&gt;
 
 &lt;h2&gt;1.請以 W15 練習為網誌標題, 800x600 為畫布大小, 在畫布正中央畫一個半徑為 250 畫素, 壓力角 20, 齒數為 36 齒, 且只有上半齒形的漸開線正齒輪輪廓.&lt;/h2&gt;
 &lt;!-- 導入 Brython 標準程式庫 --&gt;
