@@ -1,5 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>2017 協同產品設計實習 設計二甲 王奕智</title><link href="./" rel="alternate"></link><link href="./feeds/all.atom.xml" rel="self"></link><id>./</id><updated>2017-06-01T12:08:00+08:00</updated><entry><title>協同產品設計實習 w15練習</title><link href="./xie-tong-chan-pin-she-ji-shi-xi-w15lian-xi.html" rel="alternate"></link><published>2017-06-01T12:08:00+08:00</published><updated>2017-06-01T12:08:00+08:00</updated><author><name>40423105</name></author><id>tag:,2017-06-01:./xie-tong-chan-pin-she-ji-shi-xi-w15lian-xi.html</id><summary type="html">&lt;!-- PELICAN_END_SUMMARY --&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>2017 協同產品設計實習 設計二甲 王奕智</title><link href="./" rel="alternate"></link><link href="./feeds/all.atom.xml" rel="self"></link><id>./</id><updated>2017-06-21T12:08:00+08:00</updated><entry><title>AG1_四足行走機構</title><link href="./ag1_si-zu-xing-zou-ji-gou.html" rel="alternate"></link><published>2017-06-21T12:08:00+08:00</published><updated>2017-06-21T12:08:00+08:00</updated><author><name>AG1</name></author><id>tag:,2017-06-21:./ag1_si-zu-xing-zou-ji-gou.html</id><summary type="html">&lt;p&gt;利用仿生獸的機構原理,利用到行走機構上
+&lt;/p&gt;
+&lt;p&gt;在學期初，老師有交代每組要做出一台四足行走機構，且要想辦法使其能夠行走。
+於是大家不眠不休地討論 、研究、尋找還有後來專業的畫圖跟列印。才有今天的四足行走機構！&lt;/p&gt;
+
+&lt;p&gt;工作分配:&lt;/p&gt;
+
+&lt;p&gt;40423105:利用vrep模擬機構,撰寫行走程式&lt;/p&gt;
+
+&lt;p&gt;40423119:利用vrep模擬機構&lt;/p&gt;
+
+&lt;p&gt;40423128:利用vrep模擬機構&lt;/p&gt;
+
+&lt;p&gt;40423130:組裝,給予意見&lt;/p&gt;
+
+&lt;p&gt;40423133:組裝,給予意見&lt;/p&gt;
+
+&lt;p&gt;40423137:繪製零件圖檔,組裝,製作動畫,零件3D列印&lt;/p&gt;
+
+&lt;p&gt;40423144:組裝,給予意見,製作網頁&lt;/p&gt;
+
+&lt;p&gt;40443111:組裝,給予意見&lt;/p&gt;
+
+&lt;h2&gt;等角視圖&lt;/h2&gt;
+
+&lt;p&gt;&lt;p&gt;&lt;img src="./../final/fourbar/ag1_1.jpg" width="800" height="600" /&gt;&lt;/p&gt;&lt;/p&gt;
+
+&lt;h2&gt;前視圖&lt;/h2&gt;
+
+&lt;p&gt;&lt;p&gt;&lt;img src="./../final/fourbar/ag1_2.jpg" width="800" height="600" /&gt;&lt;/p&gt;&lt;/p&gt;
+
+&lt;h2&gt;上視圖&lt;/h2&gt;
+
+&lt;p&gt;&lt;p&gt;&lt;img src="./../final/fourbar/ag1_3.jpg" width="800" height="600" /&gt;&lt;/p&gt;&lt;/p&gt;
+
+&lt;h2&gt;右視圖&lt;/h2&gt;
+
+&lt;p&gt;&lt;p&gt;&lt;img src="./../final/fourbar/ag1_4.jpg" width="800" height="600" /&gt;&lt;/p&gt;&lt;/p&gt;
+
+&lt;h2&gt;下視圖&lt;/h2&gt;
+
+&lt;p&gt;&lt;p&gt;&lt;img src="./../final/fourbar/ag1_5.jpg" width="800" height="600" /&gt;&lt;/p&gt;&lt;/p&gt;
+
+&lt;h2&gt;測試影片&lt;/h2&gt;
+
+&lt;p&gt;&lt;p&gt;&lt;iframe width="560" height="315" src="https://www.youtube.com/embed/1uautiDWBz4" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;&lt;p&gt;&lt;/p&gt;
+&lt;h2&gt;模擬影片&lt;/h2&gt;
+&lt;p&gt;&lt;p&gt;&lt;iframe width="560" height="315" src="https://www.youtube.com/embed/12Tex9wk5eQ" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;&lt;p&gt;&lt;/p&gt;
+&lt;h2&gt;Arduino程式碼&lt;/h2&gt;
+&lt;script src="https://gist.github.com/anonymous/0273cb124a81e1bd0885313848b263b4.js"&gt;&lt;/script&gt;</summary><category term="行走機構"></category></entry><entry><title>協同產品設計實習 w15練習</title><link href="./xie-tong-chan-pin-she-ji-shi-xi-w15lian-xi.html" rel="alternate"></link><published>2017-06-01T12:08:00+08:00</published><updated>2017-06-01T12:08:00+08:00</updated><author><name>40423105</name></author><id>tag:,2017-06-01:./xie-tong-chan-pin-she-ji-shi-xi-w15lian-xi.html</id><summary type="html">&lt;!-- PELICAN_END_SUMMARY --&gt;
 
 &lt;h2&gt;1.請以 W15 練習為網誌標題, 800x600 為畫布大小, 在畫布正中央畫一個半徑為 250 畫素, 壓力角 20, 齒數為 36 齒, 且只有上半齒形的漸開線正齒輪輪廓.&lt;/h2&gt;
 &lt;!-- 導入 Brython 標準程式庫 --&gt;
