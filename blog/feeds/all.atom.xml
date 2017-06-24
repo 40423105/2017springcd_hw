@@ -1,75 +1,223 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>2017 協同產品設計實習 設計二甲 王奕智</title><link href="./" rel="alternate"></link><link href="./feeds/all.atom.xml" rel="self"></link><id>./</id><updated>2017-06-21T12:08:00+08:00</updated><entry><title>AG1_仿生自走獸</title><link href="./ag1_fang-sheng-zi-zou-shou.html" rel="alternate"></link><published>2017-06-21T12:08:00+08:00</published><updated>2017-06-21T12:08:00+08:00</updated><author><name>AG1</name></author><id>tag:,2017-06-21:./ag1_fang-sheng-zi-zou-shou.html</id><summary type="html">&lt;p&gt;利用仿生獸的機構原理,利用到行走機構上
-&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>2017 協同產品設計實習 設計二甲 王奕智</title><link href="./" rel="alternate"></link><link href="./feeds/all.atom.xml" rel="self"></link><id>./</id><updated>2017-06-21T12:08:00+08:00</updated><entry><title>期末分組專題:AG1_仿生自走獸</title><link href="./qi-mo-fen-zu-zhuan-ti-ag1_fang-sheng-zi-zou-shou.html" rel="alternate"></link><published>2017-06-21T12:08:00+08:00</published><updated>2017-06-21T12:08:00+08:00</updated><author><name>AG1</name></author><id>tag:,2017-06-21:./qi-mo-fen-zu-zhuan-ti-ag1_fang-sheng-zi-zou-shou.html</id><summary type="html">&lt;p&gt;&lt;font face="標楷體" color="red"&gt;
+1.利用仿生獸的機構原理,利用到行走機構上,並採用3D列印將成品印製出來.
+&lt;/font&gt;&lt;br&gt;&lt;/p&gt;
+
+
 &lt;p&gt;在學期初，老師有交代每組要做出一台四足行走機構，且要想辦法使其能夠行走。
 於是大家不眠不休地討論 、研究、尋找還有後來專業的畫圖跟列印。才有今天的四足行走機構！&lt;/p&gt;
 
-&lt;p&gt;工作分配:&lt;/p&gt;
+&lt;h2&gt;工作分配:&lt;/h2&gt;
 
-&lt;p&gt;40423105:利用vrep模擬機構,撰寫行走程式&lt;/p&gt;
+&lt;p&gt;40423105:利用vrep模擬機構,撰寫行走程式,利用onshape協統畫圖&lt;/p&gt;
 
-&lt;p&gt;40423119:利用vrep模擬機構&lt;/p&gt;
+&lt;p&gt;40423119:利用vrep模擬機構,利用onshape協統畫圖&lt;/p&gt;
 
-&lt;p&gt;40423128:利用vrep模擬機構&lt;/p&gt;
+&lt;p&gt;40423128:利用vrep模擬機構,利用onshape協統畫圖&lt;/p&gt;
 
-&lt;p&gt;40423130:組裝,給予意見&lt;/p&gt;
+&lt;p&gt;40423130:組裝,給予意見,利用onshape協統畫圖&lt;/p&gt;
 
-&lt;p&gt;40423133:組裝,給予意見&lt;/p&gt;
+&lt;p&gt;40423133:組裝,給予意見,利用onshape協統畫圖&lt;/p&gt;
 
-&lt;p&gt;40423137:繪製零件圖檔,組裝,製作動畫,零件3D列印&lt;/p&gt;
+&lt;p&gt;40423137:繪製零件圖檔,組裝,製作動畫,零件3D列印,利用onshape協統畫圖&lt;/p&gt;
 
-&lt;p&gt;40423144:組裝,給予意見,製作網頁&lt;/p&gt;
+&lt;p&gt;40423144:組裝,給予意見,製作網頁,利用onshape協統畫圖&lt;/p&gt;
 
-&lt;p&gt;40443111:組裝,給予意見&lt;/p&gt;
+&lt;p&gt;40443111:組裝,給予意見,利用onshape協統畫圖&lt;/p&gt;
 
-&lt;h2&gt;等角視圖&lt;/h2&gt;
+&lt;h1&gt;利用onshape共享功能將行走機構零件繪出&lt;/h1&gt;
+&lt;p&gt;&lt;h2&gt;onshape共享設定&lt;/h2&gt;
+&lt;iframe src="https://player.vimeo.com/video/222783342" width="800" height="600" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen&gt;&lt;/iframe&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://vimeo.com/222783342"&gt;AG1_onshape協統設定&lt;/a&gt; from &lt;a href="https://vimeo.com/user44512429"&gt;40423105&lt;/a&gt; on &lt;a href="https://vimeo.com"&gt;Vimeo&lt;/a&gt;
+&lt;p&gt;&lt;p&gt;&lt;img src="./../final/fourbar/ag1_10.png" width="800" height="600" /&gt;&lt;/p&gt;&lt;/p&gt;
+&lt;p&gt;&lt;font size="3" &gt;上圖可看到當其他隊友正在繪製時,自己也可看到&lt;/font&gt;&lt;br&gt;&lt;/p&gt;
+&lt;/p&gt;
 
-&lt;p&gt;&lt;p&gt;&lt;img src="./../final/fourbar/ag1_1.jpg" width="800" height="600" /&gt;&lt;/p&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://cad.onshape.com/documents/eeea69c5be9cc5faaf566c09/w/5d2ec46c1dbe432efb1792a3/e/ddbe4ad90a5eedf2ee0562db"&gt;&lt;font face="標楷體" size="5" color="red"&gt;AG1_仿生自走獸_ONSHAPE工作區連結&lt;/font&gt;&lt;br&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h1&gt;onshape各組員繪圖影片&lt;/h1&gt;
+&lt;p&gt;&lt;h2&gt;40423105&lt;/h2&gt;
+&lt;p&gt;繪製本體1&lt;/p&gt;&lt;/p&gt;
+&lt;p&gt;繪製本體2&lt;/p&gt;
 
-&lt;h2&gt;前視圖&lt;/h2&gt;
+&lt;p&gt;繪製本體3&lt;/p&gt;
 
+&lt;iframe width="800" height="600" src="https://www.youtube.com/embed/A-U-yInMy8k" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;
+
+&lt;h2&gt;40423119&lt;/h2&gt;
+
+&lt;p&gt;繪製本體4&lt;/p&gt;
+
+&lt;iframe width="800" height="600" src="https://www.youtube.com/embed/Oya_sw9NmQs?list=PLB2pLiL12GC_VV4Vg52lCzQZTNhJrvd-H" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;
+
+&lt;p&gt;繪製連桿1&lt;/p&gt;
+
+&lt;iframe width="800" height="600" src="https://www.youtube.com/embed/nwA6uD-xD38?list=PLB2pLiL12GC_VV4Vg52lCzQZTNhJrvd-H" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;
+
+&lt;p&gt;繪製連桿2&lt;/p&gt;
+
+&lt;iframe width="800" height="600" src="https://www.youtube.com/embed/z1HsjEL1T2E?list=PLB2pLiL12GC_VV4Vg52lCzQZTNhJrvd-H" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;
+
+&lt;h2&gt;40423128&lt;/h2&gt;
+
+&lt;h2&gt;40423130&lt;/h2&gt;
+
+&lt;p&gt;繪製連桿5-2&lt;/p&gt;
+
+&lt;iframe src="https://player.vimeo.com/video/222937200" width="800" height="600" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen&gt;&lt;/iframe&gt;
+
+&lt;p&gt;&lt;a href="https://vimeo.com/222937200"&gt;國立虎尾科技大學_機械設計工程系_設計二甲_40423130_AG1 協同繪圖 仿生獸 連桿5-2&lt;/a&gt; from &lt;a href="https://vimeo.com/user61522994"&gt;40423130&lt;/a&gt; on &lt;a href="https://vimeo.com"&gt;Vimeo&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;繪製連桿6-1&lt;/p&gt;
+
+&lt;iframe src="https://player.vimeo.com/video/222937291" width="800" height="600" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen&gt;&lt;/iframe&gt;
+
+&lt;p&gt;&lt;a href="https://vimeo.com/222937291"&gt;國立虎尾科技大學_機械設計工程系_設計二甲_40423130_AG1 協同繪圖 仿生獸 連桿6-1&lt;/a&gt; from &lt;a href="https://vimeo.com/user61522994"&gt;40423130&lt;/a&gt; on &lt;a href="https://vimeo.com"&gt;Vimeo&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;繪製連桿6-2&lt;/p&gt;
+
+&lt;iframe src="https://player.vimeo.com/video/222937336" width="800" height="600" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen&gt;&lt;/iframe&gt;
+
+&lt;p&gt;&lt;a href="https://vimeo.com/222937336"&gt;國立虎尾科技大學_機械設計工程系_設計二甲_40423130_AG1 協同繪圖 仿生獸 連桿6-2&lt;/a&gt; from &lt;a href="https://vimeo.com/user61522994"&gt;40423130&lt;/a&gt; on &lt;a href="https://vimeo.com"&gt;Vimeo&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2&gt;40423133&lt;/h2&gt;
+
+&lt;h2&gt;40423137&lt;/h2&gt;
+
+&lt;h2&gt;40423144&lt;/h2&gt;
+
+&lt;h2&gt;40443111&lt;/h2&gt;
+
+&lt;h1&gt;3D視圖表現&lt;/h1&gt;
+&lt;p&gt;&lt;h2&gt;前視圖&lt;/h2&gt;
 &lt;p&gt;&lt;p&gt;&lt;img src="./../final/fourbar/ag1_2.jpg" width="800" height="600" /&gt;&lt;/p&gt;&lt;/p&gt;
-
-&lt;h2&gt;上視圖&lt;/h2&gt;
-
+&lt;h2&gt;俯視圖&lt;/h2&gt;
 &lt;p&gt;&lt;p&gt;&lt;img src="./../final/fourbar/ag1_3.jpg" width="800" height="600" /&gt;&lt;/p&gt;&lt;/p&gt;
-
 &lt;h2&gt;右視圖&lt;/h2&gt;
-
 &lt;p&gt;&lt;p&gt;&lt;img src="./../final/fourbar/ag1_4.jpg" width="800" height="600" /&gt;&lt;/p&gt;&lt;/p&gt;
-
-&lt;h2&gt;下視圖&lt;/h2&gt;
-
+&lt;h2&gt;仰視圖&lt;/h2&gt;
 &lt;p&gt;&lt;p&gt;&lt;img src="./../final/fourbar/ag1_5.jpg" width="800" height="600" /&gt;&lt;/p&gt;&lt;/p&gt;
+&lt;h2&gt;等角視圖&lt;/h2&gt;
+&lt;p&gt;&lt;p&gt;&lt;img src="./../final/fourbar/ag1_1.jpg" width="800" height="600" /&gt;&lt;/p&gt;&lt;/p&gt;&lt;/p&gt;
+&lt;h1&gt;實機成品表現&lt;/h1&gt;
+&lt;p&gt;&lt;p&gt;&lt;p&gt;&lt;img src="./../final/fourbar/ag1_6.jpg" width="800" height="600" /&gt;&lt;/p&gt;&lt;/p&gt;
+&lt;p&gt;&lt;p&gt;&lt;img src="./../final/fourbar/ag1_7.jpg" width="800" height="600" /&gt;&lt;/p&gt;&lt;/p&gt;
+&lt;p&gt;&lt;p&gt;&lt;img src="./../final/fourbar/ag1_8.jpg" width="800" height="600" /&gt;&lt;/p&gt;&lt;/p&gt;
+&lt;p&gt;&lt;p&gt;&lt;img src="./../final/fourbar/ag1_9.jpg" width="800" height="600" /&gt;&lt;/p&gt;&lt;/p&gt;&lt;/p&gt;
+&lt;h2&gt;實機測試影片&lt;/h2&gt;
 
-&lt;h2&gt;測試影片&lt;/h2&gt;
+&lt;iframe width="800" height="600" src="https://www.youtube.com/embed/MdgfzWJ7YEQ" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;
 
-&lt;p&gt;&lt;p&gt;&lt;iframe width="560" height="315" src="https://www.youtube.com/embed/1uautiDWBz4" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;&lt;p&gt;&lt;/p&gt;
-&lt;h2&gt;模擬影片&lt;/h2&gt;
-&lt;p&gt;&lt;p&gt;&lt;iframe width="560" height="315" src="https://www.youtube.com/embed/12Tex9wk5eQ" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;&lt;p&gt;&lt;/p&gt;
+&lt;h2&gt;v-rep模擬製作影片&lt;/h2&gt;
+
+&lt;iframe width="800" height="600" src="https://www.youtube.com/embed/ia3CRj8t6aQ" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;
+
+&lt;p&gt;&lt;font face="標楷體" size="4"&gt;由於製作四隻腳的時間過久,在製作v-rep模擬先呈現製作兩隻腳的製作過程,在下方的模擬測試中會呈現模擬四隻腳&lt;/font&gt;&lt;br&gt;&lt;/p&gt;
+
+&lt;h2&gt;v-rep模擬測試影片&lt;/h2&gt;
+
+&lt;iframe width="800" height="600" src="https://www.youtube.com/embed/8WCMD6xuhcY" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;
+
+&lt;h2&gt;機構模擬影片&lt;/h2&gt;
+
+&lt;p&gt;&lt;p&gt;&lt;iframe width="800" height="600" src="https://www.youtube.com/embed/12Tex9wk5eQ" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;&lt;p&gt;&lt;/p&gt;
+
+&lt;h2&gt;成品網頁展示&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href="https://40423105.github.io/test/blog/cheng-pin-wang-ye-zhan-shi.html"&gt;&lt;font face="標楷體" size="5" color="red" &gt;成品網頁展示&lt;/font&gt;&lt;br&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h2&gt;Arduino程式碼&lt;/h2&gt;
-&lt;script src="https://gist.github.com/anonymous/0273cb124a81e1bd0885313848b263b4.js"&gt;&lt;/script&gt;</summary><category term="行走機構"></category></entry><entry><title>期末專題報告</title><link href="./qi-mo-zhuan-ti-bao-gao.html" rel="alternate"></link><published>2017-06-21T12:08:00+08:00</published><updated>2017-06-21T12:08:00+08:00</updated><author><name>AG1</name></author><id>tag:,2017-06-21:./qi-mo-zhuan-ti-bao-gao.html</id><summary type="html">&lt;p&gt;1. solvespace 檔案推送&lt;/p&gt;
 
-&lt;p&gt;2.solvespace 2D 繪圖 程式碼&lt;/p&gt;
+&lt;script src="https://gist.github.com/40423105/9bdd072d9bf7abc7d5ce06515c5da483.js"&gt;&lt;/script&gt;
 
-&lt;p&gt;3.子模組建立與運用&lt;/p&gt;
+&lt;h2&gt;AG1_仿生獸零組件下載區&lt;/h2&gt;
 
-&lt;p&gt;4.Solvespace 近端零組件繪圖&lt;/p&gt;
+&lt;p&gt;&lt;a href="./../final/fourbar/Bionic beast parts/連桿(1).stl"&gt;AG1_仿生獸零件_連桿(1)&lt;/a&gt; (請以滑鼠右鍵存檔)&lt;/p&gt;
 
-&lt;p&gt;5.Solvespace 零件轉入 V-rep&lt;/p&gt;
+&lt;p&gt;&lt;a href="./../final/fourbar/Bionic beast parts/連桿(2).stl"&gt;AG1_仿生獸零件_連桿(2)&lt;/a&gt; (請以滑鼠右鍵存檔)&lt;/p&gt;
 
-&lt;p&gt;6.利用vrep模擬機構&lt;/p&gt;
+&lt;p&gt;&lt;a href="./../final/fourbar/Bionic beast parts/連桿(3).stl"&gt;AG1_仿生獸零件_連桿(3)&lt;/a&gt; (請以滑鼠右鍵存檔)&lt;/p&gt;
 
-&lt;p&gt;7.上傳 Fossil SCM 倉儲&lt;/p&gt;
+&lt;p&gt;&lt;a href="./../final/fourbar/Bionic beast parts/連桿(4).stl"&gt;AG1_仿生獸零件_連桿(4)&lt;/a&gt; (請以滑鼠右鍵存檔)&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="./../final/fourbar/Bionic beast parts/連桿(5-1).stl"&gt;AG1_仿生獸零件_連桿(5-1)&lt;/a&gt; (請以滑鼠右鍵存檔)&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="./../final/fourbar/Bionic beast parts/連桿(5-2).stl"&gt;AG1_仿生獸零件_連桿(5-2)&lt;/a&gt; (請以滑鼠右鍵存檔)&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="./../final/fourbar/Bionic beast parts/連桿(6-1).stl"&gt;AG1_仿生獸零件_連桿(6-1)&lt;/a&gt; (請以滑鼠右鍵存檔)&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="./../final/fourbar/Bionic beast parts/連桿(6-2).stl"&gt;AG1_仿生獸零件_連桿(6-2)&lt;/a&gt; (請以滑鼠右鍵存檔)&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="./../final/fourbar/Bionic beast parts/齒輪(1).stl"&gt;AG1_仿生獸零件_齒輪(1)&lt;/a&gt; (請以滑鼠右鍵存檔)&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="./../final/fourbar/Bionic beast parts/齒輪(2).stl"&gt;AG1_仿生獸零件_齒輪(2)&lt;/a&gt; (請以滑鼠右鍵存檔)&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="./../final/fourbar/Bionic beast parts/正齒輪(1).stl"&gt;AG1_仿生獸零件_正齒輪(1)&lt;/a&gt; (請以滑鼠右鍵存檔)&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="./../final/fourbar/Bionic beast parts/正齒輪(2).stl"&gt;AG1_仿生獸零件_正齒輪(2)&lt;/a&gt; (請以滑鼠右鍵存檔)&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="./../final/fourbar/Bionic beast parts/本體(1).stl"&gt;AG1_仿生獸零件_本體(1)&lt;/a&gt; (請以滑鼠右鍵存檔)&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="./../final/fourbar/Bionic beast parts/本體(2).stl"&gt;AG1_仿生獸零件_本體(2)&lt;/a&gt; (請以滑鼠右鍵存檔)&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="./../final/fourbar/Bionic beast parts/本體(3).stl"&gt;AG1_仿生獸零件_本體(3)&lt;/a&gt; (請以滑鼠右鍵存檔)&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="./../final/fourbar/Bionic beast parts/本體(4).stl"&gt;AG1_仿生獸零件_本體(4)&lt;/a&gt; (請以滑鼠右鍵存檔)&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="./../final/fourbar/Bionic beast parts/銷(1).stl"&gt;AG1_仿生獸零件_銷(1)&lt;/a&gt; (請以滑鼠右鍵存檔)&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="./../final/fourbar/Bionic beast parts/銷(2).stl"&gt;AG1_仿生獸零件_銷(2)&lt;/a&gt; (請以滑鼠右鍵存檔)&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="./../final/fourbar/Bionic beast parts/銷(3).stl"&gt;AG1_仿生獸零件_銷(3)&lt;/a&gt; (請以滑鼠右鍵存檔)&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="./../final/fourbar/Bionic beast parts/銷(4).stl"&gt;AG1_仿生獸零件_銷(4)&lt;/a&gt; (請以滑鼠右鍵存檔)&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="./../final/fourbar/Bionic beast parts/偏心軸.stl"&gt;AG1_仿生獸零件_偏心軸&lt;/a&gt; (請以滑鼠右鍵存檔)&lt;/p&gt;
+
+&lt;h2&gt;AG1_仿生獸組合件下載區&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href="./../final/fourbar/AG1仿生獸組合件.stl"&gt;AG1_仿生獸組合件&lt;/a&gt; (請以滑鼠右鍵存檔)&lt;/p&gt;
+
+&lt;h2&gt;AG1_仿生獸零組件尺寸圖下載區&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href="./../final/fourbar/monkey.pdf"&gt;AG1_仿生獸零組件尺寸圖&lt;/a&gt; (請以滑鼠右鍵存檔)&lt;/p&gt;
+
+&lt;h2&gt;AG1_仿生獸V-rep動作模擬檔案下載區&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href="./../final/fourbar/Bionic beast parts/AG1_仿生獸模擬運動.ttt"&gt;AG1_仿生獸V-rep動作模擬檔案&lt;/a&gt; (請以滑鼠右鍵存檔)&lt;/p&gt;</summary><category term="行走機構"></category></entry><entry><title>W17 行走機構 2D 靜態繪圖</title><link href="./w17-xing-zou-ji-gou-2d-jing-tai-hui-tu.html" rel="alternate"></link><published>2017-06-21T12:08:00+08:00</published><updated>2017-06-21T12:08:00+08:00</updated><author><name>40423105</name></author><id>tag:,2017-06-21:./w17-xing-zou-ji-gou-2d-jing-tai-hui-tu.html</id><summary type="html">&lt;p&gt;&lt;font face="標楷體" color="red"&gt;
+1.W17 行走機構 2D 靜態繪圖
+&lt;/font&gt;&lt;br&gt;
+&lt;/p&gt;</summary><category term="行走機構"></category></entry><entry><title>協同產品設計實習 w17作業</title><link href="./xie-tong-chan-pin-she-ji-shi-xi-w17zuo-ye.html" rel="alternate"></link><published>2017-06-21T12:08:00+08:00</published><updated>2017-06-21T12:08:00+08:00</updated><author><name>AG1</name></author><id>tag:,2017-06-21:./xie-tong-chan-pin-she-ji-shi-xi-w17zuo-ye.html</id><summary type="html">&lt;p&gt;&lt;font face="標楷體" color="red"&gt;
+1. 在各自的倉儲中, 建立一個雙足 solvepace 機構零組件, 存入 final 子目錄中
+&lt;/font&gt;&lt;br&gt;
+&lt;font face="標楷體" color="red"&gt;
+2. 在各自的網誌上, 以 "W17 行走機構 2D 靜態繪圖"為標題, 以 Brython 畫出行走機構的示意圖.
+&lt;/font&gt;&lt;br&gt;
+&lt;font face="標楷體" color="red"&gt;
+3. 在各自的倉儲中, 將 https://github.com/scrum-1/cdbw17 倉儲納入作為 w17 子目錄, 並設法導入其中的 script1.py 進行 axises() 繪圖函式的呼叫, 在任務 2 的圖中畫出座標軸.
+&lt;/font&gt;&lt;br&gt;
+&lt;font face="標楷體" color="red"&gt;
+4. 在各自的網誌中設法動態顯示出任務 1 所完成的零組件.
+&lt;/font&gt;&lt;br&gt;
+&lt;font face="標楷體" color="red"&gt;
+5. 將任務 1 所完成的行走機構匯入 V-rep, 並設法模擬雙足機構作動過程.
+&lt;/font&gt;&lt;br&gt;
+&lt;font face="標楷體" color="red"&gt;
+6. 請在網誌中, 以"期末分組專題"為標題, 說明在分組行走機構模擬與實作過程中所扮演的角色, 並說明所負責完成的任務.
+&lt;/font&gt;&lt;br&gt;
+&lt;font face="標楷體" color="red"&gt;
+7. 各組以協同方式整合各組組員所完成的倉儲, 網誌與操作影片後, 以學號名稱當作子目錄, 其中放入各組員上述各題所完成的操作影片後, 上傳到各組在系上的 Fossil SCM 倉儲, 並設法用各組的 Github Pages 進行分組簡報.
+&lt;/font&gt;&lt;br&gt;&lt;/p&gt;
 
 
-
-&lt;h1&gt;1. solvespace 檔案推送&lt;/h1&gt;
-&lt;p&gt;&lt;iframe width="854" height="480" src="https://www.youtube.com/embed/8skLdpnPyK0" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;&lt;/p&gt;
-&lt;h1&gt;6.利用vrep模擬機構&lt;/h1&gt;
-&lt;p&gt;&lt;iframe width="560" height="315" src="https://www.youtube.com/embed/Vak0hqAM4Ow" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;&lt;/p&gt;
-&lt;h1&gt;7.上傳 Fossil SCM 倉儲&lt;/h1&gt;</summary><category term="期末報告"></category></entry><entry><title>協同產品設計實習 w15練習</title><link href="./xie-tong-chan-pin-she-ji-shi-xi-w15lian-xi.html" rel="alternate"></link><published>2017-06-01T12:08:00+08:00</published><updated>2017-06-01T12:08:00+08:00</updated><author><name>40423105</name></author><id>tag:,2017-06-01:./xie-tong-chan-pin-she-ji-shi-xi-w15lian-xi.html</id><summary type="html">&lt;!-- PELICAN_END_SUMMARY --&gt;
-
+&lt;h1&gt;1.建立一個雙足 solvepace 機構零組件, 存入 final 子目錄中&lt;/h1&gt;
+&lt;h1&gt;2.W17 行走機構 2D 靜態繪圖&lt;/h1&gt;
+&lt;h1&gt;3.導入其中的 script1.py 進行 axises() 繪圖函式的呼叫, 在任務 2 的圖中畫出座標軸&lt;/h1&gt;
+&lt;h1&gt;4.動態顯示任務 1 的零組件&lt;/h1&gt;
+&lt;h1&gt;5.任務 1 所完成的行走機構匯入 V-rep,並設法模擬雙足機構作動過程&lt;/h1&gt;
+&lt;h1&gt;6.期末分組專題&lt;/h1&gt;
+&lt;h1&gt;7.利用Github Pages 製作分組簡報&lt;/h1&gt;</summary><category term="HW"></category></entry><entry><title>協同產品設計實習 w15練習</title><link href="./xie-tong-chan-pin-she-ji-shi-xi-w15lian-xi.html" rel="alternate"></link><published>2017-06-01T12:08:00+08:00</published><updated>2017-06-01T12:08:00+08:00</updated><author><name>40423105</name></author><id>tag:,2017-06-01:./xie-tong-chan-pin-she-ji-shi-xi-w15lian-xi.html</id><summary type="html">&lt;p&gt;&lt;font face="標楷體" color="red"&gt;
+1.w15課程作業
+&lt;/font&gt;&lt;br&gt;
+&lt;/p&gt;
 &lt;h2&gt;1.請以 W15 練習為網誌標題, 800x600 為畫布大小, 在畫布正中央畫一個半徑為 250 畫素, 壓力角 20, 齒數為 36 齒, 且只有上半齒形的漸開線正齒輪輪廓.&lt;/h2&gt;
 &lt;!-- 導入 Brython 標準程式庫 --&gt;
 
@@ -744,7 +892,9 @@ ctx.stroke()
 
 &lt;h2&gt;4.請依照上述規劃, 在 Onshape 完成相同齒輪組的囓合協同繪圖.&lt;/h2&gt;
 &lt;p&gt;&lt;iframe src="https://player.vimeo.com/video/219786602" width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen&gt;&lt;/iframe&gt;
-&lt;p&gt;&lt;a href="https://vimeo.com/219786602"&gt;國立虎尾科技大學_協同產品設計實習_設計二甲_40423137_陳慶豪_協同產品設計實習第十五週練習&lt;/a&gt; from &lt;a href="https://vimeo.com/user45109608"&gt;40423137&lt;/a&gt; on &lt;a href="https://vimeo.com"&gt;Vimeo&lt;/a&gt;.&lt;/p&gt;&lt;/p&gt;</summary><category term="HW"></category></entry><entry><title>協同產品設計實習 w13作業</title><link href="./xie-tong-chan-pin-she-ji-shi-xi-w13zuo-ye.html" rel="alternate"></link><published>2017-05-19T12:08:00+08:00</published><updated>2017-05-19T12:08:00+08:00</updated><author><name>40423105</name></author><id>tag:,2017-05-19:./xie-tong-chan-pin-she-ji-shi-xi-w13zuo-ye.html</id><summary type="html">&lt;p&gt;1.繪製2D 正齒輪(17t-11t-13t-14t)
+&lt;p&gt;&lt;a href="https://vimeo.com/219786602"&gt;國立虎尾科技大學_協同產品設計實習_設計二甲_40423137_陳慶豪_協同產品設計實習第十五週練習&lt;/a&gt; from &lt;a href="https://vimeo.com/user45109608"&gt;40423137&lt;/a&gt; on &lt;a href="https://vimeo.com"&gt;Vimeo&lt;/a&gt;.&lt;/p&gt;&lt;/p&gt;</summary><category term="HW"></category></entry><entry><title>協同產品設計實習 w13作業</title><link href="./xie-tong-chan-pin-she-ji-shi-xi-w13zuo-ye.html" rel="alternate"></link><published>2017-05-19T12:08:00+08:00</published><updated>2017-05-19T12:08:00+08:00</updated><author><name>40423105</name></author><id>tag:,2017-05-19:./xie-tong-chan-pin-she-ji-shi-xi-w13zuo-ye.html</id><summary type="html">&lt;p&gt;&lt;font face="標楷體" color="red"&gt;
+1.繪製2D 正齒輪(17t-11t-13t-14t)
+&lt;/font&gt;&lt;br&gt;
 &lt;/p&gt;
 &lt;h2&gt;1.繪製2D 正齒輪(17t-11t-13t-14t)&lt;/h2&gt;
 &lt;!-- 導入 Brython 標準程式庫 --&gt;
@@ -923,11 +1073,13 @@ gear13 = Spur(ctx).Gear(x13, y13, r13, n13, pa, "blue")
 gear14 = Spur(ctx).Gear(x14, y14, r14, n14, pa, "red")
 div = doc["onegear_div"]
 
-&lt;/script&gt;</summary><category term="HW"></category></entry><entry><title>協同產品設計實習 w12作業</title><link href="./xie-tong-chan-pin-she-ji-shi-xi-w12zuo-ye.html" rel="alternate"></link><published>2017-05-11T12:00:00+08:00</published><updated>2017-05-11T12:00:00+08:00</updated><author><name>40423105</name></author><id>tag:,2017-05-11:./xie-tong-chan-pin-she-ji-shi-xi-w12zuo-ye.html</id><summary type="html">&lt;p&gt;1.為何需要減速機?&lt;/p&gt;
+&lt;/script&gt;</summary><category term="HW"></category></entry><entry><title>協同產品設計實習 w12作業</title><link href="./xie-tong-chan-pin-she-ji-shi-xi-w12zuo-ye.html" rel="alternate"></link><published>2017-05-11T12:00:00+08:00</published><updated>2017-05-11T12:00:00+08:00</updated><author><name>40423105</name></author><id>tag:,2017-05-11:./xie-tong-chan-pin-she-ji-shi-xi-w12zuo-ye.html</id><summary type="html">&lt;p&gt;&lt;font face="標楷體" color="red"&gt;
+1.為何需要減速機?&lt;/p&gt;
 &lt;p&gt;2.何謂漸開線?&lt;/p&gt;
 &lt;p&gt;3.如何畫漸開線正齒輪輪廓?&lt;/p&gt;
 &lt;p&gt;4.如何模擬 2D 正齒輪組囓合？&lt;/p&gt;
 &lt;p&gt;5.如何模擬 3D 正齒輪組囓合？
+&lt;/font&gt;&lt;br&gt;
 &lt;/p&gt;
 &lt;h2&gt;1.為何需要減速機?&lt;/h2&gt;
 &lt;p&gt;1、在工業自動化應用的過程中，很多時候都會用到，低速大扭矩精準控制，這種場合一般都會用到減速機，在高速小扭矩的工況下，一般不用加減速機。&lt;/p&gt;
@@ -1632,12 +1784,13 @@ set_interval(draw, 2)
 
 &lt;h2&gt;5.如何模擬 3D 正齒輪組囓合？&lt;/h2&gt;
 &lt;p&gt;&lt;iframe src="https://player.vimeo.com/video/218888605" width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen&gt;&lt;/iframe&gt; 
-&lt;p&gt;&lt;a href="https://vimeo.com/218888605"&gt;國立虎尾科技大學_協同產品設計實習_設計二甲_40423137_陳慶豪_W9_ONSHAPE GEARS&lt;/a&gt; from &lt;a href="https://vimeo.com/user45109608"&gt;40423137&lt;/a&gt; on &lt;a href="https://vimeo.com"&gt;Vimeo&lt;/a&gt;.&lt;/p&gt;&lt;/p&gt;</summary><category term="HW"></category></entry><entry><title>協同產品設計實習 w11作業</title><link href="./xie-tong-chan-pin-she-ji-shi-xi-w11zuo-ye.html" rel="alternate"></link><published>2017-05-08T12:00:00+08:00</published><updated>2017-05-08T12:00:00+08:00</updated><author><name>40423105</name></author><id>tag:,2017-05-08:./xie-tong-chan-pin-she-ji-shi-xi-w11zuo-ye.html</id><summary type="html">&lt;p&gt;1.協同閱讀寫心得(two books)&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://vimeo.com/218888605"&gt;國立虎尾科技大學_協同產品設計實習_設計二甲_40423137_陳慶豪_W9_ONSHAPE GEARS&lt;/a&gt; from &lt;a href="https://vimeo.com/user45109608"&gt;40423137&lt;/a&gt; on &lt;a href="https://vimeo.com"&gt;Vimeo&lt;/a&gt;.&lt;/p&gt;&lt;/p&gt;</summary><category term="HW"></category></entry><entry><title>協同產品設計實習 w11作業</title><link href="./xie-tong-chan-pin-she-ji-shi-xi-w11zuo-ye.html" rel="alternate"></link><published>2017-05-08T12:00:00+08:00</published><updated>2017-05-08T12:00:00+08:00</updated><author><name>40423105</name></author><id>tag:,2017-05-08:./xie-tong-chan-pin-she-ji-shi-xi-w11zuo-ye.html</id><summary type="html">&lt;p&gt;&lt;font face="標楷體" color="red"&gt;
+1.協同閱讀寫心得(two books)&lt;/p&gt;
 &lt;p&gt;2.影片觀看心得&lt;/p&gt;
 &lt;p&gt;3.2D 靜態網際繪圖-3D 減速齒輪組動態模擬&lt;/p&gt;
-&lt;p&gt;4.行走機構設計實作&lt;/p&gt;
-
-
+&lt;p&gt;4.行走機構設計實作
+&lt;/font&gt;&lt;br&gt;
+&lt;/p&gt;
 &lt;h2&gt;就在 Onshape 網站最底下, 您看到什麼?&lt;/h2&gt;
 &lt;p&gt;&lt;p&gt;台灣國旗,台灣其實有能力可以跟國外一起研發&lt;/p&gt;&lt;/p&gt;
 &lt;p&gt;&lt;img src="./../data/taiwn.png" width="800" height="600" /&gt;&lt;/p&gt;
@@ -1938,7 +2091,9 @@ set_interval(draw, 2)
 &lt;/script&gt;
 
 &lt;h2&gt;4.行走機構設計實作&lt;/h2&gt;
-&lt;p&gt;&lt;p&gt;還在設計中&lt;/p&gt;&lt;/p&gt;</summary><category term="HW"></category></entry><entry><title>協同產品設計實習 w10作業</title><link href="./xie-tong-chan-pin-she-ji-shi-xi-w10zuo-ye.html" rel="alternate"></link><published>2017-04-29T12:00:00+08:00</published><updated>2017-04-29T12:00:00+08:00</updated><author><name>40423105</name></author><id>tag:,2017-04-29:./xie-tong-chan-pin-she-ji-shi-xi-w10zuo-ye.html</id><summary type="html">&lt;p&gt;1.brython
+&lt;p&gt;&lt;p&gt;還在設計中&lt;/p&gt;&lt;/p&gt;</summary><category term="HW"></category></entry><entry><title>協同產品設計實習 w10作業</title><link href="./xie-tong-chan-pin-she-ji-shi-xi-w10zuo-ye.html" rel="alternate"></link><published>2017-04-29T12:00:00+08:00</published><updated>2017-04-29T12:00:00+08:00</updated><author><name>40423105</name></author><id>tag:,2017-04-29:./xie-tong-chan-pin-she-ji-shi-xi-w10zuo-ye.html</id><summary type="html">&lt;p&gt;&lt;font face="標楷體" color="red"&gt;
+1.brython加法運算
+&lt;/font&gt;&lt;br&gt;
 &lt;!-- 導入 Brython 標準程式庫 --&gt;&lt;/p&gt;
 &lt;script src="../data/Brython-3.3.1/brython.js"&gt;&lt;/script&gt;
 
@@ -1971,10 +2126,12 @@ def button1(event):
 doc["button1"].bind("click", button1)
 &lt;/script&gt;
 
-&lt;p&gt;&lt;button id="button1"&gt;按下取 a 值&lt;/button&gt;&lt;/p&gt;</summary><category term="HW"></category></entry><entry><title>協同產品設計實習 w10倉儲協同作業</title><link href="./xie-tong-chan-pin-she-ji-shi-xi-w10cang-chu-xie-tong-zuo-ye.html" rel="alternate"></link><published>2017-04-27T12:00:00+08:00</published><updated>2017-04-27T12:00:00+08:00</updated><author><name>40423105</name></author><id>tag:,2017-04-27:./xie-tong-chan-pin-she-ji-shi-xi-w10cang-chu-xie-tong-zuo-ye.html</id><summary type="html">&lt;p&gt;1.+法運算&lt;/p&gt;
+&lt;p&gt;&lt;button id="button1"&gt;按下取 a 值&lt;/button&gt;&lt;/p&gt;</summary><category term="HW"></category></entry><entry><title>協同產品設計實習 w10倉儲協同作業</title><link href="./xie-tong-chan-pin-she-ji-shi-xi-w10cang-chu-xie-tong-zuo-ye.html" rel="alternate"></link><published>2017-04-27T12:00:00+08:00</published><updated>2017-04-27T12:00:00+08:00</updated><author><name>40423105</name></author><id>tag:,2017-04-27:./xie-tong-chan-pin-she-ji-shi-xi-w10cang-chu-xie-tong-zuo-ye.html</id><summary type="html">&lt;p&gt;&lt;font face="標楷體" color="red"&gt;
+1.+法運算&lt;/p&gt;
 &lt;p&gt;2.+法運算&lt;/p&gt;
 &lt;p&gt;3.*法運算&lt;/p&gt;
 &lt;p&gt;4./法運算
+&lt;/font&gt;&lt;br&gt;
 &lt;/p&gt;
 &lt;h2&gt;1.+法運算&lt;/h2&gt;
 &lt;p&gt;+法程式碼(add.py)
@@ -2199,10 +2356,12 @@ doc["button4"].bind("click", button4)
 
 &lt;/script&gt;
 
-&lt;p&gt;&lt;button id="button4"&gt;按下取 a b 值&lt;/button&gt;&lt;/p&gt;</summary><category term="HW"></category></entry><entry><title>協同產品設計實習 ag1期中考報告</title><link href="./xie-tong-chan-pin-she-ji-shi-xi-ag1qi-zhong-kao-bao-gao.html" rel="alternate"></link><published>2017-04-20T12:08:00+08:00</published><updated>2017-04-20T12:08:00+08:00</updated><author><name>40423105</name></author><id>tag:,2017-04-20:./xie-tong-chan-pin-she-ji-shi-xi-ag1qi-zhong-kao-bao-gao.html</id><summary type="html">&lt;p&gt;1.Fossil Server 實習查驗&lt;/p&gt;
+&lt;p&gt;&lt;button id="button4"&gt;按下取 a b 值&lt;/button&gt;&lt;/p&gt;</summary><category term="HW"></category></entry><entry><title>協同產品設計實習 ag1期中考報告</title><link href="./xie-tong-chan-pin-she-ji-shi-xi-ag1qi-zhong-kao-bao-gao.html" rel="alternate"></link><published>2017-04-20T12:08:00+08:00</published><updated>2017-04-20T12:08:00+08:00</updated><author><name>40423105</name></author><id>tag:,2017-04-20:./xie-tong-chan-pin-she-ji-shi-xi-ag1qi-zhong-kao-bao-gao.html</id><summary type="html">&lt;p&gt;&lt;font face="標楷體" color="red"&gt;
+1.Fossil Server 實習查驗&lt;/p&gt;
 &lt;p&gt;2.四連桿機構協同 Trace Point 查驗&lt;/p&gt;
 &lt;p&gt;3.Fourbar Walker OnShape 零件協同繪圖與組立查驗&lt;/p&gt;
 &lt;p&gt;4.分組協同零件展示
+&lt;/font&gt;&lt;br&gt;
 &lt;/p&gt;
 &lt;h2&gt;1.Fossil Server 實習查驗&lt;/h2&gt;
 &lt;p&gt;&lt;a href="https://mde2a2.kmol.info/midterm/ag1/index"&gt;ag1期中考報告 fossil &lt;/a&gt;&lt;/p&gt;
@@ -2265,10 +2424,11 @@ window.onload = function(){
 select stl file: &lt;input type="file" id="file" /&gt; or drop stl file
 &lt;/div&gt;
 
-&lt;div id="view"&gt;&lt;/div&gt;</summary><category term="HW"></category></entry><entry><title>協同產品設計實習 第六週作業</title><link href="./xie-tong-chan-pin-she-ji-shi-xi-di-liu-zhou-zuo-ye.html" rel="alternate"></link><published>2017-04-01T12:08:00+08:00</published><updated>2017-04-01T12:08:00+08:00</updated><author><name>40423105</name></author><id>tag:,2017-04-01:./xie-tong-chan-pin-she-ji-shi-xi-di-liu-zhou-zuo-ye.html</id><summary type="html">&lt;p&gt;1.利用onshape畫出四連桿以及八連桿&lt;/p&gt;
-&lt;p&gt;2.將畫好的零件利用v-rep做連桿動作模擬&lt;/p&gt;
-
-
+&lt;div id="view"&gt;&lt;/div&gt;</summary><category term="HW"></category></entry><entry><title>協同產品設計實習 第六週作業</title><link href="./xie-tong-chan-pin-she-ji-shi-xi-di-liu-zhou-zuo-ye.html" rel="alternate"></link><published>2017-04-01T12:08:00+08:00</published><updated>2017-04-01T12:08:00+08:00</updated><author><name>40423105</name></author><id>tag:,2017-04-01:./xie-tong-chan-pin-she-ji-shi-xi-di-liu-zhou-zuo-ye.html</id><summary type="html">&lt;p&gt;&lt;font face="標楷體" color="red"&gt;
+1.利用onshape畫出四連桿以及八連桿&lt;/p&gt;
+&lt;p&gt;2.將畫好的零件利用v-rep做連桿動作模擬
+&lt;/font&gt;&lt;br&gt;
+&lt;/p&gt;
 &lt;h2&gt;1.利用onshape畫出四連桿以及八連桿&lt;/h2&gt;
 &lt;h2&gt;2.將畫好的零件利用v-rep做連桿動作模擬&lt;/h2&gt;
 &lt;h1&gt;利用onshape畫出四連桿&lt;/h1&gt;
@@ -2291,20 +2451,22 @@ select stl file: &lt;input type="file" id="file" /&gt; or drop stl file
 &lt;p&gt;八連桿動作模擬
 &lt;iframe width="854" height="480" src="https://www.youtube.com/embed/In2eRi1z6to" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;&lt;/p&gt;
 &lt;h1&gt;心得&lt;/h1&gt;
-&lt;p&gt;&lt;p&gt;在繪製八連桿及組合的時候花了非常多的時間,尤其是利用v-rep做動作模擬的時候經過很嘟的失敗才將連桿動作模擬調整好,最困難的部份我覺得是八連桿在調整各個桿件中的位置,一個調整不好可能會讓桿件整個失靈.&lt;/p&gt;&lt;/p&gt;</summary><category term="HW"></category></entry><entry><title>協同產品設計實習 第五週作業</title><link href="./xie-tong-chan-pin-she-ji-shi-xi-di-wu-zhou-zuo-ye.html" rel="alternate"></link><published>2017-03-24T12:08:00+08:00</published><updated>2017-03-24T12:08:00+08:00</updated><author><name>40423105</name></author><id>tag:,2017-03-24:./xie-tong-chan-pin-she-ji-shi-xi-di-wu-zhou-zuo-ye.html</id><summary type="html">&lt;p&gt;1.設定v-rep單連桿運動影片&lt;/p&gt;
-
-
+&lt;p&gt;&lt;p&gt;在繪製八連桿及組合的時候花了非常多的時間,尤其是利用v-rep做動作模擬的時候經過很嘟的失敗才將連桿動作模擬調整好,最困難的部份我覺得是八連桿在調整各個桿件中的位置,一個調整不好可能會讓桿件整個失靈.&lt;/p&gt;&lt;/p&gt;</summary><category term="HW"></category></entry><entry><title>協同產品設計實習 第五週作業</title><link href="./xie-tong-chan-pin-she-ji-shi-xi-di-wu-zhou-zuo-ye.html" rel="alternate"></link><published>2017-03-24T12:08:00+08:00</published><updated>2017-03-24T12:08:00+08:00</updated><author><name>40423105</name></author><id>tag:,2017-03-24:./xie-tong-chan-pin-she-ji-shi-xi-di-wu-zhou-zuo-ye.html</id><summary type="html">&lt;p&gt;&lt;font face="標楷體" color="red"&gt;
+1.設定v-rep單連桿運動影片
+&lt;/font&gt;&lt;br&gt;
+&lt;/p&gt;
 &lt;h2&gt;1. 利用v-rep設定單連桿運動&lt;/h2&gt;
 &lt;h1&gt;v-rep設定單連桿運動影片&lt;/h1&gt;
 &lt;p&gt;&lt;iframe width="560" height="315" src="https://www.youtube.com/embed/wa9egBHz5p8" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;&lt;/p&gt;
-&lt;h1&gt;心得:一開始在看老師做的單連桿運動,覺得很沒有頭緒,後來自己做過以後,其實好像不會很難.&lt;/h1&gt;</summary><category term="HW"></category></entry><entry><title>協同產品設計實習 第四週作業</title><link href="./xie-tong-chan-pin-she-ji-shi-xi-di-si-zhou-zuo-ye.html" rel="alternate"></link><published>2017-03-19T12:08:00+08:00</published><updated>2017-03-19T12:08:00+08:00</updated><author><name>40423105</name></author><id>tag:,2017-03-19:./xie-tong-chan-pin-she-ji-shi-xi-di-si-zhou-zuo-ye.html</id><summary type="html">&lt;p&gt;1.利用網誌與簡報說明安裝或使用 Hyperworks 套件過程與心得 - 課程結束前, 希望能夠使用 Hyperworks 進行連桿機構零件的應力分析與機構運動模擬&lt;/p&gt;
+&lt;h1&gt;心得:一開始在看老師做的單連桿運動,覺得很沒有頭緒,後來自己做過以後,其實好像不會很難.&lt;/h1&gt;</summary><category term="HW"></category></entry><entry><title>協同產品設計實習 第四週作業</title><link href="./xie-tong-chan-pin-she-ji-shi-xi-di-si-zhou-zuo-ye.html" rel="alternate"></link><published>2017-03-19T12:08:00+08:00</published><updated>2017-03-19T12:08:00+08:00</updated><author><name>40423105</name></author><id>tag:,2017-03-19:./xie-tong-chan-pin-she-ji-shi-xi-di-si-zhou-zuo-ye.html</id><summary type="html">&lt;p&gt;&lt;font face="標楷體" color="red"&gt;
+1.利用網誌與簡報說明安裝或使用 Hyperworks 套件過程與心得 - 課程結束前, 希望能夠使用 Hyperworks 進行連桿機構零件的應力分析與機構運動模擬&lt;/p&gt;
 &lt;p&gt;2.平面四連桿機構的運動路徑方程式推導與網際 2D 繪圖, 方程式推導以 sympy 完成, 而 2D 繪圖則以 Brython 在各組網誌中完成. 先了解如何推導四連桿機構的運動方程式, 然後在各組網誌中完成靜態繪圖與動態模擬.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;為各班各組在 https://mde2a2.kmol.info 主機上建立 cdbg1(完成後可直接連結至 cdbg1 倉儲, 交由組長管理) ~ cdbg8, 以及 cdag1 ~ cdag8 等線上 Fossil SCM 倉儲, 用來管理各組協同產品設計實習過程中的純文件檔案 (例如?).
+&lt;/font&gt;&lt;br&gt;&lt;/li&gt;
+&lt;/ol&gt;
 
 
-&lt;h1&gt;第四週作業&lt;/h1&gt;
-&lt;p&gt;&lt;P&gt; 1. 利用網誌與簡報說明安裝或使用 Hyperworks 套件過程與心得 - 課程結束前, 希望能夠使用 Hyperworks 進行連桿機構零件的應力分析與機構運動模擬.&lt;/P&gt;
-&lt;P&gt;2. 平面四連桿機構的運動路徑方程式推導與網際 2D 繪圖, 方程式推導以 sympy 完成, 而 2D 繪圖則以 Brython 在各組網誌中完成. 先了解如何推導四連桿機構的運動方程式, 然後在各組網誌中完成靜態繪圖與動態模擬.&lt;/P&gt;
-&lt;P&gt; 3. 為各班各組在 https://mde2a2.kmol.info 主機上建立 cdbg1(完成後可直接連結至 cdbg1 倉儲, 交由組長管理) ~ cdbg8, 以及 cdag1 ~ cdag8 等線上 Fossil SCM 倉儲, 用來管理各組協同產品設計實習過程中的純文件檔案 (例如?).&lt;/P&gt;&lt;/p&gt;
 &lt;h2&gt;HYPERWORKS安裝心得&lt;/h2&gt;
 &lt;p&gt;&lt;p&gt;我覺得這個軟體看起來功能非常強大,但是,下載的步驟真的是非常的繁雜,同一個帳號不但沒辦法同時下載HYPERWORK及套件,每當安裝一個新套件我都要再重新輸入資訊,光是這點,就覺得非常的繁雜.&lt;/p&gt;
    &lt;p&gt;HYPERWORK安裝完成開啟影片&lt;/p&gt;
@@ -2694,10 +2856,12 @@ cgo.playAnimation()
 &lt;h1&gt;單連桿模擬&lt;/h1&gt;
 &lt;iframe width="560" height="315" src="https://www.youtube.com/embed/-d8hD60AhXk" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;
 &lt;/script&gt;           
-&lt;/section&gt;</summary><category term="HW"></category></entry><entry><title>協同產品設計實習 第三週作業</title><link href="./xie-tong-chan-pin-she-ji-shi-xi-di-san-zhou-zuo-ye.html" rel="alternate"></link><published>2017-03-12T12:08:00+08:00</published><updated>2017-03-12T12:08:00+08:00</updated><author><name>40423105</name></author><id>tag:,2017-03-12:./xie-tong-chan-pin-she-ji-shi-xi-di-san-zhou-zuo-ye.html</id><summary type="html">&lt;p&gt;1.翻譯影片(14-6,2)
-2.利用solvespace組立及v-rep轉入
-3.利用onshape組立及v-rep轉入
-4.Solvespace 輸入三角形頂點運動軌跡&lt;/p&gt;
+&lt;/section&gt;</summary><category term="HW"></category></entry><entry><title>協同產品設計實習 第三週作業</title><link href="./xie-tong-chan-pin-she-ji-shi-xi-di-san-zhou-zuo-ye.html" rel="alternate"></link><published>2017-03-12T12:08:00+08:00</published><updated>2017-03-12T12:08:00+08:00</updated><author><name>40423105</name></author><id>tag:,2017-03-12:./xie-tong-chan-pin-she-ji-shi-xi-di-san-zhou-zuo-ye.html</id><summary type="html">&lt;p&gt;&lt;font face="標楷體" color="red"&gt;
+1.翻譯影片(14-6,2)&lt;/p&gt;
+&lt;p&gt;2.利用solvespace組立及v-rep轉入&lt;/p&gt;
+&lt;p&gt;3.利用onshape組立及v-rep轉入&lt;/p&gt;
+&lt;p&gt;4.Solvespace 輸入三角形頂點運動軌跡
+&lt;/font&gt;&lt;br&gt;&lt;/p&gt;
 
 
 &lt;h1&gt;第三週作業&lt;/h1&gt;
@@ -2834,8 +2998,10 @@ cgo.playAnimation()
 &lt;p&gt;&lt;iframe width="560" height="315" src="https://www.youtube.com/embed/yjVjBbcQcYA" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;&lt;/p&gt;
 &lt;h2&gt;利用excel測試路徑是否正確&lt;/h2&gt;
 &lt;p&gt;&lt;iframe width="560" height="315" src="https://www.youtube.com/embed/ut16AlLI3is" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;&lt;/p&gt;
-&lt;h2&gt;四連桿機構的運動模擬&lt;/h2&gt;</summary><category term="HW"></category></entry><entry><title>協同產品設計實習 第二週作業</title><link href="./xie-tong-chan-pin-she-ji-shi-xi-di-er-zhou-zuo-ye.html" rel="alternate"></link><published>2017-03-04T12:08:00+08:00</published><updated>2017-03-04T12:08:00+08:00</updated><author><name>40423105</name></author><id>tag:,2017-03-04:./xie-tong-chan-pin-she-ji-shi-xi-di-er-zhou-zuo-ye.html</id><summary type="html">&lt;p&gt;1.更改stunnel設定檔ip位址
-2.利用solvespace組立及v-rep應用
+&lt;h2&gt;四連桿機構的運動模擬&lt;/h2&gt;</summary><category term="HW"></category></entry><entry><title>協同產品設計實習 第二週作業</title><link href="./xie-tong-chan-pin-she-ji-shi-xi-di-er-zhou-zuo-ye.html" rel="alternate"></link><published>2017-03-04T12:08:00+08:00</published><updated>2017-03-04T12:08:00+08:00</updated><author><name>40423105</name></author><id>tag:,2017-03-04:./xie-tong-chan-pin-she-ji-shi-xi-di-er-zhou-zuo-ye.html</id><summary type="html">&lt;p&gt;&lt;font face="標楷體" color="red"&gt;
+1.更改stunnel設定檔ip位址&lt;/p&gt;
+&lt;p&gt;2.利用solvespace組立及v-rep應用
+&lt;/font&gt;&lt;br&gt;
 &lt;/p&gt;
 &lt;h1&gt;更改stunnel設定檔ip位址&lt;/h1&gt;
 &lt;p&gt;&lt;iframe width="560" height="315" src="https://www.youtube.com/embed/pIBRekU8XjA" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;&lt;/p&gt;
@@ -2856,7 +3022,8 @@ cgo.playAnimation()
 &lt;iframe width="854" height="480" src="https://www.youtube.com/embed/JHbMIws6cEM" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;
 
 &lt;h2&gt;作業心得&lt;/h2&gt;
-&lt;p&gt;第二個禮拜增加了v-rep,將畫好的圖轉成stl格式,匯入v-rep,製作動畫,又可以學到新的東西&lt;/p&gt;</summary><category term="HW"></category></entry><entry><title>協同產品設計實習 第一週作業</title><link href="./xie-tong-chan-pin-she-ji-shi-xi-di-yi-zhou-zuo-ye.html" rel="alternate"></link><published>2017-02-26T12:08:00+08:00</published><updated>2017-02-26T12:08:00+08:00</updated><author><name>40423105</name></author><id>tag:,2017-02-26:./xie-tong-chan-pin-she-ji-shi-xi-di-yi-zhou-zuo-ye.html</id><summary type="html">&lt;p&gt;1.利用solvespace及onshape組裝四連桿機構&lt;/p&gt;
+&lt;p&gt;第二個禮拜增加了v-rep,將畫好的圖轉成stl格式,匯入v-rep,製作動畫,又可以學到新的東西&lt;/p&gt;</summary><category term="HW"></category></entry><entry><title>協同產品設計實習 第一週作業</title><link href="./xie-tong-chan-pin-she-ji-shi-xi-di-yi-zhou-zuo-ye.html" rel="alternate"></link><published>2017-02-26T12:08:00+08:00</published><updated>2017-02-26T12:08:00+08:00</updated><author><name>40423105</name></author><id>tag:,2017-02-26:./xie-tong-chan-pin-she-ji-shi-xi-di-yi-zhou-zuo-ye.html</id><summary type="html">&lt;p&gt;&lt;font face="標楷體" color="red"&gt;1.利用solvespace及onshape組裝四連桿機構&lt;/font&gt;&lt;br&gt;
+&lt;font face="標楷體"&gt;&lt;/p&gt;
 
 
 &lt;h1&gt;利用solvespace及onshape組裝四連桿機構&lt;/h1&gt;

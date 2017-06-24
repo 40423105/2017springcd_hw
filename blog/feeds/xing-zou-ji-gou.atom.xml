@@ -1,51 +1,188 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>2017 協同產品設計實習 設計二甲 王奕智</title><link href="./" rel="alternate"></link><link href="./feeds/xing-zou-ji-gou.atom.xml" rel="self"></link><id>./</id><updated>2017-06-21T12:08:00+08:00</updated><entry><title>AG1_仿生自走獸</title><link href="./ag1_fang-sheng-zi-zou-shou.html" rel="alternate"></link><published>2017-06-21T12:08:00+08:00</published><updated>2017-06-21T12:08:00+08:00</updated><author><name>AG1</name></author><id>tag:,2017-06-21:./ag1_fang-sheng-zi-zou-shou.html</id><summary type="html">&lt;p&gt;利用仿生獸的機構原理,利用到行走機構上
-&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>2017 協同產品設計實習 設計二甲 王奕智</title><link href="./" rel="alternate"></link><link href="./feeds/xing-zou-ji-gou.atom.xml" rel="self"></link><id>./</id><updated>2017-06-21T12:08:00+08:00</updated><entry><title>期末分組專題:AG1_仿生自走獸</title><link href="./qi-mo-fen-zu-zhuan-ti-ag1_fang-sheng-zi-zou-shou.html" rel="alternate"></link><published>2017-06-21T12:08:00+08:00</published><updated>2017-06-21T12:08:00+08:00</updated><author><name>AG1</name></author><id>tag:,2017-06-21:./qi-mo-fen-zu-zhuan-ti-ag1_fang-sheng-zi-zou-shou.html</id><summary type="html">&lt;p&gt;&lt;font face="標楷體" color="red"&gt;
+1.利用仿生獸的機構原理,利用到行走機構上,並採用3D列印將成品印製出來.
+&lt;/font&gt;&lt;br&gt;&lt;/p&gt;
+
+
 &lt;p&gt;在學期初，老師有交代每組要做出一台四足行走機構，且要想辦法使其能夠行走。
 於是大家不眠不休地討論 、研究、尋找還有後來專業的畫圖跟列印。才有今天的四足行走機構！&lt;/p&gt;
 
-&lt;p&gt;工作分配:&lt;/p&gt;
+&lt;h2&gt;工作分配:&lt;/h2&gt;
 
-&lt;p&gt;40423105:利用vrep模擬機構,撰寫行走程式&lt;/p&gt;
+&lt;p&gt;40423105:利用vrep模擬機構,撰寫行走程式,利用onshape協統畫圖&lt;/p&gt;
 
-&lt;p&gt;40423119:利用vrep模擬機構&lt;/p&gt;
+&lt;p&gt;40423119:利用vrep模擬機構,利用onshape協統畫圖&lt;/p&gt;
 
-&lt;p&gt;40423128:利用vrep模擬機構&lt;/p&gt;
+&lt;p&gt;40423128:利用vrep模擬機構,利用onshape協統畫圖&lt;/p&gt;
 
-&lt;p&gt;40423130:組裝,給予意見&lt;/p&gt;
+&lt;p&gt;40423130:組裝,給予意見,利用onshape協統畫圖&lt;/p&gt;
 
-&lt;p&gt;40423133:組裝,給予意見&lt;/p&gt;
+&lt;p&gt;40423133:組裝,給予意見,利用onshape協統畫圖&lt;/p&gt;
 
-&lt;p&gt;40423137:繪製零件圖檔,組裝,製作動畫,零件3D列印&lt;/p&gt;
+&lt;p&gt;40423137:繪製零件圖檔,組裝,製作動畫,零件3D列印,利用onshape協統畫圖&lt;/p&gt;
 
-&lt;p&gt;40423144:組裝,給予意見,製作網頁&lt;/p&gt;
+&lt;p&gt;40423144:組裝,給予意見,製作網頁,利用onshape協統畫圖&lt;/p&gt;
 
-&lt;p&gt;40443111:組裝,給予意見&lt;/p&gt;
+&lt;p&gt;40443111:組裝,給予意見,利用onshape協統畫圖&lt;/p&gt;
 
-&lt;h2&gt;等角視圖&lt;/h2&gt;
+&lt;h1&gt;利用onshape共享功能將行走機構零件繪出&lt;/h1&gt;
+&lt;p&gt;&lt;h2&gt;onshape共享設定&lt;/h2&gt;
+&lt;iframe src="https://player.vimeo.com/video/222783342" width="800" height="600" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen&gt;&lt;/iframe&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://vimeo.com/222783342"&gt;AG1_onshape協統設定&lt;/a&gt; from &lt;a href="https://vimeo.com/user44512429"&gt;40423105&lt;/a&gt; on &lt;a href="https://vimeo.com"&gt;Vimeo&lt;/a&gt;
+&lt;p&gt;&lt;p&gt;&lt;img src="./../final/fourbar/ag1_10.png" width="800" height="600" /&gt;&lt;/p&gt;&lt;/p&gt;
+&lt;p&gt;&lt;font size="3" &gt;上圖可看到當其他隊友正在繪製時,自己也可看到&lt;/font&gt;&lt;br&gt;&lt;/p&gt;
+&lt;/p&gt;
 
-&lt;p&gt;&lt;p&gt;&lt;img src="./../final/fourbar/ag1_1.jpg" width="800" height="600" /&gt;&lt;/p&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://cad.onshape.com/documents/eeea69c5be9cc5faaf566c09/w/5d2ec46c1dbe432efb1792a3/e/ddbe4ad90a5eedf2ee0562db"&gt;&lt;font face="標楷體" size="5" color="red"&gt;AG1_仿生自走獸_ONSHAPE工作區連結&lt;/font&gt;&lt;br&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h1&gt;onshape各組員繪圖影片&lt;/h1&gt;
+&lt;p&gt;&lt;h2&gt;40423105&lt;/h2&gt;
+&lt;p&gt;繪製本體1&lt;/p&gt;&lt;/p&gt;
+&lt;p&gt;繪製本體2&lt;/p&gt;
 
-&lt;h2&gt;前視圖&lt;/h2&gt;
+&lt;p&gt;繪製本體3&lt;/p&gt;
 
+&lt;iframe width="800" height="600" src="https://www.youtube.com/embed/A-U-yInMy8k" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;
+
+&lt;h2&gt;40423119&lt;/h2&gt;
+
+&lt;p&gt;繪製本體4&lt;/p&gt;
+
+&lt;iframe width="800" height="600" src="https://www.youtube.com/embed/Oya_sw9NmQs?list=PLB2pLiL12GC_VV4Vg52lCzQZTNhJrvd-H" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;
+
+&lt;p&gt;繪製連桿1&lt;/p&gt;
+
+&lt;iframe width="800" height="600" src="https://www.youtube.com/embed/nwA6uD-xD38?list=PLB2pLiL12GC_VV4Vg52lCzQZTNhJrvd-H" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;
+
+&lt;p&gt;繪製連桿2&lt;/p&gt;
+
+&lt;iframe width="800" height="600" src="https://www.youtube.com/embed/z1HsjEL1T2E?list=PLB2pLiL12GC_VV4Vg52lCzQZTNhJrvd-H" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;
+
+&lt;h2&gt;40423128&lt;/h2&gt;
+
+&lt;h2&gt;40423130&lt;/h2&gt;
+
+&lt;p&gt;繪製連桿5-2&lt;/p&gt;
+
+&lt;iframe src="https://player.vimeo.com/video/222937200" width="800" height="600" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen&gt;&lt;/iframe&gt;
+
+&lt;p&gt;&lt;a href="https://vimeo.com/222937200"&gt;國立虎尾科技大學_機械設計工程系_設計二甲_40423130_AG1 協同繪圖 仿生獸 連桿5-2&lt;/a&gt; from &lt;a href="https://vimeo.com/user61522994"&gt;40423130&lt;/a&gt; on &lt;a href="https://vimeo.com"&gt;Vimeo&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;繪製連桿6-1&lt;/p&gt;
+
+&lt;iframe src="https://player.vimeo.com/video/222937291" width="800" height="600" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen&gt;&lt;/iframe&gt;
+
+&lt;p&gt;&lt;a href="https://vimeo.com/222937291"&gt;國立虎尾科技大學_機械設計工程系_設計二甲_40423130_AG1 協同繪圖 仿生獸 連桿6-1&lt;/a&gt; from &lt;a href="https://vimeo.com/user61522994"&gt;40423130&lt;/a&gt; on &lt;a href="https://vimeo.com"&gt;Vimeo&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;繪製連桿6-2&lt;/p&gt;
+
+&lt;iframe src="https://player.vimeo.com/video/222937336" width="800" height="600" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen&gt;&lt;/iframe&gt;
+
+&lt;p&gt;&lt;a href="https://vimeo.com/222937336"&gt;國立虎尾科技大學_機械設計工程系_設計二甲_40423130_AG1 協同繪圖 仿生獸 連桿6-2&lt;/a&gt; from &lt;a href="https://vimeo.com/user61522994"&gt;40423130&lt;/a&gt; on &lt;a href="https://vimeo.com"&gt;Vimeo&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2&gt;40423133&lt;/h2&gt;
+
+&lt;h2&gt;40423137&lt;/h2&gt;
+
+&lt;h2&gt;40423144&lt;/h2&gt;
+
+&lt;h2&gt;40443111&lt;/h2&gt;
+
+&lt;h1&gt;3D視圖表現&lt;/h1&gt;
+&lt;p&gt;&lt;h2&gt;前視圖&lt;/h2&gt;
 &lt;p&gt;&lt;p&gt;&lt;img src="./../final/fourbar/ag1_2.jpg" width="800" height="600" /&gt;&lt;/p&gt;&lt;/p&gt;
-
-&lt;h2&gt;上視圖&lt;/h2&gt;
-
+&lt;h2&gt;俯視圖&lt;/h2&gt;
 &lt;p&gt;&lt;p&gt;&lt;img src="./../final/fourbar/ag1_3.jpg" width="800" height="600" /&gt;&lt;/p&gt;&lt;/p&gt;
-
 &lt;h2&gt;右視圖&lt;/h2&gt;
-
 &lt;p&gt;&lt;p&gt;&lt;img src="./../final/fourbar/ag1_4.jpg" width="800" height="600" /&gt;&lt;/p&gt;&lt;/p&gt;
-
-&lt;h2&gt;下視圖&lt;/h2&gt;
-
+&lt;h2&gt;仰視圖&lt;/h2&gt;
 &lt;p&gt;&lt;p&gt;&lt;img src="./../final/fourbar/ag1_5.jpg" width="800" height="600" /&gt;&lt;/p&gt;&lt;/p&gt;
+&lt;h2&gt;等角視圖&lt;/h2&gt;
+&lt;p&gt;&lt;p&gt;&lt;img src="./../final/fourbar/ag1_1.jpg" width="800" height="600" /&gt;&lt;/p&gt;&lt;/p&gt;&lt;/p&gt;
+&lt;h1&gt;實機成品表現&lt;/h1&gt;
+&lt;p&gt;&lt;p&gt;&lt;p&gt;&lt;img src="./../final/fourbar/ag1_6.jpg" width="800" height="600" /&gt;&lt;/p&gt;&lt;/p&gt;
+&lt;p&gt;&lt;p&gt;&lt;img src="./../final/fourbar/ag1_7.jpg" width="800" height="600" /&gt;&lt;/p&gt;&lt;/p&gt;
+&lt;p&gt;&lt;p&gt;&lt;img src="./../final/fourbar/ag1_8.jpg" width="800" height="600" /&gt;&lt;/p&gt;&lt;/p&gt;
+&lt;p&gt;&lt;p&gt;&lt;img src="./../final/fourbar/ag1_9.jpg" width="800" height="600" /&gt;&lt;/p&gt;&lt;/p&gt;&lt;/p&gt;
+&lt;h2&gt;實機測試影片&lt;/h2&gt;
 
-&lt;h2&gt;測試影片&lt;/h2&gt;
+&lt;iframe width="800" height="600" src="https://www.youtube.com/embed/MdgfzWJ7YEQ" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;
 
-&lt;p&gt;&lt;p&gt;&lt;iframe width="560" height="315" src="https://www.youtube.com/embed/1uautiDWBz4" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;&lt;p&gt;&lt;/p&gt;
-&lt;h2&gt;模擬影片&lt;/h2&gt;
-&lt;p&gt;&lt;p&gt;&lt;iframe width="560" height="315" src="https://www.youtube.com/embed/12Tex9wk5eQ" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;&lt;p&gt;&lt;/p&gt;
+&lt;h2&gt;v-rep模擬製作影片&lt;/h2&gt;
+
+&lt;iframe width="800" height="600" src="https://www.youtube.com/embed/ia3CRj8t6aQ" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;
+
+&lt;p&gt;&lt;font face="標楷體" size="4"&gt;由於製作四隻腳的時間過久,在製作v-rep模擬先呈現製作兩隻腳的製作過程,在下方的模擬測試中會呈現模擬四隻腳&lt;/font&gt;&lt;br&gt;&lt;/p&gt;
+
+&lt;h2&gt;v-rep模擬測試影片&lt;/h2&gt;
+
+&lt;iframe width="800" height="600" src="https://www.youtube.com/embed/8WCMD6xuhcY" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;
+
+&lt;h2&gt;機構模擬影片&lt;/h2&gt;
+
+&lt;p&gt;&lt;p&gt;&lt;iframe width="800" height="600" src="https://www.youtube.com/embed/12Tex9wk5eQ" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;&lt;p&gt;&lt;/p&gt;
+
+&lt;h2&gt;成品網頁展示&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href="https://40423105.github.io/test/blog/cheng-pin-wang-ye-zhan-shi.html"&gt;&lt;font face="標楷體" size="5" color="red" &gt;成品網頁展示&lt;/font&gt;&lt;br&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h2&gt;Arduino程式碼&lt;/h2&gt;
-&lt;script src="https://gist.github.com/anonymous/0273cb124a81e1bd0885313848b263b4.js"&gt;&lt;/script&gt;</summary><category term="行走機構"></category></entry></feed>
+
+&lt;script src="https://gist.github.com/40423105/9bdd072d9bf7abc7d5ce06515c5da483.js"&gt;&lt;/script&gt;
+
+&lt;h2&gt;AG1_仿生獸零組件下載區&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href="./../final/fourbar/Bionic beast parts/連桿(1).stl"&gt;AG1_仿生獸零件_連桿(1)&lt;/a&gt; (請以滑鼠右鍵存檔)&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="./../final/fourbar/Bionic beast parts/連桿(2).stl"&gt;AG1_仿生獸零件_連桿(2)&lt;/a&gt; (請以滑鼠右鍵存檔)&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="./../final/fourbar/Bionic beast parts/連桿(3).stl"&gt;AG1_仿生獸零件_連桿(3)&lt;/a&gt; (請以滑鼠右鍵存檔)&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="./../final/fourbar/Bionic beast parts/連桿(4).stl"&gt;AG1_仿生獸零件_連桿(4)&lt;/a&gt; (請以滑鼠右鍵存檔)&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="./../final/fourbar/Bionic beast parts/連桿(5-1).stl"&gt;AG1_仿生獸零件_連桿(5-1)&lt;/a&gt; (請以滑鼠右鍵存檔)&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="./../final/fourbar/Bionic beast parts/連桿(5-2).stl"&gt;AG1_仿生獸零件_連桿(5-2)&lt;/a&gt; (請以滑鼠右鍵存檔)&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="./../final/fourbar/Bionic beast parts/連桿(6-1).stl"&gt;AG1_仿生獸零件_連桿(6-1)&lt;/a&gt; (請以滑鼠右鍵存檔)&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="./../final/fourbar/Bionic beast parts/連桿(6-2).stl"&gt;AG1_仿生獸零件_連桿(6-2)&lt;/a&gt; (請以滑鼠右鍵存檔)&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="./../final/fourbar/Bionic beast parts/齒輪(1).stl"&gt;AG1_仿生獸零件_齒輪(1)&lt;/a&gt; (請以滑鼠右鍵存檔)&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="./../final/fourbar/Bionic beast parts/齒輪(2).stl"&gt;AG1_仿生獸零件_齒輪(2)&lt;/a&gt; (請以滑鼠右鍵存檔)&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="./../final/fourbar/Bionic beast parts/正齒輪(1).stl"&gt;AG1_仿生獸零件_正齒輪(1)&lt;/a&gt; (請以滑鼠右鍵存檔)&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="./../final/fourbar/Bionic beast parts/正齒輪(2).stl"&gt;AG1_仿生獸零件_正齒輪(2)&lt;/a&gt; (請以滑鼠右鍵存檔)&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="./../final/fourbar/Bionic beast parts/本體(1).stl"&gt;AG1_仿生獸零件_本體(1)&lt;/a&gt; (請以滑鼠右鍵存檔)&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="./../final/fourbar/Bionic beast parts/本體(2).stl"&gt;AG1_仿生獸零件_本體(2)&lt;/a&gt; (請以滑鼠右鍵存檔)&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="./../final/fourbar/Bionic beast parts/本體(3).stl"&gt;AG1_仿生獸零件_本體(3)&lt;/a&gt; (請以滑鼠右鍵存檔)&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="./../final/fourbar/Bionic beast parts/本體(4).stl"&gt;AG1_仿生獸零件_本體(4)&lt;/a&gt; (請以滑鼠右鍵存檔)&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="./../final/fourbar/Bionic beast parts/銷(1).stl"&gt;AG1_仿生獸零件_銷(1)&lt;/a&gt; (請以滑鼠右鍵存檔)&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="./../final/fourbar/Bionic beast parts/銷(2).stl"&gt;AG1_仿生獸零件_銷(2)&lt;/a&gt; (請以滑鼠右鍵存檔)&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="./../final/fourbar/Bionic beast parts/銷(3).stl"&gt;AG1_仿生獸零件_銷(3)&lt;/a&gt; (請以滑鼠右鍵存檔)&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="./../final/fourbar/Bionic beast parts/銷(4).stl"&gt;AG1_仿生獸零件_銷(4)&lt;/a&gt; (請以滑鼠右鍵存檔)&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="./../final/fourbar/Bionic beast parts/偏心軸.stl"&gt;AG1_仿生獸零件_偏心軸&lt;/a&gt; (請以滑鼠右鍵存檔)&lt;/p&gt;
+
+&lt;h2&gt;AG1_仿生獸組合件下載區&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href="./../final/fourbar/AG1仿生獸組合件.stl"&gt;AG1_仿生獸組合件&lt;/a&gt; (請以滑鼠右鍵存檔)&lt;/p&gt;
+
+&lt;h2&gt;AG1_仿生獸零組件尺寸圖下載區&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href="./../final/fourbar/monkey.pdf"&gt;AG1_仿生獸零組件尺寸圖&lt;/a&gt; (請以滑鼠右鍵存檔)&lt;/p&gt;
+
+&lt;h2&gt;AG1_仿生獸V-rep動作模擬檔案下載區&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href="./../final/fourbar/Bionic beast parts/AG1_仿生獸模擬運動.ttt"&gt;AG1_仿生獸V-rep動作模擬檔案&lt;/a&gt; (請以滑鼠右鍵存檔)&lt;/p&gt;</summary><category term="行走機構"></category></entry><entry><title>W17 行走機構 2D 靜態繪圖</title><link href="./w17-xing-zou-ji-gou-2d-jing-tai-hui-tu.html" rel="alternate"></link><published>2017-06-21T12:08:00+08:00</published><updated>2017-06-21T12:08:00+08:00</updated><author><name>40423105</name></author><id>tag:,2017-06-21:./w17-xing-zou-ji-gou-2d-jing-tai-hui-tu.html</id><summary type="html">&lt;p&gt;&lt;font face="標楷體" color="red"&gt;
+1.W17 行走機構 2D 靜態繪圖
+&lt;/font&gt;&lt;br&gt;
+&lt;/p&gt;</summary><category term="行走機構"></category></entry></feed>
