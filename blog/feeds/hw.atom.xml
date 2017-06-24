@@ -1,34 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>2017 協同產品設計實習 設計二甲 王奕智</title><link href="./" rel="alternate"></link><link href="./feeds/hw.atom.xml" rel="self"></link><id>./</id><updated>2017-06-21T12:08:00+08:00</updated><entry><title>協同產品設計實習 w17作業</title><link href="./xie-tong-chan-pin-she-ji-shi-xi-w17zuo-ye.html" rel="alternate"></link><published>2017-06-21T12:08:00+08:00</published><updated>2017-06-21T12:08:00+08:00</updated><author><name>AG1</name></author><id>tag:,2017-06-21:./xie-tong-chan-pin-she-ji-shi-xi-w17zuo-ye.html</id><summary type="html">&lt;p&gt;&lt;font face="標楷體" color="red"&gt;
-1. 在各自的倉儲中, 建立一個雙足 solvepace 機構零組件, 存入 final 子目錄中
-&lt;/font&gt;&lt;br&gt;
-&lt;font face="標楷體" color="red"&gt;
-2. 在各自的網誌上, 以 "W17 行走機構 2D 靜態繪圖"為標題, 以 Brython 畫出行走機構的示意圖.
-&lt;/font&gt;&lt;br&gt;
-&lt;font face="標楷體" color="red"&gt;
-3. 在各自的倉儲中, 將 https://github.com/scrum-1/cdbw17 倉儲納入作為 w17 子目錄, 並設法導入其中的 script1.py 進行 axises() 繪圖函式的呼叫, 在任務 2 的圖中畫出座標軸.
-&lt;/font&gt;&lt;br&gt;
-&lt;font face="標楷體" color="red"&gt;
-4. 在各自的網誌中設法動態顯示出任務 1 所完成的零組件.
-&lt;/font&gt;&lt;br&gt;
-&lt;font face="標楷體" color="red"&gt;
-5. 將任務 1 所完成的行走機構匯入 V-rep, 並設法模擬雙足機構作動過程.
-&lt;/font&gt;&lt;br&gt;
-&lt;font face="標楷體" color="red"&gt;
-6. 請在網誌中, 以"期末分組專題"為標題, 說明在分組行走機構模擬與實作過程中所扮演的角色, 並說明所負責完成的任務.
-&lt;/font&gt;&lt;br&gt;
-&lt;font face="標楷體" color="red"&gt;
-7. 各組以協同方式整合各組組員所完成的倉儲, 網誌與操作影片後, 以學號名稱當作子目錄, 其中放入各組員上述各題所完成的操作影片後, 上傳到各組在系上的 Fossil SCM 倉儲, 並設法用各組的 Github Pages 進行分組簡報.
-&lt;/font&gt;&lt;br&gt;&lt;/p&gt;
-
-
-&lt;h1&gt;1.建立一個雙足 solvepace 機構零組件, 存入 final 子目錄中&lt;/h1&gt;
-&lt;h1&gt;2.W17 行走機構 2D 靜態繪圖&lt;/h1&gt;
-&lt;h1&gt;3.導入其中的 script1.py 進行 axises() 繪圖函式的呼叫, 在任務 2 的圖中畫出座標軸&lt;/h1&gt;
-&lt;h1&gt;4.動態顯示任務 1 的零組件&lt;/h1&gt;
-&lt;h1&gt;5.任務 1 所完成的行走機構匯入 V-rep,並設法模擬雙足機構作動過程&lt;/h1&gt;
-&lt;h1&gt;6.期末分組專題&lt;/h1&gt;
-&lt;h1&gt;7.利用Github Pages 製作分組簡報&lt;/h1&gt;</summary><category term="HW"></category></entry><entry><title>協同產品設計實習 w15練習</title><link href="./xie-tong-chan-pin-she-ji-shi-xi-w15lian-xi.html" rel="alternate"></link><published>2017-06-01T12:08:00+08:00</published><updated>2017-06-01T12:08:00+08:00</updated><author><name>40423105</name></author><id>tag:,2017-06-01:./xie-tong-chan-pin-she-ji-shi-xi-w15lian-xi.html</id><summary type="html">&lt;p&gt;&lt;font face="標楷體" color="red"&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>2017 協同產品設計實習 設計二甲 王奕智</title><link href="./" rel="alternate"></link><link href="./feeds/hw.atom.xml" rel="self"></link><id>./</id><updated>2017-06-01T12:08:00+08:00</updated><entry><title>協同產品設計實習 w15練習</title><link href="./xie-tong-chan-pin-she-ji-shi-xi-w15lian-xi.html" rel="alternate"></link><published>2017-06-01T12:08:00+08:00</published><updated>2017-06-01T12:08:00+08:00</updated><author><name>40423105</name></author><id>tag:,2017-06-01:./xie-tong-chan-pin-she-ji-shi-xi-w15lian-xi.html</id><summary type="html">&lt;p&gt;&lt;font face="標楷體" color="red"&gt;
 1.w15課程作業
 &lt;/font&gt;&lt;br&gt;
 &lt;/p&gt;
