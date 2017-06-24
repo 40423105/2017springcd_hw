@@ -1,0 +1,1598 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"></meta>
+    <title>Three.js Solvespace Mesh</title>
+    <script src="https://threejs.org/build/three.js"></script>
+    <script src="https://hammerjs.github.io/dist/hammer.js"></script>
+    <style type="text/css">
+    body { margin: 0; overflow: hidden; }
+    </style>
+  </head>
+  <body>
+    <script>
+    </script>
+    <script>
+SolvespaceCamera = function(renderWidth, renderHeight, scale, up, right, offset) {
+        THREE.Camera.call(this);
+
+        this.type = 'SolvespaceCamera';
+
+        this.renderWidth = renderWidth;
+        this.renderHeight = renderHeight;
+        this.zoomScale = scale; /* Avoid namespace collision w/ THREE.Object.scale */
+        this.up = up;
+        this.right = right;
+        this.offset = offset;
+        this.depthBias = 0;
+
+        this.updateProjectionMatrix();
+    };
+
+    SolvespaceCamera.prototype = Object.create(THREE.Camera.prototype);
+    SolvespaceCamera.prototype.constructor = SolvespaceCamera;
+    SolvespaceCamera.prototype.updateProjectionMatrix = function() {
+        var temp = new THREE.Matrix4();
+        var offset = new THREE.Matrix4().makeTranslation(this.offset.x, this.offset.y, this.offset.z);
+        // Convert to right handed- do up cross right instead.
+        var n = new THREE.Vector3().crossVectors(this.up, this.right);
+        var rotate = new THREE.Matrix4().makeBasis(this.right, this.up, n);
+        rotate.transpose();
+        /* FIXME: At some point we ended up using row-major.
+           THREE.js wants column major. Scale/depth correct unaffected b/c diagonal
+           matrices remain the same when transposed. makeTranslation also makes
+           a column-major matrix. */
+
+        /* TODO: If we want perspective, we need an additional matrix
+           here which will modify w for perspective divide. */
+        var scale = new THREE.Matrix4().makeScale(2 * this.zoomScale / this.renderWidth,
+            2 * this.zoomScale / this.renderHeight, this.zoomScale / 30000.0);
+
+        temp.multiply(scale);
+        temp.multiply(rotate);
+        temp.multiply(offset);
+
+        this.projectionMatrix.copy(temp);
+    };
+
+    SolvespaceCamera.prototype.NormalizeProjectionVectors = function() {
+        /* After rotating, up and right may no longer be orthogonal.
+        However, their cross product will produce the correct
+        rotated plane, and we can recover an orthogonal basis. */
+        var n = new THREE.Vector3().crossVectors(this.right, this.up);
+        this.up = new THREE.Vector3().crossVectors(n, this.right);
+        this.right.normalize();
+        this.up.normalize();
+    };
+
+    SolvespaceCamera.prototype.rotate = function(right, up) {
+        var oldRight = new THREE.Vector3().copy(this.right).normalize();
+        var oldUp = new THREE.Vector3().copy(this.up).normalize();
+        this.up.applyAxisAngle(oldRight, up);
+        this.right.applyAxisAngle(oldUp, right);
+        this.NormalizeProjectionVectors();
+    }
+
+    SolvespaceCamera.prototype.offsetProj = function(right, up) {
+        var shift = new THREE.Vector3(right * this.right.x + up * this.up.x,
+            right * this.right.y + up * this.up.y,
+            right * this.right.z + up * this.up.z);
+        this.offset.add(shift);
+    }
+
+    /* Calculate the offset in terms of up and right projection vectors
+    that will preserve the world coordinates of the current mouse position after
+    the zoom. */
+    SolvespaceCamera.prototype.zoomTo = function(x, y, delta) {
+        // Get offset components in world coordinates, in terms of up/right.
+        var projOffsetX = this.offset.dot(this.right);
+        var projOffsetY = this.offset.dot(this.up);
+
+        /* Remove offset before scaling so, that mouse position changes
+        proportionally to the model and independent of current offset. */
+        var centerRightI = x/this.zoomScale - projOffsetX;
+        var centerUpI = y/this.zoomScale - projOffsetY;
+        var zoomFactor;
+
+        /* Zoom 20% every 100 delta. */
+        if(delta < 0) {
+            zoomFactor = (-delta * 0.002 + 1);
+        }
+        else if(delta > 0) {
+            zoomFactor = (delta * (-1.0/600.0) + 1)
+        }
+        else {
+            return;
+        }
+
+        this.zoomScale = this.zoomScale * zoomFactor;
+        var centerRightF = x/this.zoomScale - projOffsetX;
+        var centerUpF = y/this.zoomScale - projOffsetY;
+
+        this.offset.addScaledVector(this.right, centerRightF - centerRightI);
+        this.offset.addScaledVector(this.up, centerUpF - centerUpI);
+    }
+
+
+    SolvespaceControls = function(object, domElement) {
+        var _this = this;
+        this.object = object;
+        this.domElement = ( domElement !== undefined ) ? domElement : document;
+
+        var threePan = new Hammer.Pan({event : 'threepan', pointers : 3, enable : false});
+        var panAfterTap = new Hammer.Pan({event : 'panaftertap', enable : false});
+
+        this.touchControls = new Hammer.Manager(domElement, {
+            recognizers: [
+                [Hammer.Pinch, { enable: true }],
+                [Hammer.Pan],
+                [Hammer.Tap],
+            ]
+        });
+
+        this.touchControls.add(threePan);
+        this.touchControls.add(panAfterTap);
+
+        var changeEvent = {
+            type: 'change'
+        };
+        var startEvent = {
+            type: 'start'
+        };
+        var endEvent = {
+            type: 'end'
+        };
+
+        var _changed = false;
+        var _mouseMoved = false;
+        //var _touchPoints = new Array();
+        var _offsetPrev = new THREE.Vector2(0, 0);
+        var _offsetCur = new THREE.Vector2(0, 0);
+        var _rotatePrev = new THREE.Vector2(0, 0);
+        var _rotateCur = new THREE.Vector2(0, 0);
+
+        // Used during touch events.
+        var _rotateOrig = new THREE.Vector2(0, 0);
+        var _offsetOrig = new THREE.Vector2(0, 0);
+        var _prevScale = 1.0;
+
+        this.handleEvent = function(event) {
+            if (typeof this[event.type] == 'function') {
+                this[event.type](event);
+            }
+        }
+
+        function mousedown(event) {
+            event.preventDefault();
+            event.stopPropagation();
+
+            switch (event.button) {
+                case 0:
+                    _rotateCur.set(event.screenX, event.screenY);
+                    _rotatePrev.copy(_rotateCur);
+                    document.addEventListener('mousemove', mousemove, false);
+                    document.addEventListener('mouseup', mouseup, false);
+                    break;
+                case 2:
+                    _offsetCur.set(event.screenX, event.screenY);
+                    _offsetPrev.copy(_offsetCur);
+                    document.addEventListener('mousemove', mousemove, false);
+                    document.addEventListener('mouseup', mouseup, false);
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        function wheel( event ) {
+            event.preventDefault();
+            /* FIXME: Width and height might not be supported universally, but
+            can be calculated? */
+            var box = _this.domElement.getBoundingClientRect();
+            object.zoomTo(event.clientX - box.width/2 - box.left,
+                 -(event.clientY - box.height/2 - box.top), event.deltaY);
+            _changed = true;
+        }
+
+        function mousemove(event) {
+            switch (event.button) {
+                case 0:
+                    _rotateCur.set(event.screenX, event.screenY);
+                    var diff = new THREE.Vector2().subVectors(_rotateCur, _rotatePrev)
+                        .multiplyScalar(1 / object.zoomScale);
+                    object.rotate(-0.3 * Math.PI / 180 * diff.x * object.zoomScale,
+                         -0.3 * Math.PI / 180 * diff.y * object.zoomScale);
+                    _changed = true;
+                    _rotatePrev.copy(_rotateCur);
+                    break;
+                case 2:
+                    _mouseMoved = true;
+                    _offsetCur.set(event.screenX, event.screenY);
+                    var diff = new THREE.Vector2().subVectors(_offsetCur, _offsetPrev)
+                        .multiplyScalar(1 / object.zoomScale);
+                    object.offsetProj(diff.x, -diff.y);
+                    _changed = true;
+                    _offsetPrev.copy(_offsetCur)
+                    break;
+            }
+        }
+
+
+        function mouseup(event) {
+            /* TODO: Opera mouse gestures will intercept this event, making it
+            possible to have multiple mousedown events consecutively without
+            a corresponding mouseup (so multiple viewports can be rotated/panned
+            simultaneously). Disable mouse gestures for now. */
+            event.preventDefault();
+            event.stopPropagation();
+
+            document.removeEventListener('mousemove', mousemove);
+            document.removeEventListener('mouseup', mouseup);
+
+            _this.dispatchEvent(endEvent);
+        }
+
+        function pan(event) {
+            /* neWcur - prev does not necessarily equal (cur + diff) - prev.
+            Floating point is not associative. */
+            touchDiff = new THREE.Vector2(event.deltaX, event.deltaY);
+            _rotateCur.addVectors(_rotateOrig, touchDiff);
+            incDiff = new THREE.Vector2().subVectors(_rotateCur, _rotatePrev)
+                .multiplyScalar(1 / object.zoomScale);
+            object.rotate(-0.3 * Math.PI / 180 * incDiff.x * object.zoomScale,
+                 -0.3 * Math.PI / 180 * incDiff.y * object.zoomScale);
+            _changed = true;
+            _rotatePrev.copy(_rotateCur);
+        }
+
+        function panstart(event) {
+            /* TODO: Dynamically enable pan function? */
+            _rotateOrig.copy(_rotateCur);
+        }
+
+        function pinchstart(event) {
+            _prevScale = event.scale;
+        }
+
+        function pinch(event) {
+            /* FIXME: Width and height might not be supported universally, but
+            can be calculated? */
+            var box = _this.domElement.getBoundingClientRect();
+
+            /* 16.6... pixels chosen heuristically... matches my touchpad. */
+            if (event.scale < _prevScale) {
+                object.zoomTo(event.center.x - box.width/2 - box.left,
+                     -(event.center.y - box.height/2 - box.top), 100/6.0);
+                _changed = true;
+            } else if (event.scale > _prevScale) {
+                object.zoomTo(event.center.x - box.width/2 - box.left,
+                     -(event.center.y - box.height/2 - box.top), -100/6.0);
+                _changed = true;
+            }
+
+            _prevScale = event.scale;
+        }
+
+        /* A tap will enable panning/disable rotate. */
+        function tap(event) {
+            panAfterTap.set({enable : true});
+            _this.touchControls.get('pan').set({enable : false});
+        }
+
+        function panaftertap(event) {
+            touchDiff = new THREE.Vector2(event.deltaX, event.deltaY);
+            _offsetCur.addVectors(_offsetOrig, touchDiff);
+            incDiff = new THREE.Vector2().subVectors(_offsetCur, _offsetPrev)
+                .multiplyScalar(1 / object.zoomScale);
+            object.offsetProj(incDiff.x, -incDiff.y);
+            _changed = true;
+            _offsetPrev.copy(_offsetCur);
+        }
+
+        function panaftertapstart(event) {
+            _offsetOrig.copy(_offsetCur);
+        }
+
+        function panaftertapend(event) {
+            panAfterTap.set({enable : false});
+            _this.touchControls.get('pan').set({enable : true});
+        }
+
+        function contextmenu(event) {
+            event.preventDefault();
+        }
+
+        this.update = function() {
+            if (_changed) {
+                _this.dispatchEvent(changeEvent);
+                _changed = false;
+            }
+        }
+
+        this.domElement.addEventListener('mousedown', mousedown, false);
+        this.domElement.addEventListener('wheel', wheel, false);
+        this.domElement.addEventListener('contextmenu', contextmenu, false);
+
+        /* Hammer.on wraps addEventListener */
+        // Rotate
+        this.touchControls.on('pan', pan);
+        this.touchControls.on('panstart', panstart);
+
+        // Zoom
+        this.touchControls.on('pinch', pinch);
+        this.touchControls.on('pinchstart', pinchstart);
+
+        //Pan
+        this.touchControls.on('tap', tap);
+        this.touchControls.on('panaftertapstart', panaftertapstart);
+        this.touchControls.on('panaftertap', panaftertap);
+        this.touchControls.on('panaftertapend', panaftertapend);
+    }
+
+    SolvespaceControls.prototype = Object.create(THREE.EventDispatcher.prototype);
+    SolvespaceControls.prototype.constructor = SolvespaceControls;
+
+
+    solvespace = function(obj, params) {
+        var scene, edgeScene, camera, edgeCamera, renderer;
+        var geometry, controls, material, mesh, edges;
+        var width, height;
+        var directionalLightArray = [];
+
+        if (typeof params === "undefined" || !("width" in params)) {
+            width = window.innerWidth;
+        } else {
+            width = params.width;
+        }
+
+        if (typeof params === "undefined" || !("height" in params)) {
+            height = window.innerHeight;
+        } else {
+            height = params.height;
+        }
+
+        domElement = init();
+        render();
+        return domElement;
+
+
+        function init() {
+            scene = new THREE.Scene();
+            edgeScene = new THREE.Scene();
+
+            camera = new SolvespaceCamera(width,
+                height, 5, new THREE.Vector3(0, 1, 0),
+                new THREE.Vector3(1, 0, 0), new THREE.Vector3(0, 0, 0));
+
+            mesh = createMesh(obj);
+            scene.add(mesh);
+            edges = createEdges(obj);
+            edgeScene.add(edges);
+
+            for (var i = 0; i < obj.lights.d.length; i++) {
+                var lightColor = new THREE.Color(obj.lights.d[i].intensity,
+                    obj.lights.d[i].intensity, obj.lights.d[i].intensity);
+                var directionalLight = new THREE.DirectionalLight(lightColor, 1);
+                directionalLight.position.set(obj.lights.d[i].direction[0],
+                    obj.lights.d[i].direction[1], obj.lights.d[i].direction[2]);
+                directionalLightArray.push(directionalLight);
+                scene.add(directionalLight);
+            }
+
+            var lightColor = new THREE.Color(obj.lights.a, obj.lights.a, obj.lights.a);
+            var ambientLight = new THREE.AmbientLight(lightColor.getHex());
+            scene.add(ambientLight);
+
+            renderer = new THREE.WebGLRenderer({ antialias: true});
+            renderer.setSize(width, height);
+            renderer.autoClear = false;
+
+            controls = new SolvespaceControls(camera, renderer.domElement);
+            controls.addEventListener("change", render);
+            controls.addEventListener("change", lightUpdate);
+
+            animate();
+            return renderer.domElement;
+        }
+        function animate() {
+            requestAnimationFrame(animate);
+            controls.update();
+        }
+
+        function render() {
+            var context = renderer.getContext();
+            camera.updateProjectionMatrix();
+            renderer.clear();
+
+            context.depthRange(0.1, 1);
+            renderer.render(scene, camera);
+
+            context.depthRange(0.1-(2/60000.0), 1-(2/60000.0));
+            renderer.render(edgeScene, camera);
+        }
+
+        function lightUpdate() {
+            var changeBasis = new THREE.Matrix4();
+
+            // The original light positions were in camera space.
+            // Project them into standard space using camera's basis
+            // vectors (up, target, and their cross product).
+            n = new THREE.Vector3().crossVectors(camera.up, camera.right);
+            changeBasis.makeBasis(camera.right, camera.up, n);
+
+            for (var i = 0; i < 2; i++) {
+                var newLightPos = changeBasis.applyToVector3Array(
+                    [obj.lights.d[i].direction[0], obj.lights.d[i].direction[1],
+                        obj.lights.d[i].direction[2]]);
+                directionalLightArray[i].position.set(newLightPos[0],
+                    newLightPos[1], newLightPos[2]);
+            }
+        }
+
+        function createMesh(meshObj) {
+            var geometry = new THREE.Geometry();
+            var materialIndex = 0;
+            var materialList = [];
+            var opacitiesSeen = {};
+
+            for (var i = 0; i < meshObj.points.length; i++) {
+                geometry.vertices.push(new THREE.Vector3(meshObj.points[i][0],
+                    meshObj.points[i][1], meshObj.points[i][2]));
+            }
+
+            for (var i = 0; i < meshObj.faces.length; i++) {
+                var currOpacity = ((meshObj.colors[i] & 0xFF000000) >>> 24) / 255.0;
+                if (opacitiesSeen[currOpacity] === undefined) {
+                    opacitiesSeen[currOpacity] = materialIndex;
+                    materialIndex++;
+                    materialList.push(new THREE.MeshLambertMaterial({
+                        vertexColors: THREE.FaceColors,
+                        opacity: currOpacity,
+                        transparent: true,
+                        side: THREE.DoubleSide
+                    }));
+                }
+
+                geometry.faces.push(new THREE.Face3(meshObj.faces[i][0],
+                    meshObj.faces[i][1], meshObj.faces[i][2],
+                    [new THREE.Vector3(meshObj.normals[i][0][0],
+                        meshObj.normals[i][0][1], meshObj.normals[i][0][2]),
+                     new THREE.Vector3(meshObj.normals[i][1][0],
+                        meshObj.normals[i][1][1], meshObj.normals[i][1][2]),
+                     new THREE.Vector3(meshObj.normals[i][2][0],
+                        meshObj.normals[i][2][1], meshObj.normals[i][2][2])],
+                    new THREE.Color(meshObj.colors[i] & 0x00FFFFFF),
+                    opacitiesSeen[currOpacity]));
+            }
+
+            geometry.computeBoundingSphere();
+            return new THREE.Mesh(geometry, new THREE.MultiMaterial(materialList));
+        }
+
+        function createEdges(meshObj) {
+            var geometry = new THREE.Geometry();
+            var material = new THREE.LineBasicMaterial();
+
+            for (var i = 0; i < meshObj.edges.length; i++) {
+                geometry.vertices.push(new THREE.Vector3(meshObj.edges[i][0][0],
+                        meshObj.edges[i][0][1], meshObj.edges[i][0][2]),
+                    new THREE.Vector3(meshObj.edges[i][1][0],
+                        meshObj.edges[i][1][1], meshObj.edges[i][1][2]));
+            }
+
+            geometry.computeBoundingSphere();
+            return new THREE.LineSegments(geometry, material);
+        }
+    };
+var solvespace_model___________ = {
+  bounds: {
+    x: 69.780813, y: 69.780813, near: 1.000000, far: 139.561626, z: 69.780813, edgeBias: 0.279123
+  },
+  lights: {
+    d: [
+      {
+        intensity: 1.000000, direction: [-1.000000, 1.000000, 0.000000]
+      },
+      {
+        intensity: 0.500000, direction: [1.000000, 0.000000, 0.000000]
+      },
+    ],
+    a: 0.300000
+  },
+  points: [
+    [18.321733, 35.238512, 15.000000],
+    [12.321733, 35.238512, 15.000000],
+    [18.321733, 26.238512, 15.000000],
+    [10.455282, 25.957699, 15.000000],
+    [12.321733, 80.738512, 15.000000],
+    [0.321733, 27.238512, 15.000000],
+    [0.321733, 35.238512, 15.000000],
+    [6.321733, 35.238512, 15.000000],
+    [6.321733, 95.738512, 15.000000],
+    [21.321733, 95.738512, 15.000000],
+    [21.321733, 80.738512, 15.000000],
+    [0.321733, 35.238512, 0.000000],
+    [6.321733, 35.238512, 0.000000],
+    [0.321733, 27.238512, 0.000000],
+    [10.455282, 25.957699, 0.000000],
+    [6.321733, 95.738512, 0.000000],
+    [18.321733, 26.238512, 0.000000],
+    [18.321733, 35.238512, 0.000000],
+    [12.321733, 35.238512, 0.000000],
+    [12.321733, 80.738512, 0.000000],
+    [21.321733, 80.738512, 0.000000],
+    [21.321733, 95.738512, 0.000000],
+    [6.321733, 86.470745, 9.267767],
+    [6.321733, 88.238512, 10.000000],
+    [6.321733, 90.006279, 9.267767],
+    [6.321733, 85.738512, 7.500000],
+    [6.321733, 86.470745, 5.732233],
+    [6.321733, 88.238512, 5.000000],
+    [6.321733, 90.738512, 7.500000],
+    [6.321733, 90.006279, 5.732233],
+    [21.321733, 90.738512, 7.500000],
+    [21.321733, 90.006279, 9.267767],
+    [21.321733, 88.238512, 10.000000],
+    [21.321733, 86.470745, 9.267767],
+    [21.321733, 85.738512, 7.500000],
+    [21.321733, 86.470745, 5.732233],
+    [21.321733, 88.238512, 5.000000],
+    [21.321733, 90.006279, 5.732233],
+    [56.321733, 90.006279, 5.732233],
+    [56.321733, 90.738512, 7.500000],
+    [56.321733, 88.238512, 5.000000],
+    [56.321733, 86.470745, 5.732233],
+    [56.321733, 90.006279, 9.267767],
+    [56.321733, 85.738512, 7.500000],
+    [56.321733, 88.238512, 10.000000],
+    [56.321733, 86.470745, 9.267767],
+    [37.386178, 88.238512, 5.000000],
+    [37.386178, 90.006279, 5.732233],
+    [37.386178, 90.738512, 7.500000],
+    [25.257289, 90.738512, 7.500000],
+    [25.257289, 90.006279, 5.732233],
+    [25.257289, 88.238512, 5.000000],
+    [37.386178, 90.006279, 9.267767],
+    [37.386178, 88.238512, 10.000000],
+    [25.257289, 88.238512, 10.000000],
+    [25.257289, 90.006279, 9.267767],
+    [37.386178, 86.470745, 9.267767],
+    [37.386178, 85.738512, 7.500000],
+    [25.257289, 85.738512, 7.500000],
+    [25.257289, 86.470745, 9.267767],
+    [37.386178, 86.470745, 5.732233],
+    [25.257289, 86.470745, 5.732233],
+    [25.257289, 86.408264, 2.876887],
+    [25.257289, 84.722621, 3.984109],
+    [25.257289, 88.238512, 2.527779],
+    [25.257289, 90.068760, 2.876887],
+    [25.257289, 83.615399, 5.669752],
+    [25.257289, 91.754403, 3.984109],
+    [25.257289, 92.861625, 5.669752],
+    [25.257289, 93.210733, 7.500000],
+    [25.257289, 92.861625, 9.330248],
+    [25.257289, 91.754403, 11.015891],
+    [25.257289, 90.068760, 12.123113],
+    [25.257289, 88.238512, 12.472221],
+    [25.257289, 86.408264, 12.123113],
+    [25.257289, 84.722621, 11.015891],
+    [25.257289, 83.615399, 9.330248],
+    [25.257289, 83.266291, 7.500000],
+    [37.386178, 83.615399, 5.669752],
+    [37.386178, 84.722621, 3.984109],
+    [37.386178, 83.266291, 7.500000],
+    [37.386178, 86.408264, 2.876887],
+    [37.386178, 88.238512, 2.527779],
+    [37.386178, 90.068760, 2.876887],
+    [37.386178, 91.754403, 3.984109],
+    [37.386178, 92.861625, 5.669752],
+    [37.386178, 93.210733, 7.500000],
+    [37.386178, 92.861625, 9.330248],
+    [37.386178, 91.754403, 11.015891],
+    [37.386178, 83.615399, 9.330248],
+    [37.386178, 90.068760, 12.123113],
+    [37.386178, 88.238512, 12.472221],
+    [37.386178, 86.408264, 12.123113],
+    [37.386178, 84.722621, 11.015891],
+    [44.321733, 35.238512, -0.000000],
+    [50.321733, 35.238512, -0.000000],
+    [44.321733, 26.238512, -0.000000],
+    [52.188184, 25.957699, -0.000000],
+    [50.321733, 80.738512, -0.000000],
+    [62.321733, 27.238512, -0.000000],
+    [62.321733, 35.238512, -0.000000],
+    [56.321733, 35.238512, -0.000000],
+    [56.321733, 95.738512, -0.000000],
+    [41.321733, 95.738512, -0.000000],
+    [41.321733, 80.738512, -0.000000],
+    [62.321733, 35.238512, 15.000000],
+    [56.321733, 35.238512, 15.000000],
+    [62.321733, 27.238512, 15.000000],
+    [52.188184, 25.957699, 15.000000],
+    [56.321733, 95.738512, 15.000000],
+    [44.321733, 26.238512, 15.000000],
+    [44.321733, 35.238512, 15.000000],
+    [50.321733, 35.238512, 15.000000],
+    [50.321733, 80.738512, 15.000000],
+    [41.321733, 80.738512, 15.000000],
+    [41.321733, 95.738512, 15.000000],
+    [41.321733, 90.738512, 7.500000],
+    [41.321733, 90.006279, 5.732233],
+    [41.321733, 88.238512, 5.000000],
+    [41.321733, 86.470745, 5.732233],
+    [41.321733, 85.738512, 7.500000],
+    [41.321733, 86.470745, 9.267767],
+    [41.321733, 88.238512, 10.000000],
+    [41.321733, 90.006279, 9.267767],
+  ],
+  faces: [
+    [0, 1, 2],
+    [2, 1, 3],
+    [1, 4, 3],
+    [5, 3, 6],
+    [6, 3, 7],
+    [3, 4, 7],
+    [7, 4, 8],
+    [8, 4, 9],
+    [9, 4, 10],
+    [11, 12, 13],
+    [13, 12, 14],
+    [12, 15, 14],
+    [16, 14, 17],
+    [17, 14, 18],
+    [14, 15, 18],
+    [18, 15, 19],
+    [19, 15, 20],
+    [20, 15, 21],
+    [5, 6, 13],
+    [13, 6, 11],
+    [6, 7, 11],
+    [11, 7, 12],
+    [7, 8, 12],
+    [22, 8, 23],
+    [8, 22, 12],
+    [23, 8, 24],
+    [22, 25, 12],
+    [8, 15, 24],
+    [25, 26, 12],
+    [12, 26, 15],
+    [26, 27, 15],
+    [24, 15, 28],
+    [27, 29, 15],
+    [15, 29, 28],
+    [8, 9, 15],
+    [15, 9, 21],
+    [21, 9, 30],
+    [30, 9, 31],
+    [9, 10, 31],
+    [31, 10, 32],
+    [32, 10, 33],
+    [33, 10, 34],
+    [10, 20, 34],
+    [34, 20, 35],
+    [20, 21, 35],
+    [35, 21, 36],
+    [36, 21, 37],
+    [37, 21, 30],
+    [10, 4, 20],
+    [20, 4, 19],
+    [4, 1, 19],
+    [19, 1, 18],
+    [1, 0, 18],
+    [18, 0, 17],
+    [0, 2, 17],
+    [17, 2, 16],
+    [13, 14, 5],
+    [5, 14, 3],
+    [2, 3, 16],
+    [16, 3, 14],
+    [36, 37, 27],
+    [27, 37, 29],
+    [37, 30, 29],
+    [29, 30, 28],
+    [30, 31, 28],
+    [28, 31, 24],
+    [31, 32, 24],
+    [24, 32, 23],
+    [32, 33, 23],
+    [23, 33, 22],
+    [33, 34, 22],
+    [22, 34, 25],
+    [34, 35, 25],
+    [25, 35, 26],
+    [35, 36, 26],
+    [26, 36, 27],
+    [24, 28, 23],
+    [23, 28, 22],
+    [28, 29, 22],
+    [22, 29, 25],
+    [29, 27, 25],
+    [25, 27, 26],
+    [38, 39, 40],
+    [40, 39, 41],
+    [39, 42, 41],
+    [41, 42, 43],
+    [42, 44, 43],
+    [43, 44, 45],
+    [46, 47, 40],
+    [40, 47, 38],
+    [47, 48, 38],
+    [38, 48, 39],
+    [49, 50, 28],
+    [28, 50, 29],
+    [50, 51, 29],
+    [29, 51, 27],
+    [48, 52, 39],
+    [39, 52, 42],
+    [52, 53, 42],
+    [42, 53, 44],
+    [54, 55, 23],
+    [23, 55, 24],
+    [55, 49, 24],
+    [24, 49, 28],
+    [53, 56, 44],
+    [44, 56, 45],
+    [56, 57, 45],
+    [45, 57, 43],
+    [58, 59, 25],
+    [25, 59, 22],
+    [59, 54, 22],
+    [22, 54, 23],
+    [57, 60, 43],
+    [43, 60, 41],
+    [60, 46, 41],
+    [41, 46, 40],
+    [51, 61, 27],
+    [27, 61, 26],
+    [61, 58, 26],
+    [26, 58, 25],
+    [62, 63, 64],
+    [64, 63, 65],
+    [63, 66, 65],
+    [65, 66, 67],
+    [68, 67, 69],
+    [69, 67, 70],
+    [70, 67, 71],
+    [71, 67, 72],
+    [73, 72, 74],
+    [74, 72, 75],
+    [75, 72, 76],
+    [76, 72, 77],
+    [58, 77, 59],
+    [77, 72, 59],
+    [59, 72, 54],
+    [54, 72, 55],
+    [55, 72, 49],
+    [72, 67, 49],
+    [49, 67, 50],
+    [50, 67, 51],
+    [67, 66, 51],
+    [51, 66, 61],
+    [66, 77, 61],
+    [61, 77, 58],
+    [78, 79, 80],
+    [80, 79, 57],
+    [79, 81, 57],
+    [57, 81, 60],
+    [81, 82, 60],
+    [60, 82, 46],
+    [82, 83, 46],
+    [46, 83, 47],
+    [83, 84, 47],
+    [47, 84, 48],
+    [84, 85, 48],
+    [48, 85, 52],
+    [85, 86, 52],
+    [57, 56, 80],
+    [86, 87, 52],
+    [52, 87, 53],
+    [87, 88, 53],
+    [80, 56, 89],
+    [88, 90, 53],
+    [53, 90, 56],
+    [90, 91, 56],
+    [56, 91, 89],
+    [91, 92, 89],
+    [89, 92, 93],
+    [69, 70, 86],
+    [86, 70, 87],
+    [91, 90, 73],
+    [73, 90, 72],
+    [70, 71, 87],
+    [87, 71, 88],
+    [71, 72, 88],
+    [88, 72, 90],
+    [73, 74, 91],
+    [91, 74, 92],
+    [80, 89, 77],
+    [77, 89, 76],
+    [74, 75, 92],
+    [92, 75, 93],
+    [75, 76, 93],
+    [93, 76, 89],
+    [77, 66, 80],
+    [80, 66, 78],
+    [82, 81, 64],
+    [64, 81, 62],
+    [66, 63, 78],
+    [78, 63, 79],
+    [63, 62, 79],
+    [79, 62, 81],
+    [64, 65, 82],
+    [82, 65, 83],
+    [86, 85, 69],
+    [69, 85, 68],
+    [65, 67, 83],
+    [83, 67, 84],
+    [67, 68, 84],
+    [84, 68, 85],
+    [94, 95, 96],
+    [96, 95, 97],
+    [95, 98, 97],
+    [99, 97, 100],
+    [100, 97, 101],
+    [97, 98, 101],
+    [101, 98, 102],
+    [102, 98, 103],
+    [103, 98, 104],
+    [105, 106, 107],
+    [107, 106, 108],
+    [106, 109, 108],
+    [110, 108, 111],
+    [111, 108, 112],
+    [108, 109, 112],
+    [112, 109, 113],
+    [113, 109, 114],
+    [114, 109, 115],
+    [99, 100, 107],
+    [107, 100, 105],
+    [100, 101, 105],
+    [105, 101, 106],
+    [101, 102, 106],
+    [41, 102, 40],
+    [102, 41, 106],
+    [40, 102, 38],
+    [41, 43, 106],
+    [102, 109, 38],
+    [43, 45, 106],
+    [106, 45, 109],
+    [45, 44, 109],
+    [38, 109, 39],
+    [44, 42, 109],
+    [109, 42, 39],
+    [102, 103, 109],
+    [109, 103, 115],
+    [115, 103, 116],
+    [116, 103, 117],
+    [103, 104, 117],
+    [117, 104, 118],
+    [118, 104, 119],
+    [119, 104, 120],
+    [104, 114, 120],
+    [120, 114, 121],
+    [114, 115, 121],
+    [121, 115, 122],
+    [122, 115, 123],
+    [123, 115, 116],
+    [104, 98, 114],
+    [114, 98, 113],
+    [98, 95, 113],
+    [113, 95, 112],
+    [95, 94, 112],
+    [112, 94, 111],
+    [94, 96, 111],
+    [111, 96, 110],
+    [107, 108, 99],
+    [99, 108, 97],
+    [96, 97, 110],
+    [110, 97, 108],
+    [122, 123, 44],
+    [44, 123, 42],
+    [123, 116, 42],
+    [42, 116, 39],
+    [116, 117, 39],
+    [39, 117, 38],
+    [117, 118, 38],
+    [38, 118, 40],
+    [118, 119, 40],
+    [40, 119, 41],
+    [119, 120, 41],
+    [41, 120, 43],
+    [120, 121, 43],
+    [43, 121, 45],
+    [121, 122, 45],
+    [45, 122, 44],
+  ],
+  normals: [
+    [[-0.000000, 0.000000, 1482.533977], [-0.000000, 0.000000, 1482.533977], [-0.000000, 0.000000, 1482.533977]],
+    [[-0.000000, 0.000000, 1482.533977], [-0.000000, 0.000000, 1482.533977], [-0.000000, 0.000000, 1482.533977]],
+    [[-0.000000, 0.000000, 1482.533977], [-0.000000, 0.000000, 1482.533977], [-0.000000, 0.000000, 1482.533977]],
+    [[-0.000000, 0.000000, 1482.533977], [-0.000000, 0.000000, 1482.533977], [-0.000000, 0.000000, 1482.533977]],
+    [[-0.000000, 0.000000, 1482.533977], [-0.000000, 0.000000, 1482.533977], [-0.000000, 0.000000, 1482.533977]],
+    [[-0.000000, 0.000000, 1482.533977], [-0.000000, 0.000000, 1482.533977], [-0.000000, 0.000000, 1482.533977]],
+    [[-0.000000, 0.000000, 1482.533977], [-0.000000, 0.000000, 1482.533977], [-0.000000, 0.000000, 1482.533977]],
+    [[-0.000000, 0.000000, 1482.533977], [-0.000000, 0.000000, 1482.533977], [-0.000000, 0.000000, 1482.533977]],
+    [[-0.000000, 0.000000, 1482.533977], [-0.000000, 0.000000, 1482.533977], [-0.000000, 0.000000, 1482.533977]],
+    [[-0.000000, -0.000000, -1482.533977], [-0.000000, 0.000000, -1482.533977], [-0.000000, -0.000000, -1482.533977]],
+    [[-0.000000, -0.000000, -1482.533977], [-0.000000, 0.000000, -1482.533977], [-0.000000, -0.000000, -1482.533977]],
+    [[-0.000000, 0.000000, -1482.533977], [-0.000000, 0.000000, -1482.533977], [-0.000000, -0.000000, -1482.533977]],
+    [[-0.000000, 0.000000, -1482.533977], [-0.000000, -0.000000, -1482.533977], [-0.000000, 0.000000, -1482.533977]],
+    [[-0.000000, 0.000000, -1482.533977], [-0.000000, -0.000000, -1482.533977], [-0.000000, -0.000000, -1482.533977]],
+    [[-0.000000, -0.000000, -1482.533977], [-0.000000, 0.000000, -1482.533977], [-0.000000, -0.000000, -1482.533977]],
+    [[-0.000000, -0.000000, -1482.533977], [-0.000000, 0.000000, -1482.533977], [-0.000000, -0.000000, -1482.533977]],
+    [[-0.000000, -0.000000, -1482.533977], [-0.000000, 0.000000, -1482.533977], [-0.000000, -0.000000, -1482.533977]],
+    [[-0.000000, -0.000000, -1482.533977], [-0.000000, 0.000000, -1482.533977], [-0.000000, -0.000000, -1482.533977]],
+    [[-120.000000, 0.000000, 0.000000], [-120.000000, 0.000000, 0.000000], [-120.000000, 0.000000, 0.000000]],
+    [[-120.000000, 0.000000, 0.000000], [-120.000000, 0.000000, 0.000000], [-120.000000, 0.000000, 0.000000]],
+    [[-0.000000, 90.000000, 0.000000], [-0.000000, 90.000000, 0.000000], [-0.000000, 90.000000, 0.000000]],
+    [[-0.000000, 90.000000, 0.000000], [-0.000000, 90.000000, 0.000000], [-0.000000, 90.000000, 0.000000]],
+    [[-907.500000, 0.000000, 0.000000], [-907.500000, 0.000000, 0.000000], [-907.500000, 0.000000, 0.000000]],
+    [[-907.500000, 0.000000, 0.000000], [-907.500000, 0.000000, 0.000000], [-907.500000, -0.000000, -0.000000]],
+    [[-907.500000, 0.000000, 0.000000], [-907.500000, 0.000000, 0.000000], [-907.500000, 0.000000, 0.000000]],
+    [[-907.500000, -0.000000, -0.000000], [-907.500000, 0.000000, 0.000000], [-907.500000, 0.000000, 0.000000]],
+    [[-907.500000, 0.000000, 0.000000], [-907.500000, -0.000000, -0.000000], [-907.500000, 0.000000, 0.000000]],
+    [[-907.500000, 0.000000, 0.000000], [-907.500000, 0.000000, 0.000000], [-907.500000, 0.000000, 0.000000]],
+    [[-907.500000, -0.000000, -0.000000], [-907.500000, 0.000000, 0.000000], [-907.500000, 0.000000, 0.000000]],
+    [[-907.500000, 0.000000, 0.000000], [-907.500000, 0.000000, 0.000000], [-907.500000, 0.000000, 0.000000]],
+    [[-907.500000, 0.000000, 0.000000], [-907.500000, 0.000000, 0.000000], [-907.500000, 0.000000, 0.000000]],
+    [[-907.500000, 0.000000, 0.000000], [-907.500000, 0.000000, 0.000000], [-907.500000, 0.000000, 0.000000]],
+    [[-907.500000, 0.000000, 0.000000], [-907.500000, 0.000000, 0.000000], [-907.500000, 0.000000, 0.000000]],
+    [[-907.500000, 0.000000, 0.000000], [-907.500000, 0.000000, 0.000000], [-907.500000, 0.000000, 0.000000]],
+    [[-0.000000, 225.000000, 0.000000], [-0.000000, 225.000000, 0.000000], [-0.000000, 225.000000, 0.000000]],
+    [[-0.000000, 225.000000, 0.000000], [-0.000000, 225.000000, 0.000000], [-0.000000, 225.000000, 0.000000]],
+    [[225.000000, 0.000000, 0.000000], [225.000000, 0.000000, 0.000000], [225.000000, 0.000000, 0.000000]],
+    [[225.000000, 0.000000, 0.000000], [225.000000, 0.000000, 0.000000], [225.000000, 0.000000, 0.000000]],
+    [[225.000000, 0.000000, 0.000000], [225.000000, 0.000000, 0.000000], [225.000000, 0.000000, 0.000000]],
+    [[225.000000, 0.000000, 0.000000], [225.000000, 0.000000, 0.000000], [225.000000, -0.000000, 0.000000]],
+    [[225.000000, -0.000000, 0.000000], [225.000000, 0.000000, 0.000000], [225.000000, 0.000000, 0.000000]],
+    [[225.000000, 0.000000, 0.000000], [225.000000, 0.000000, 0.000000], [225.000000, 0.000000, 0.000000]],
+    [[225.000000, 0.000000, 0.000000], [225.000000, 0.000000, 0.000000], [225.000000, 0.000000, 0.000000]],
+    [[225.000000, 0.000000, 0.000000], [225.000000, 0.000000, 0.000000], [225.000000, 0.000000, 0.000000]],
+    [[225.000000, 0.000000, 0.000000], [225.000000, 0.000000, 0.000000], [225.000000, 0.000000, 0.000000]],
+    [[225.000000, 0.000000, 0.000000], [225.000000, 0.000000, 0.000000], [225.000000, 0.000000, 0.000000]],
+    [[225.000000, 0.000000, 0.000000], [225.000000, 0.000000, 0.000000], [225.000000, 0.000000, 0.000000]],
+    [[225.000000, 0.000000, 0.000000], [225.000000, 0.000000, 0.000000], [225.000000, 0.000000, 0.000000]],
+    [[-0.000000, -135.000000, -0.000000], [-0.000000, -135.000000, -0.000000], [-0.000000, -135.000000, -0.000000]],
+    [[-0.000000, -135.000000, -0.000000], [-0.000000, -135.000000, -0.000000], [-0.000000, -135.000000, -0.000000]],
+    [[682.500000, 0.000000, 0.000000], [682.500000, 0.000000, 0.000000], [682.500000, 0.000000, 0.000000]],
+    [[682.500000, 0.000000, 0.000000], [682.500000, 0.000000, 0.000000], [682.500000, 0.000000, 0.000000]],
+    [[-0.000000, 90.000000, 0.000000], [-0.000000, 90.000000, 0.000000], [-0.000000, 90.000000, 0.000000]],
+    [[-0.000000, 90.000000, 0.000000], [-0.000000, 90.000000, 0.000000], [-0.000000, 90.000000, 0.000000]],
+    [[135.000000, 0.000000, 0.000000], [135.000000, 0.000000, 0.000000], [135.000000, 0.000000, 0.000000]],
+    [[135.000000, 0.000000, 0.000000], [135.000000, 0.000000, 0.000000], [135.000000, 0.000000, 0.000000]],
+    [[-44.339017, -164.023098, -0.000000], [-23.754876, -356.994914, -0.000000], [-44.339017, -164.023098, -0.000000]],
+    [[-44.339017, -164.023098, -0.000000], [-23.754876, -356.994914, -0.000000], [-23.754876, -356.994914, -0.000000]],
+    [[49.358523, -27.997247, 0.000000], [-23.754876, -356.994914, -0.000000], [49.358523, -27.997247, 0.000000]],
+    [[49.358523, -27.997247, 0.000000], [-23.754876, -356.994914, -0.000000], [-23.754876, -356.994914, -0.000000]],
+    [[0.000000, -0.000000, 106.066017], [0.000000, -87.867966, 87.867966], [-0.000000, 0.000000, 106.066017]],
+    [[-0.000000, 0.000000, 106.066017], [0.000000, -87.867966, 87.867966], [0.000000, -87.867966, 87.867966]],
+    [[0.000000, -87.867966, 87.867966], [0.000000, -106.066017, 0.000000], [0.000000, -87.867966, 87.867966]],
+    [[0.000000, -87.867966, 87.867966], [0.000000, -106.066017, 0.000000], [0.000000, -106.066017, 0.000000]],
+    [[0.000000, -106.066017, -0.000000], [0.000000, -87.867966, -87.867966], [0.000000, -106.066017, -0.000000]],
+    [[0.000000, -106.066017, -0.000000], [0.000000, -87.867966, -87.867966], [0.000000, -87.867966, -87.867966]],
+    [[0.000000, -87.867966, -87.867966], [0.000000, -0.000000, -106.066017], [0.000000, -87.867966, -87.867966]],
+    [[0.000000, -87.867966, -87.867966], [0.000000, -0.000000, -106.066017], [0.000000, 0.000000, -106.066017]],
+    [[0.000000, 0.000000, -106.066017], [0.000000, 87.867966, -87.867966], [0.000000, 0.000000, -106.066017]],
+    [[0.000000, 0.000000, -106.066017], [0.000000, 87.867966, -87.867966], [0.000000, 87.867966, -87.867966]],
+    [[0.000000, 87.867966, -87.867966], [0.000000, 106.066017, -0.000000], [0.000000, 87.867966, -87.867966]],
+    [[0.000000, 87.867966, -87.867966], [0.000000, 106.066017, -0.000000], [-0.000000, 106.066017, 0.000000]],
+    [[-0.000000, 106.066017, 0.000000], [-0.000000, 87.867966, 87.867966], [0.000000, 106.066017, -0.000000]],
+    [[0.000000, 106.066017, -0.000000], [-0.000000, 87.867966, 87.867966], [-0.000000, 87.867966, 87.867966]],
+    [[-0.000000, 87.867966, 87.867966], [-0.000000, 0.000000, 106.066017], [-0.000000, 87.867966, 87.867966]],
+    [[-0.000000, 87.867966, 87.867966], [-0.000000, 0.000000, 106.066017], [-0.000000, 0.000000, 106.066017]],
+    [[-25.000000, 0.000000, 0.000000], [-25.000000, 0.000000, 0.000000], [-25.000000, 0.000000, 0.000000]],
+    [[-25.000000, 0.000000, 0.000000], [-25.000000, 0.000000, 0.000000], [-25.000000, 0.000000, 0.000000]],
+    [[-25.000000, 0.000000, 0.000000], [-25.000000, 0.000000, 0.000000], [-25.000000, 0.000000, 0.000000]],
+    [[-25.000000, 0.000000, 0.000000], [-25.000000, 0.000000, 0.000000], [-25.000000, 0.000000, 0.000000]],
+    [[-25.000000, 0.000000, 0.000000], [-25.000000, 0.000000, 0.000000], [-25.000000, 0.000000, 0.000000]],
+    [[-25.000000, 0.000000, 0.000000], [-25.000000, 0.000000, 0.000000], [-25.000000, 0.000000, 0.000000]],
+    [[25.000000, 0.000000, -0.000000], [25.000000, 0.000000, 0.000000], [25.000000, 0.000000, -0.000000]],
+    [[25.000000, 0.000000, -0.000000], [25.000000, 0.000000, 0.000000], [25.000000, 0.000000, -0.000000]],
+    [[25.000000, 0.000000, 0.000000], [25.000000, 0.000000, 0.000000], [25.000000, 0.000000, -0.000000]],
+    [[25.000000, 0.000000, -0.000000], [25.000000, 0.000000, 0.000000], [25.000000, 0.000000, 0.000000]],
+    [[25.000000, 0.000000, 0.000000], [25.000000, 0.000000, 0.000000], [25.000000, 0.000000, 0.000000]],
+    [[25.000000, 0.000000, 0.000000], [25.000000, 0.000000, 0.000000], [25.000000, 0.000000, 0.000000]],
+    [[-0.000000, 0.000000, -176.776695], [-0.000000, 146.446609, -146.446609], [-0.000000, 0.000000, -176.776695]],
+    [[-0.000000, 0.000000, -176.776695], [-0.000000, 146.446609, -146.446609], [-0.000000, 146.446609, -146.446609]],
+    [[-0.000000, 146.446609, -146.446609], [-0.000000, 176.776695, -0.000000], [-0.000000, 146.446609, -146.446609]],
+    [[-0.000000, 146.446609, -146.446609], [-0.000000, 176.776695, -0.000000], [-0.000000, 176.776695, -0.000000]],
+    [[0.000000, 176.776695, 0.000000], [-0.000000, 146.446609, -146.446609], [-0.000000, 176.776695, -0.000000]],
+    [[-0.000000, 176.776695, -0.000000], [-0.000000, 146.446609, -146.446609], [-0.000000, 146.446609, -146.446609]],
+    [[-0.000000, 146.446609, -146.446609], [-0.000000, 0.000000, -176.776695], [-0.000000, 146.446609, -146.446609]],
+    [[-0.000000, 146.446609, -146.446609], [-0.000000, 0.000000, -176.776695], [-0.000000, 0.000000, -176.776695]],
+    [[-0.000000, 176.776695, 0.000000], [0.000000, 146.446609, 146.446609], [0.000000, 176.776695, 0.000000]],
+    [[0.000000, 176.776695, 0.000000], [0.000000, 146.446609, 146.446609], [0.000000, 146.446609, 146.446609]],
+    [[0.000000, 146.446609, 146.446609], [0.000000, 0.000000, 176.776695], [0.000000, 146.446609, 146.446609]],
+    [[0.000000, 146.446609, 146.446609], [0.000000, 0.000000, 176.776695], [0.000000, 0.000000, 176.776695]],
+    [[0.000000, 0.000000, 176.776695], [0.000000, 146.446609, 146.446609], [0.000000, 0.000000, 176.776695]],
+    [[0.000000, 0.000000, 176.776695], [0.000000, 146.446609, 146.446609], [0.000000, 146.446609, 146.446609]],
+    [[0.000000, 146.446609, 146.446609], [0.000000, 176.776695, 0.000000], [0.000000, 146.446609, 146.446609]],
+    [[0.000000, 146.446609, 146.446609], [0.000000, 176.776695, 0.000000], [0.000000, 176.776695, 0.000000]],
+    [[0.000000, -0.000000, 176.776695], [0.000000, -146.446609, 146.446609], [0.000000, 0.000000, 176.776695]],
+    [[0.000000, 0.000000, 176.776695], [0.000000, -146.446609, 146.446609], [0.000000, -146.446609, 146.446609]],
+    [[0.000000, -146.446609, 146.446609], [0.000000, -176.776695, 0.000000], [0.000000, -146.446609, 146.446609]],
+    [[0.000000, -146.446609, 146.446609], [0.000000, -176.776695, 0.000000], [-0.000000, -176.776695, -0.000000]],
+    [[-0.000000, -176.776695, -0.000000], [0.000000, -146.446609, 146.446609], [-0.000000, -176.776695, -0.000000]],
+    [[-0.000000, -176.776695, -0.000000], [0.000000, -146.446609, 146.446609], [0.000000, -146.446609, 146.446609]],
+    [[0.000000, -146.446609, 146.446609], [0.000000, -0.000000, 176.776695], [0.000000, -146.446609, 146.446609]],
+    [[0.000000, -146.446609, 146.446609], [0.000000, -0.000000, 176.776695], [0.000000, 0.000000, 176.776695]],
+    [[0.000000, -176.776695, 0.000000], [-0.000000, -146.446609, -146.446609], [0.000000, -176.776695, 0.000000]],
+    [[0.000000, -176.776695, 0.000000], [-0.000000, -146.446609, -146.446609], [-0.000000, -146.446609, -146.446609]],
+    [[-0.000000, -146.446609, -146.446609], [-0.000000, -0.000000, -176.776695], [-0.000000, -146.446609, -146.446609]],
+    [[-0.000000, -146.446609, -146.446609], [-0.000000, -0.000000, -176.776695], [-0.000000, 0.000000, -176.776695]],
+    [[-0.000000, -0.000000, -176.776695], [-0.000000, -146.446609, -146.446609], [-0.000000, -0.000000, -176.776695]],
+    [[-0.000000, -0.000000, -176.776695], [-0.000000, -146.446609, -146.446609], [-0.000000, -146.446609, -146.446609]],
+    [[-0.000000, -146.446609, -146.446609], [-0.000000, -176.776695, -0.000000], [-0.000000, -146.446609, -146.446609]],
+    [[-0.000000, -146.446609, -146.446609], [-0.000000, -176.776695, -0.000000], [0.000000, -176.776695, 0.000000]],
+    [[-98.891938, 0.000000, 0.000000], [-98.891938, 0.000000, 0.000000], [-98.891938, 0.000000, 0.000000]],
+    [[-98.891938, 0.000000, 0.000000], [-98.891938, 0.000000, 0.000000], [-98.891938, 0.000000, 0.000000]],
+    [[-98.891938, 0.000000, 0.000000], [-98.891938, 0.000000, 0.000000], [-98.891938, 0.000000, 0.000000]],
+    [[-98.891938, 0.000000, 0.000000], [-98.891938, 0.000000, 0.000000], [-98.891938, 0.000000, 0.000000]],
+    [[-98.891938, 0.000000, 0.000000], [-98.891938, 0.000000, 0.000000], [-98.891938, 0.000000, 0.000000]],
+    [[-98.891938, 0.000000, 0.000000], [-98.891938, 0.000000, 0.000000], [-98.891938, -0.000000, 0.000000]],
+    [[-98.891938, -0.000000, 0.000000], [-98.891938, 0.000000, 0.000000], [-98.891938, 0.000000, 0.000000]],
+    [[-98.891938, 0.000000, 0.000000], [-98.891938, 0.000000, 0.000000], [-98.891938, 0.000000, 0.000000]],
+    [[-98.891938, -0.000000, 0.000000], [-98.891938, 0.000000, 0.000000], [-98.891938, 0.000000, 0.000000]],
+    [[-98.891938, 0.000000, 0.000000], [-98.891938, 0.000000, 0.000000], [-98.891938, 0.000000, 0.000000]],
+    [[-98.891938, 0.000000, 0.000000], [-98.891938, 0.000000, 0.000000], [-98.891938, -0.000000, 0.000000]],
+    [[-98.891938, -0.000000, 0.000000], [-98.891938, 0.000000, 0.000000], [-98.891938, 0.000000, 0.000000]],
+    [[-98.891938, 0.000000, 0.000000], [-98.891938, 0.000000, 0.000000], [-98.891938, -0.000000, 0.000000]],
+    [[-98.891938, 0.000000, 0.000000], [-98.891938, 0.000000, 0.000000], [-98.891938, -0.000000, 0.000000]],
+    [[-98.891938, -0.000000, 0.000000], [-98.891938, 0.000000, 0.000000], [-98.891938, -0.000000, 0.000000]],
+    [[-98.891938, -0.000000, 0.000000], [-98.891938, 0.000000, 0.000000], [-98.891938, 0.000000, 0.000000]],
+    [[-98.891938, 0.000000, 0.000000], [-98.891938, 0.000000, 0.000000], [-98.891938, 0.000000, 0.000000]],
+    [[-98.891938, 0.000000, 0.000000], [-98.891938, 0.000000, 0.000000], [-98.891938, 0.000000, 0.000000]],
+    [[-98.891938, 0.000000, 0.000000], [-98.891938, 0.000000, 0.000000], [-98.891938, 0.000000, 0.000000]],
+    [[-98.891938, 0.000000, 0.000000], [-98.891938, 0.000000, 0.000000], [-98.891938, -0.000000, 0.000000]],
+    [[-98.891938, 0.000000, 0.000000], [-98.891938, 0.000000, 0.000000], [-98.891938, -0.000000, 0.000000]],
+    [[-98.891938, -0.000000, 0.000000], [-98.891938, 0.000000, 0.000000], [-98.891938, 0.000000, 0.000000]],
+    [[-98.891938, 0.000000, 0.000000], [-98.891938, 0.000000, 0.000000], [-98.891938, 0.000000, 0.000000]],
+    [[-98.891938, 0.000000, 0.000000], [-98.891938, 0.000000, 0.000000], [-98.891938, 0.000000, 0.000000]],
+    [[98.891938, 0.000000, -0.000000], [98.891938, -0.000000, 0.000000], [98.891938, 0.000000, 0.000000]],
+    [[98.891938, 0.000000, 0.000000], [98.891938, -0.000000, 0.000000], [98.891938, 0.000000, 0.000000]],
+    [[98.891938, -0.000000, 0.000000], [98.891938, -0.000000, 0.000000], [98.891938, 0.000000, 0.000000]],
+    [[98.891938, 0.000000, 0.000000], [98.891938, -0.000000, 0.000000], [98.891938, -0.000000, 0.000000]],
+    [[98.891938, -0.000000, 0.000000], [98.891938, -0.000000, 0.000000], [98.891938, -0.000000, 0.000000]],
+    [[98.891938, -0.000000, 0.000000], [98.891938, -0.000000, 0.000000], [98.891938, 0.000000, -0.000000]],
+    [[98.891938, -0.000000, 0.000000], [98.891938, -0.000000, 0.000000], [98.891938, 0.000000, -0.000000]],
+    [[98.891938, 0.000000, -0.000000], [98.891938, -0.000000, 0.000000], [98.891938, -0.000000, 0.000000]],
+    [[98.891938, -0.000000, 0.000000], [98.891938, 0.000000, 0.000000], [98.891938, -0.000000, 0.000000]],
+    [[98.891938, -0.000000, 0.000000], [98.891938, 0.000000, 0.000000], [98.891938, 0.000000, -0.000000]],
+    [[98.891938, 0.000000, 0.000000], [98.891938, 0.000000, 0.000000], [98.891938, 0.000000, -0.000000]],
+    [[98.891938, 0.000000, -0.000000], [98.891938, 0.000000, 0.000000], [98.891938, -0.000000, 0.000000]],
+    [[98.891938, 0.000000, 0.000000], [98.891938, 0.000000, -0.000000], [98.891938, -0.000000, 0.000000]],
+    [[98.891938, 0.000000, 0.000000], [98.891938, 0.000000, 0.000000], [98.891938, 0.000000, 0.000000]],
+    [[98.891938, 0.000000, -0.000000], [98.891938, -0.000000, 0.000000], [98.891938, -0.000000, 0.000000]],
+    [[98.891938, -0.000000, 0.000000], [98.891938, -0.000000, 0.000000], [98.891938, 0.000000, 0.000000]],
+    [[98.891938, -0.000000, 0.000000], [98.891938, -0.000000, 0.000000], [98.891938, 0.000000, 0.000000]],
+    [[98.891938, 0.000000, 0.000000], [98.891938, 0.000000, 0.000000], [98.891938, 0.000000, 0.000000]],
+    [[98.891938, -0.000000, 0.000000], [98.891938, 0.000000, 0.000000], [98.891938, 0.000000, 0.000000]],
+    [[98.891938, 0.000000, 0.000000], [98.891938, 0.000000, 0.000000], [98.891938, 0.000000, 0.000000]],
+    [[98.891938, 0.000000, 0.000000], [98.891938, 0.000000, 0.000000], [98.891938, 0.000000, 0.000000]],
+    [[98.891938, 0.000000, 0.000000], [98.891938, 0.000000, 0.000000], [98.891938, 0.000000, 0.000000]],
+    [[98.891938, 0.000000, 0.000000], [98.891938, 0.000000, 0.000000], [98.891938, 0.000000, 0.000000]],
+    [[98.891938, 0.000000, 0.000000], [98.891938, 0.000000, 0.000000], [98.891938, 0.000000, 0.000000]],
+    [[-0.000000, 85.287715, -0.000000], [0.000000, 89.084064, 35.267569], [-0.000000, 85.287715, -0.000000]],
+    [[-0.000000, 85.287715, -0.000000], [0.000000, 89.084064, 35.267569], [0.000000, 89.084064, 35.267569]],
+    [[0.000000, -0.000000, 85.287715], [0.000000, 35.267569, 89.084064], [0.000000, 0.000000, 85.287715]],
+    [[0.000000, 0.000000, 85.287715], [0.000000, 35.267569, 89.084064], [0.000000, 35.267569, 89.084064]],
+    [[0.000000, 89.084064, 35.267569], [0.000000, 70.654657, 70.654657], [0.000000, 89.084064, 35.267569]],
+    [[0.000000, 89.084064, 35.267569], [0.000000, 70.654657, 70.654657], [0.000000, 70.654657, 70.654657]],
+    [[0.000000, 70.654657, 70.654657], [0.000000, 35.267569, 89.084064], [0.000000, 70.654657, 70.654657]],
+    [[0.000000, 70.654657, 70.654657], [0.000000, 35.267569, 89.084064], [0.000000, 35.267569, 89.084064]],
+    [[0.000000, 0.000000, 85.287715], [0.000000, -35.267569, 89.084064], [0.000000, 0.000000, 85.287715]],
+    [[0.000000, 0.000000, 85.287715], [0.000000, -35.267569, 89.084064], [0.000000, -35.267569, 89.084064]],
+    [[0.000000, -85.287715, 0.000000], [0.000000, -89.084064, 35.267569], [0.000000, -85.287715, 0.000000]],
+    [[0.000000, -85.287715, 0.000000], [0.000000, -89.084064, 35.267569], [0.000000, -89.084064, 35.267569]],
+    [[0.000000, -35.267569, 89.084064], [0.000000, -70.654657, 70.654657], [0.000000, -35.267569, 89.084064]],
+    [[0.000000, -35.267569, 89.084064], [0.000000, -70.654657, 70.654657], [0.000000, -70.654657, 70.654657]],
+    [[0.000000, -70.654657, 70.654657], [0.000000, -89.084064, 35.267569], [0.000000, -70.654657, 70.654657]],
+    [[0.000000, -70.654657, 70.654657], [0.000000, -89.084064, 35.267569], [0.000000, -89.084064, 35.267569]],
+    [[0.000000, -85.287715, -0.000000], [-0.000000, -89.084064, -35.267569], [0.000000, -85.287715, -0.000000]],
+    [[0.000000, -85.287715, -0.000000], [-0.000000, -89.084064, -35.267569], [-0.000000, -89.084064, -35.267569]],
+    [[-0.000000, -0.000000, -85.287715], [-0.000000, -35.267569, -89.084064], [-0.000000, -0.000000, -85.287715]],
+    [[-0.000000, -0.000000, -85.287715], [-0.000000, -35.267569, -89.084064], [-0.000000, -35.267569, -89.084064]],
+    [[-0.000000, -89.084064, -35.267569], [-0.000000, -70.654657, -70.654657], [-0.000000, -89.084064, -35.267569]],
+    [[-0.000000, -89.084064, -35.267569], [-0.000000, -70.654657, -70.654657], [-0.000000, -70.654657, -70.654657]],
+    [[-0.000000, -70.654657, -70.654657], [-0.000000, -35.267569, -89.084064], [-0.000000, -70.654657, -70.654657]],
+    [[-0.000000, -70.654657, -70.654657], [-0.000000, -35.267569, -89.084064], [-0.000000, -35.267569, -89.084064]],
+    [[-0.000000, -0.000000, -85.287715], [-0.000000, 35.267569, -89.084064], [-0.000000, -0.000000, -85.287715]],
+    [[-0.000000, -0.000000, -85.287715], [-0.000000, 35.267569, -89.084064], [-0.000000, 35.267569, -89.084064]],
+    [[-0.000000, 85.287715, -0.000000], [-0.000000, 89.084064, -35.267569], [-0.000000, 85.287715, -0.000000]],
+    [[-0.000000, 85.287715, -0.000000], [-0.000000, 89.084064, -35.267569], [-0.000000, 89.084064, -35.267569]],
+    [[-0.000000, 35.267569, -89.084064], [-0.000000, 70.654657, -70.654657], [-0.000000, 35.267569, -89.084064]],
+    [[-0.000000, 35.267569, -89.084064], [-0.000000, 70.654657, -70.654657], [-0.000000, 70.654657, -70.654657]],
+    [[-0.000000, 70.654657, -70.654657], [-0.000000, 89.084064, -35.267569], [-0.000000, 70.654657, -70.654657]],
+    [[-0.000000, 70.654657, -70.654657], [-0.000000, 89.084064, -35.267569], [-0.000000, 89.084064, -35.267569]],
+    [[-0.000000, -0.000000, -1482.533977], [-0.000000, -0.000000, -1482.533977], [-0.000000, -0.000000, -1482.533977]],
+    [[-0.000000, -0.000000, -1482.533977], [-0.000000, -0.000000, -1482.533977], [-0.000000, -0.000000, -1482.533977]],
+    [[-0.000000, -0.000000, -1482.533977], [-0.000000, -0.000000, -1482.533977], [-0.000000, -0.000000, -1482.533977]],
+    [[-0.000000, -0.000000, -1482.533977], [-0.000000, -0.000000, -1482.533977], [-0.000000, -0.000000, -1482.533977]],
+    [[-0.000000, -0.000000, -1482.533977], [-0.000000, -0.000000, -1482.533977], [-0.000000, -0.000000, -1482.533977]],
+    [[-0.000000, -0.000000, -1482.533977], [-0.000000, -0.000000, -1482.533977], [-0.000000, -0.000000, -1482.533977]],
+    [[-0.000000, -0.000000, -1482.533977], [-0.000000, -0.000000, -1482.533977], [-0.000000, -0.000000, -1482.533977]],
+    [[-0.000000, -0.000000, -1482.533977], [-0.000000, -0.000000, -1482.533977], [-0.000000, -0.000000, -1482.533977]],
+    [[-0.000000, -0.000000, -1482.533977], [-0.000000, -0.000000, -1482.533977], [-0.000000, -0.000000, -1482.533977]],
+    [[-0.000000, 0.000000, 1482.533977], [-0.000000, 0.000000, 1482.533977], [-0.000000, 0.000000, 1482.533977]],
+    [[-0.000000, 0.000000, 1482.533977], [-0.000000, 0.000000, 1482.533977], [-0.000000, 0.000000, 1482.533977]],
+    [[-0.000000, 0.000000, 1482.533977], [-0.000000, 0.000000, 1482.533977], [-0.000000, 0.000000, 1482.533977]],
+    [[0.000000, -0.000000, 1482.533977], [-0.000000, 0.000000, 1482.533977], [0.000000, -0.000000, 1482.533977]],
+    [[0.000000, -0.000000, 1482.533977], [-0.000000, 0.000000, 1482.533977], [-0.000000, 0.000000, 1482.533977]],
+    [[-0.000000, 0.000000, 1482.533977], [-0.000000, 0.000000, 1482.533977], [-0.000000, 0.000000, 1482.533977]],
+    [[-0.000000, 0.000000, 1482.533977], [-0.000000, 0.000000, 1482.533977], [-0.000000, 0.000000, 1482.533977]],
+    [[-0.000000, 0.000000, 1482.533977], [-0.000000, 0.000000, 1482.533977], [-0.000000, 0.000000, 1482.533977]],
+    [[-0.000000, 0.000000, 1482.533977], [-0.000000, 0.000000, 1482.533977], [-0.000000, 0.000000, 1482.533977]],
+    [[120.000000, 0.000000, 0.000000], [120.000000, 0.000000, 0.000000], [120.000000, 0.000000, 0.000000]],
+    [[120.000000, 0.000000, 0.000000], [120.000000, 0.000000, 0.000000], [120.000000, 0.000000, 0.000000]],
+    [[0.000000, 90.000000, -0.000000], [0.000000, 90.000000, -0.000000], [0.000000, 90.000000, -0.000000]],
+    [[0.000000, 90.000000, -0.000000], [0.000000, 90.000000, -0.000000], [0.000000, 90.000000, -0.000000]],
+    [[907.500000, 0.000000, 0.000000], [907.500000, 0.000000, 0.000000], [907.500000, 0.000000, 0.000000]],
+    [[907.500000, 0.000000, -0.000000], [907.500000, 0.000000, 0.000000], [907.500000, 0.000000, -0.000000]],
+    [[907.500000, 0.000000, 0.000000], [907.500000, 0.000000, -0.000000], [907.500000, 0.000000, 0.000000]],
+    [[907.500000, 0.000000, -0.000000], [907.500000, 0.000000, 0.000000], [907.500000, 0.000000, -0.000000]],
+    [[907.500000, 0.000000, -0.000000], [907.500000, 0.000000, 0.000000], [907.500000, 0.000000, 0.000000]],
+    [[907.500000, 0.000000, 0.000000], [907.500000, 0.000000, 0.000000], [907.500000, 0.000000, -0.000000]],
+    [[907.500000, 0.000000, 0.000000], [907.500000, 0.000000, 0.000000], [907.500000, 0.000000, 0.000000]],
+    [[907.500000, 0.000000, 0.000000], [907.500000, 0.000000, 0.000000], [907.500000, 0.000000, 0.000000]],
+    [[907.500000, 0.000000, 0.000000], [907.500000, 0.000000, -0.000000], [907.500000, 0.000000, 0.000000]],
+    [[907.500000, 0.000000, -0.000000], [907.500000, 0.000000, 0.000000], [907.500000, 0.000000, -0.000000]],
+    [[907.500000, 0.000000, -0.000000], [907.500000, 0.000000, 0.000000], [907.500000, 0.000000, 0.000000]],
+    [[907.500000, 0.000000, 0.000000], [907.500000, 0.000000, 0.000000], [907.500000, 0.000000, -0.000000]],
+    [[0.000000, 225.000000, -0.000000], [0.000000, 225.000000, -0.000000], [0.000000, 225.000000, -0.000000]],
+    [[0.000000, 225.000000, -0.000000], [0.000000, 225.000000, -0.000000], [0.000000, 225.000000, -0.000000]],
+    [[-225.000000, 0.000000, 0.000000], [-225.000000, 0.000000, 0.000000], [-225.000000, 0.000000, 0.000000]],
+    [[-225.000000, 0.000000, 0.000000], [-225.000000, 0.000000, 0.000000], [-225.000000, -0.000000, 0.000000]],
+    [[-225.000000, 0.000000, 0.000000], [-225.000000, 0.000000, 0.000000], [-225.000000, -0.000000, 0.000000]],
+    [[-225.000000, -0.000000, 0.000000], [-225.000000, 0.000000, 0.000000], [-225.000000, 0.000000, 0.000000]],
+    [[-225.000000, 0.000000, 0.000000], [-225.000000, 0.000000, 0.000000], [-225.000000, -0.000000, 0.000000]],
+    [[-225.000000, -0.000000, 0.000000], [-225.000000, 0.000000, 0.000000], [-225.000000, 0.000000, 0.000000]],
+    [[-225.000000, 0.000000, 0.000000], [-225.000000, 0.000000, 0.000000], [-225.000000, 0.000000, 0.000000]],
+    [[-225.000000, 0.000000, 0.000000], [-225.000000, 0.000000, 0.000000], [-225.000000, 0.000000, 0.000000]],
+    [[-225.000000, 0.000000, 0.000000], [-225.000000, 0.000000, 0.000000], [-225.000000, 0.000000, 0.000000]],
+    [[-225.000000, 0.000000, 0.000000], [-225.000000, 0.000000, 0.000000], [-225.000000, 0.000000, 0.000000]],
+    [[-225.000000, 0.000000, 0.000000], [-225.000000, 0.000000, 0.000000], [-225.000000, 0.000000, 0.000000]],
+    [[-225.000000, 0.000000, 0.000000], [-225.000000, 0.000000, 0.000000], [-225.000000, 0.000000, 0.000000]],
+    [[0.000000, -135.000000, 0.000000], [0.000000, -135.000000, 0.000000], [0.000000, -135.000000, 0.000000]],
+    [[0.000000, -135.000000, 0.000000], [0.000000, -135.000000, 0.000000], [0.000000, -135.000000, 0.000000]],
+    [[-682.500000, 0.000000, 0.000000], [-682.500000, 0.000000, 0.000000], [-682.500000, 0.000000, 0.000000]],
+    [[-682.500000, 0.000000, 0.000000], [-682.500000, 0.000000, 0.000000], [-682.500000, 0.000000, 0.000000]],
+    [[0.000000, 90.000000, -0.000000], [0.000000, 90.000000, -0.000000], [0.000000, 90.000000, -0.000000]],
+    [[0.000000, 90.000000, -0.000000], [0.000000, 90.000000, -0.000000], [0.000000, 90.000000, -0.000000]],
+    [[-135.000000, 0.000000, 0.000000], [-135.000000, 0.000000, 0.000000], [-135.000000, 0.000000, 0.000000]],
+    [[-135.000000, 0.000000, 0.000000], [-135.000000, 0.000000, 0.000000], [-135.000000, 0.000000, 0.000000]],
+    [[44.339017, -164.023098, 0.000000], [23.754876, -356.994914, 0.000000], [44.339017, -164.023098, 0.000000]],
+    [[44.339017, -164.023098, 0.000000], [23.754876, -356.994914, 0.000000], [23.754876, -356.994914, 0.000000]],
+    [[-49.358523, -27.997247, 0.000000], [23.754876, -356.994914, 0.000000], [-49.358523, -27.997247, 0.000000]],
+    [[-49.358523, -27.997247, 0.000000], [23.754876, -356.994914, 0.000000], [23.754876, -356.994914, 0.000000]],
+    [[-0.000000, -0.000000, -106.066017], [-0.000000, -87.867966, -87.867966], [-0.000000, 0.000000, -106.066017]],
+    [[-0.000000, 0.000000, -106.066017], [-0.000000, -87.867966, -87.867966], [-0.000000, -87.867966, -87.867966]],
+    [[-0.000000, -87.867966, -87.867966], [-0.000000, -106.066017, -0.000000], [-0.000000, -87.867966, -87.867966]],
+    [[-0.000000, -87.867966, -87.867966], [-0.000000, -106.066017, -0.000000], [-0.000000, -106.066017, -0.000000]],
+    [[0.000000, -106.066017, 0.000000], [0.000000, -87.867966, 87.867966], [0.000000, -106.066017, 0.000000]],
+    [[0.000000, -106.066017, 0.000000], [0.000000, -87.867966, 87.867966], [0.000000, -87.867966, 87.867966]],
+    [[0.000000, -87.867966, 87.867966], [0.000000, -0.000000, 106.066017], [0.000000, -87.867966, 87.867966]],
+    [[0.000000, -87.867966, 87.867966], [0.000000, -0.000000, 106.066017], [0.000000, -0.000000, 106.066017]],
+    [[0.000000, 0.000000, 106.066017], [0.000000, 87.867966, 87.867966], [0.000000, -0.000000, 106.066017]],
+    [[0.000000, -0.000000, 106.066017], [0.000000, 87.867966, 87.867966], [0.000000, 87.867966, 87.867966]],
+    [[0.000000, 87.867966, 87.867966], [0.000000, 106.066017, 0.000000], [0.000000, 87.867966, 87.867966]],
+    [[0.000000, 87.867966, 87.867966], [0.000000, 106.066017, 0.000000], [-0.000000, 106.066017, -0.000000]],
+    [[-0.000000, 106.066017, -0.000000], [-0.000000, 87.867966, -87.867966], [0.000000, 106.066017, 0.000000]],
+    [[0.000000, 106.066017, 0.000000], [-0.000000, 87.867966, -87.867966], [-0.000000, 87.867966, -87.867966]],
+    [[-0.000000, 87.867966, -87.867966], [-0.000000, 0.000000, -106.066017], [-0.000000, 87.867966, -87.867966]],
+    [[-0.000000, 87.867966, -87.867966], [-0.000000, 0.000000, -106.066017], [-0.000000, -0.000000, -106.066017]],
+  ],
+  colors: [
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+    0xff646464,
+  ],
+  edges: [
+    [[56.321733, 35.238512, -0.000000], [56.321733, 95.738512, -0.000000]],
+    [[56.321733, 35.238512, 15.000000], [56.321733, 35.238512, -0.000000]],
+    [[50.321733, 80.738512, 15.000000], [50.321733, 35.238512, 15.000000]],
+    [[41.321733, 95.738512, -0.000000], [41.321733, 95.738512, 15.000000]],
+    [[41.321733, 95.738512, 15.000000], [56.321733, 95.738512, 15.000000]],
+    [[41.321733, 80.738512, 15.000000], [50.321733, 80.738512, 15.000000]],
+    [[56.321733, 95.738512, -0.000000], [56.321733, 95.738512, 15.000000]],
+    [[56.321733, 35.238512, 15.000000], [56.321733, 95.738512, 15.000000]],
+    [[41.321733, 95.738512, 15.000000], [41.321733, 80.738512, 15.000000]],
+    [[56.321733, 95.738512, -0.000000], [41.321733, 95.738512, -0.000000]],
+    [[41.321733, 86.470745, 9.267767], [41.321733, 88.238512, 10.000000]],
+    [[37.386178, 90.006279, 9.267767], [37.386178, 88.238512, 10.000000]],
+    [[37.386178, 88.238512, 10.000000], [37.386178, 86.470745, 9.267767]],
+    [[41.321733, 88.238512, 10.000000], [41.321733, 90.006279, 9.267767]],
+    [[41.321733, 90.006279, 9.267767], [41.321733, 90.738512, 7.500000]],
+    [[41.321733, 85.738512, 7.500000], [41.321733, 86.470745, 9.267767]],
+    [[37.386178, 90.738512, 7.500000], [37.386178, 90.006279, 9.267767]],
+    [[37.386178, 86.470745, 9.267767], [37.386178, 85.738512, 7.500000]],
+    [[41.321733, 80.738512, -0.000000], [50.321733, 80.738512, -0.000000]],
+    [[41.321733, 80.738512, 15.000000], [41.321733, 80.738512, -0.000000]],
+    [[50.321733, 35.238512, -0.000000], [50.321733, 35.238512, 15.000000]],
+    [[50.321733, 80.738512, -0.000000], [50.321733, 80.738512, 15.000000]],
+    [[50.321733, 80.738512, -0.000000], [50.321733, 35.238512, -0.000000]],
+    [[37.386178, 85.738512, 7.500000], [37.386178, 86.470745, 5.732233]],
+    [[41.321733, 86.470745, 5.732233], [41.321733, 85.738512, 7.500000]],
+    [[41.321733, 90.738512, 7.500000], [41.321733, 90.006279, 5.732233]],
+    [[37.386178, 90.006279, 5.732233], [37.386178, 90.738512, 7.500000]],
+    [[41.321733, 90.006279, 5.732233], [41.321733, 88.238512, 5.000000]],
+    [[41.321733, 88.238512, 5.000000], [41.321733, 86.470745, 5.732233]],
+    [[37.386178, 88.238512, 5.000000], [37.386178, 90.006279, 5.732233]],
+    [[37.386178, 86.470745, 5.732233], [37.386178, 88.238512, 5.000000]],
+    [[41.321733, 80.738512, -0.000000], [41.321733, 95.738512, -0.000000]],
+    [[62.321733, 35.238512, -0.000000], [62.321733, 35.238512, 15.000000]],
+    [[62.321733, 35.238512, 15.000000], [62.321733, 27.238512, 15.000000]],
+    [[62.321733, 35.238512, -0.000000], [56.321733, 35.238512, -0.000000]],
+    [[52.188184, 25.957699, 15.000000], [62.321733, 27.238512, 15.000000]],
+    [[56.321733, 35.238512, 15.000000], [62.321733, 35.238512, 15.000000]],
+    [[62.321733, 27.238512, -0.000000], [62.321733, 35.238512, -0.000000]],
+    [[62.321733, 27.238512, 15.000000], [62.321733, 27.238512, -0.000000]],
+    [[52.188184, 25.957699, -0.000000], [62.321733, 27.238512, -0.000000]],
+    [[52.188184, 25.957699, 15.000000], [44.321733, 26.238512, 15.000000]],
+    [[44.321733, 35.238512, 15.000000], [44.321733, 26.238512, 15.000000]],
+    [[44.321733, 26.238512, -0.000000], [52.188184, 25.957699, -0.000000]],
+    [[44.321733, 26.238512, 15.000000], [44.321733, 26.238512, -0.000000]],
+    [[50.321733, 35.238512, 15.000000], [44.321733, 35.238512, 15.000000]],
+    [[50.321733, 35.238512, -0.000000], [44.321733, 35.238512, -0.000000]],
+    [[44.321733, 35.238512, -0.000000], [44.321733, 35.238512, 15.000000]],
+    [[44.321733, 35.238512, -0.000000], [44.321733, 26.238512, -0.000000]],
+    [[25.257289, 91.754403, 11.015891], [25.257289, 90.068760, 12.123113]],
+    [[37.386178, 90.068760, 12.123113], [37.386178, 91.754403, 11.015891]],
+    [[25.257289, 92.861625, 9.330248], [25.257289, 91.754403, 11.015891]],
+    [[37.386178, 92.861625, 9.330248], [37.386178, 91.754403, 11.015891]],
+    [[37.386178, 88.238512, 12.472221], [37.386178, 90.068760, 12.123113]],
+    [[25.257289, 90.068760, 12.123113], [25.257289, 88.238512, 12.472221]],
+    [[37.386178, 88.238512, 12.472221], [37.386178, 86.408264, 12.123113]],
+    [[25.257289, 88.238512, 12.472221], [25.257289, 86.408264, 12.123113]],
+    [[25.257289, 93.210733, 7.500000], [25.257289, 92.861625, 9.330248]],
+    [[37.386178, 92.861625, 5.669752], [37.386178, 93.210733, 7.500000]],
+    [[37.386178, 92.861625, 9.330248], [37.386178, 93.210733, 7.500000]],
+    [[25.257289, 92.861625, 5.669752], [25.257289, 93.210733, 7.500000]],
+    [[37.386178, 91.754403, 3.984109], [37.386178, 92.861625, 5.669752]],
+    [[25.257289, 91.754403, 3.984109], [25.257289, 92.861625, 5.669752]],
+    [[37.386178, 90.068760, 2.876887], [37.386178, 91.754403, 3.984109]],
+    [[25.257289, 90.068760, 2.876887], [25.257289, 91.754403, 3.984109]],
+    [[37.386178, 88.238512, 2.527779], [37.386178, 90.068760, 2.876887]],
+    [[25.257289, 88.238512, 2.527779], [25.257289, 90.068760, 2.876887]],
+    [[37.386178, 86.408264, 2.876887], [37.386178, 88.238512, 2.527779]],
+    [[25.257289, 86.408264, 2.876887], [25.257289, 88.238512, 2.527779]],
+    [[37.386178, 86.408264, 12.123113], [37.386178, 84.722621, 11.015891]],
+    [[37.386178, 84.722621, 11.015891], [37.386178, 83.615399, 9.330248]],
+    [[25.257289, 86.408264, 12.123113], [25.257289, 84.722621, 11.015891]],
+    [[25.257289, 84.722621, 11.015891], [25.257289, 83.615399, 9.330248]],
+    [[37.386178, 83.615399, 9.330248], [37.386178, 83.266291, 7.500000]],
+    [[25.257289, 83.615399, 9.330248], [25.257289, 83.266291, 7.500000]],
+    [[37.386178, 84.722621, 3.984109], [37.386178, 86.408264, 2.876887]],
+    [[25.257289, 84.722621, 3.984109], [25.257289, 86.408264, 2.876887]],
+    [[37.386178, 83.615399, 5.669752], [37.386178, 84.722621, 3.984109]],
+    [[37.386178, 83.266291, 7.500000], [37.386178, 83.615399, 5.669752]],
+    [[25.257289, 83.266291, 7.500000], [25.257289, 83.615399, 5.669752]],
+    [[25.257289, 83.615399, 5.669752], [25.257289, 84.722621, 3.984109]],
+    [[25.257289, 90.006279, 5.732233], [25.257289, 90.738512, 7.500000]],
+    [[25.257289, 90.738512, 7.500000], [25.257289, 90.006279, 9.267767]],
+    [[25.257289, 90.006279, 9.267767], [25.257289, 88.238512, 10.000000]],
+    [[25.257289, 88.238512, 10.000000], [25.257289, 86.470745, 9.267767]],
+    [[25.257289, 86.470745, 9.267767], [25.257289, 85.738512, 7.500000]],
+    [[25.257289, 85.738512, 7.500000], [25.257289, 86.470745, 5.732233]],
+    [[25.257289, 88.238512, 5.000000], [25.257289, 90.006279, 5.732233]],
+    [[25.257289, 86.470745, 5.732233], [25.257289, 88.238512, 5.000000]],
+    [[21.321733, 95.738512, 15.000000], [6.321733, 95.738512, 15.000000]],
+    [[12.321733, 80.738512, 15.000000], [21.321733, 80.738512, 15.000000]],
+    [[21.321733, 80.738512, 15.000000], [21.321733, 95.738512, 15.000000]],
+    [[21.321733, 95.738512, 15.000000], [21.321733, 95.738512, 0.000000]],
+    [[21.321733, 95.738512, 0.000000], [6.321733, 95.738512, 0.000000]],
+    [[6.321733, 95.738512, 0.000000], [6.321733, 95.738512, 15.000000]],
+    [[21.321733, 90.006279, 9.267767], [21.321733, 90.738512, 7.500000]],
+    [[21.321733, 88.238512, 10.000000], [21.321733, 90.006279, 9.267767]],
+    [[21.321733, 86.470745, 9.267767], [21.321733, 88.238512, 10.000000]],
+    [[21.321733, 90.738512, 7.500000], [21.321733, 90.006279, 5.732233]],
+    [[12.321733, 80.738512, 15.000000], [12.321733, 80.738512, 0.000000]],
+    [[12.321733, 80.738512, 0.000000], [21.321733, 80.738512, 0.000000]],
+    [[21.321733, 80.738512, 15.000000], [21.321733, 80.738512, 0.000000]],
+    [[21.321733, 85.738512, 7.500000], [21.321733, 86.470745, 9.267767]],
+    [[21.321733, 85.738512, 7.500000], [21.321733, 86.470745, 5.732233]],
+    [[21.321733, 88.238512, 5.000000], [21.321733, 86.470745, 5.732233]],
+    [[21.321733, 90.006279, 5.732233], [21.321733, 88.238512, 5.000000]],
+    [[21.321733, 80.738512, 0.000000], [21.321733, 95.738512, 0.000000]],
+    [[6.321733, 95.738512, 15.000000], [6.321733, 35.238512, 15.000000]],
+    [[6.321733, 35.238512, 0.000000], [6.321733, 35.238512, 15.000000]],
+    [[12.321733, 35.238512, 15.000000], [12.321733, 35.238512, 0.000000]],
+    [[12.321733, 35.238512, 0.000000], [12.321733, 80.738512, 0.000000]],
+    [[12.321733, 35.238512, 15.000000], [12.321733, 80.738512, 15.000000]],
+    [[6.321733, 95.738512, 0.000000], [6.321733, 35.238512, 0.000000]],
+    [[10.455282, 25.957699, 15.000000], [18.321733, 26.238512, 15.000000]],
+    [[18.321733, 35.238512, 15.000000], [12.321733, 35.238512, 15.000000]],
+    [[18.321733, 26.238512, 15.000000], [18.321733, 35.238512, 15.000000]],
+    [[18.321733, 35.238512, 15.000000], [18.321733, 35.238512, 0.000000]],
+    [[18.321733, 35.238512, 0.000000], [12.321733, 35.238512, 0.000000]],
+    [[18.321733, 26.238512, 15.000000], [18.321733, 26.238512, 0.000000]],
+    [[18.321733, 26.238512, 0.000000], [18.321733, 35.238512, 0.000000]],
+    [[10.455282, 25.957699, 0.000000], [18.321733, 26.238512, 0.000000]],
+    [[10.455282, 25.957699, 15.000000], [0.321733, 27.238512, 15.000000]],
+    [[0.321733, 35.238512, 15.000000], [0.321733, 27.238512, 15.000000]],
+    [[6.321733, 35.238512, 15.000000], [0.321733, 35.238512, 15.000000]],
+    [[0.321733, 27.238512, 0.000000], [10.455282, 25.957699, 0.000000]],
+    [[0.321733, 27.238512, 15.000000], [0.321733, 27.238512, 0.000000]],
+    [[6.321733, 35.238512, 0.000000], [0.321733, 35.238512, 0.000000]],
+    [[0.321733, 35.238512, 0.000000], [0.321733, 35.238512, 15.000000]],
+    [[0.321733, 35.238512, 0.000000], [0.321733, 27.238512, 0.000000]],
+  ]
+};
+
+    document.body.appendChild(solvespace(solvespace_model___________));
+    </script>
+  </body>
+</html>
