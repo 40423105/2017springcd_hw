@@ -36,14 +36,15 @@ window.onload = function(){
 &lt;iframe width="800" height="600" src="https://www.youtube.com/embed/D4HgWsdvrq8" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;
 &lt;p&gt;onshape模擬運動&lt;/p&gt;
 &lt;iframe width="800" height="600" src="https://www.youtube.com/embed/TBArZ8mx5Hs" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;&lt;/p&gt;
-&lt;p&gt;問題:由於我還不知道如何控制讓馬達只在固定角度移動,所以只要一模擬就會發生跌倒的情況,所以我嘗試將檔案丟入onshape模擬&lt;/p&gt;
+&lt;p&gt;問題:由於我還不知道如何控制讓馬達只在固定角度移動,所以只要一模擬就會發生跌倒的情況,這部分我還需要學習,所以我將檔案嘗試用onshape模擬&lt;/p&gt;
 
 &lt;h1&gt;6.在網誌中, 以"期末分組專題"為標題, 說明在分組行走機構模擬與實作過程中所扮演的角色, 並說明所負責完成的任務&lt;/h1&gt;
 &lt;p&gt;&lt;/p&gt;&lt;a href="https://40423105.github.io/2017springcd_hw/blog/qi-mo-fen-zu-zhuan-ti-ag1_fang-sheng-zi-zou-shou.html"&gt;&lt;font face="標楷體"  &gt;期末分組專題:AG1_仿生自走獸&lt;/font&gt;&lt;br&gt;&lt;/a&gt;
-&lt;/p&gt;&lt;a href="https://cad.onshape.com/documents/eeea69c5be9cc5faaf566c09/w/5d2ec46c1dbe432efb1792a3/e/ddbe4ad90a5eedf2ee0562db"&gt;&lt;font face="標楷體"&gt;期末分組專題:AG1_仿生自走獸(對團隊的貢獻)&lt;/font&gt;&lt;br&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;/p&gt;&lt;a href="https://40423105.github.io/2017springcd_hw/blog/qi-mo-fen-zu-zhuan-ti-ag1_fang-sheng-zi-zou-shou-dui-tuan-dui-de-gong-xian.html"&gt;&lt;font face="標楷體"&gt;期末分組專題:AG1_仿生自走獸(對團隊的貢獻)&lt;/font&gt;&lt;br&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h1&gt;7.以協同方式整合各組組員所完成的倉儲, 網誌與操作影片後, 以學號名稱當作子目錄, 其中放入各組員上述各題所完成的操作影片後, 上傳到各組在系上的 Fossil SCM 倉儲, 並設法用各組的 Github Pages 進行分組簡報.&lt;/h1&gt;
 &lt;p&gt;&lt;p&gt;Fossil SCM 組員影片推送&lt;/p&gt;
-&lt;/p&gt;&lt;a href="https://40423105.github.io/2017springcd_ag1/#/"&gt;&lt;font face="標楷體"  &gt;AG1_分組簡報&lt;/font&gt;&lt;br&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;iframe width="800" height="600" src="https://www.youtube.com/embed/lUciBv7ESMg" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;&lt;/p&gt;
+&lt;p&gt;&lt;/p&gt;&lt;a href="https://40423105.github.io/2017springcd_ag1/#/"&gt;&lt;font face="標楷體"  &gt;AG1_分組簡報&lt;/font&gt;&lt;br&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h1&gt;8.40423105_w17_檔案下載區&lt;/h1&gt;
 &lt;p&gt;&lt;h2&gt;40423105_雙足機構零件下載區&lt;/h2&gt;
 &lt;p&gt;&lt;a href="./../final/40423105期末資料/40423105-2017springcd-final-1-1.stl"&gt;雙足機構零件1(stl)&lt;/a&gt; (請以滑鼠右鍵存檔)&lt;/p&gt;
