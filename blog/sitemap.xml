@@ -5,28 +5,28 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>./</loc>
-<lastmod>2017-06-24T21:08:13-00:00</lastmod>
+<lastmod>2017-06-26T08:41:53-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>./archives.html</loc>
-<lastmod>2017-06-24T21:08:13-00:00</lastmod>
+<lastmod>2017-06-26T08:41:53-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>./tags.html</loc>
-<lastmod>2017-06-24T21:08:13-00:00</lastmod>
+<lastmod>2017-06-26T08:41:53-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>./categories.html</loc>
-<lastmod>2017-06-24T21:08:13-00:00</lastmod>
+<lastmod>2017-06-26T08:41:53-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
@@ -40,6 +40,13 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>./qi-mo-fen-zu-zhuan-ti-ag1_fang-sheng-zi-zou-shou.html</loc>
+<lastmod>2017-06-21T12:08:00+08:00</lastmod>
+<changefreq>monthly</changefreq>
+<priority>0.5</priority>
+</url>
+
+<url>
+<loc>./qi-mo-fen-zu-zhuan-ti-ag1_fang-sheng-zi-zou-shou-dui-tuan-dui-de-gong-xian.html</loc>
 <lastmod>2017-06-21T12:08:00+08:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
