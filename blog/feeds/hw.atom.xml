@@ -12,7 +12,13 @@
 &lt;h1&gt;1.各自的倉儲中, 建立一個雙足 solvepace 機構零組件, 存入 final 子目錄中&lt;/h1&gt;
 &lt;p&gt;&lt;iframe width="800" height="600" src="https://www.youtube.com/embed/rF_dVpoZuYA" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;&lt;/p&gt;
 &lt;h1&gt;2.各自的網誌上, 以 "W17 行走機構 2D 靜態繪圖"為標題, 以 Brython 畫出行走機構的示意圖.&lt;/h1&gt;
+&lt;p&gt;&lt;/p&gt;&lt;a href="https://40423105.github.io/2017springcd_hw/blog/w17-xing-zou-ji-gou-2d-jing-tai-hui-tu.html"&gt;&lt;font face="標楷體"  &gt;W17 行走機構 2D 靜態繪圖&lt;/font&gt;&lt;br&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h1&gt;3.各自的倉儲中, 將 https://github.com/scrum-1/cdbw17 倉儲納入作為 w17 子目錄, 並設法導入其中的 script1.py 進行 axises() 繪圖函式的呼叫, 在任務 2 的圖中畫出座標軸.&lt;/h1&gt;
+&lt;p&gt;&lt;p&gt;git submodule w17&lt;/p&gt;
+&lt;iframe width="800" height="600" src="https://www.youtube.com/embed/rFVIHoVLIn8" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;
+&lt;p&gt;繪製2D座標軸&lt;/p&gt;
+&lt;iframe width="800" height="600" src="https://www.youtube.com/embed/_-Ol9st4GiQ" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;
+&lt;p&gt;網頁上繪製坐標軸&lt;/p&gt;&lt;/p&gt;
 &lt;h1&gt;4.各自的網誌中設法動態顯示出任務 1 所完成的零組件.&lt;/h1&gt;
 &lt;p&gt;&lt;link href="./../work/madeleine/src/css/Madeleine.css" rel="stylesheet"&gt;
 &lt;script src="./../work/madeleine/src/stats.js"&gt;&lt;/script&gt;

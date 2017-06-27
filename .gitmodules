@@ -1,0 +1,4 @@
+[submodule "teacher"]
+	path = teacher
+	url = https://github.com/scrum-1/cdbw17
+	branch = gh-pages
