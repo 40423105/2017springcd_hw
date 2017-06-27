@@ -18,7 +18,8 @@
 &lt;iframe width="800" height="600" src="https://www.youtube.com/embed/rFVIHoVLIn8" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;
 &lt;p&gt;繪製2D座標軸&lt;/p&gt;
 &lt;iframe width="800" height="600" src="https://www.youtube.com/embed/_-Ol9st4GiQ" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;
-&lt;p&gt;網頁上繪製坐標軸&lt;/p&gt;&lt;/p&gt;
+&lt;p&gt;網頁上繪製坐標軸&lt;/p&gt;
+&lt;/p&gt;&lt;a href="https://40423105.github.io/test/blog/hui-zhi-zuo-biao-zhou.html"&gt;&lt;font face="標楷體"  &gt;網頁上繪製坐標軸&lt;/font&gt;&lt;br&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h1&gt;4.各自的網誌中設法動態顯示出任務 1 所完成的零組件.&lt;/h1&gt;
 &lt;p&gt;&lt;link href="./../work/madeleine/src/css/Madeleine.css" rel="stylesheet"&gt;
 &lt;script src="./../work/madeleine/src/stats.js"&gt;&lt;/script&gt;
