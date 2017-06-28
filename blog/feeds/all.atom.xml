@@ -438,7 +438,7 @@ Spur(ctx).Gear(x, y, r, n, pa, "blue")
 &lt;/script&gt;
 
 &lt;h1&gt;3.將程式碼呈現在網頁上&lt;/h1&gt;
-&lt;p&gt;&lt;script src="https://gist.github.com/40423105/d3a95b61ae0fa27aa4fac4a6d5c2637f.js"&gt;&lt;/script&gt;&lt;/p&gt;</summary><category term="行走機構"></category></entry><entry><title>協同產品設計實習 w17練習</title><link href="./xie-tong-chan-pin-she-ji-shi-xi-w17lian-xi.html" rel="alternate"></link><published>2017-06-21T12:08:00+08:00</published><updated>2017-06-21T12:08:00+08:00</updated><author><name>40423105</name></author><id>tag:,2017-06-21:./xie-tong-chan-pin-she-ji-shi-xi-w17lian-xi.html</id><summary type="html">&lt;p&gt;&lt;font face="標楷體" color="red"&gt;
+&lt;p&gt;&lt;script src="https://gist.github.com/40423105/d3a95b61ae0fa27aa4fac4a6d5c2637f.js"&gt;&lt;/script&gt;&lt;/p&gt;</summary><category term="行走機構"></category></entry><entry><title>協同產品設計實習 w17作業</title><link href="./xie-tong-chan-pin-she-ji-shi-xi-w17zuo-ye.html" rel="alternate"></link><published>2017-06-21T12:08:00+08:00</published><updated>2017-06-21T12:08:00+08:00</updated><author><name>40423105</name></author><id>tag:,2017-06-21:./xie-tong-chan-pin-she-ji-shi-xi-w17zuo-ye.html</id><summary type="html">&lt;p&gt;&lt;font face="標楷體" color="red"&gt;
 &lt;p&gt;1. 在各自的倉儲中, 建立一個雙足 solvepace 機構零組件, 存入 final 子目錄中&lt;/p&gt;
 &lt;p&gt;2. 在各自的網誌上, 以 "W17 行走機構 2D 靜態繪圖"為標題, 以 Brython 畫出行走機構的示意圖.&lt;/p&gt;
 &lt;p&gt;3. 在各自的倉儲中, 將 https://github.com/scrum-1/cdbw17 倉儲納入作為 w17 子目錄, 並設法導入其中的 script1.py 進行 axises() 繪圖函式的呼叫, 在任務 2 的圖中畫出座標軸. &lt;/p&gt;
@@ -503,9 +503,12 @@ window.onload = function(){
 &lt;p&gt;&lt;a href="./../final/40423105期末資料/40423105-2017springcd-final-1.5.stl"&gt;雙足機構組合檔(stl)&lt;/a&gt; (請以滑鼠右鍵存檔)&lt;/p&gt;
 &lt;p&gt;&lt;a href="./../final/40423105期末資料/40423105-2017springcd-final-1-4.slvs"&gt;雙足機構組合檔(slvs)&lt;/a&gt; (請以滑鼠右鍵存檔)&lt;/p&gt;
 &lt;h2&gt;40423105_雙足v-rep模擬檔案下載區&lt;/h2&gt;
-&lt;p&gt;&lt;a href="./../final/40423105期末資料/40423105-2017springcd-final-5.ttt"&gt;雙足v-rep模擬檔案&lt;/a&gt; (請以滑鼠右鍵存檔)&lt;/p&gt;&lt;/p&gt;</summary><category term="HW"></category></entry><entry><title>協同產品設計實習 w15練習</title><link href="./xie-tong-chan-pin-she-ji-shi-xi-w15lian-xi.html" rel="alternate"></link><published>2017-06-01T12:08:00+08:00</published><updated>2017-06-01T12:08:00+08:00</updated><author><name>40423105</name></author><id>tag:,2017-06-01:./xie-tong-chan-pin-she-ji-shi-xi-w15lian-xi.html</id><summary type="html">&lt;p&gt;&lt;font face="標楷體" color="red"&gt;
-1.w15課程作業
-&lt;/font&gt;&lt;br&gt;
+&lt;p&gt;&lt;a href="./../final/40423105期末資料/40423105-2017springcd-final-5.ttt"&gt;雙足v-rep模擬檔案&lt;/a&gt; (請以滑鼠右鍵存檔)&lt;/p&gt;&lt;/p&gt;</summary><category term="HW"></category></entry><entry><title>協同產品設計實習 w15課程作業</title><link href="./xie-tong-chan-pin-she-ji-shi-xi-w15ke-cheng-zuo-ye.html" rel="alternate"></link><published>2017-06-01T12:08:00+08:00</published><updated>2017-06-01T12:08:00+08:00</updated><author><name>40423105</name></author><id>tag:,2017-06-01:./xie-tong-chan-pin-she-ji-shi-xi-w15ke-cheng-zuo-ye.html</id><summary type="html">&lt;p&gt;&lt;font face="標楷體" color="red"&gt;
+1.繪製上半齒齒輪&lt;/p&gt;
+&lt;p&gt;2.在齒輪上加上自己學號&lt;/p&gt;
+&lt;p&gt;3.繪製小組組員齒輪&lt;/p&gt;
+&lt;p&gt;4.在 Onshape 完成相同齒輪組的囓合協同繪圖.&lt;/p&gt;
+&lt;p&gt;&lt;/font&gt;&lt;br&gt;
 &lt;/p&gt;
 &lt;h2&gt;1.請以 W15 練習為網誌標題, 800x600 為畫布大小, 在畫布正中央畫一個半徑為 250 畫素, 壓力角 20, 齒數為 36 齒, 且只有上半齒形的漸開線正齒輪輪廓.&lt;/h2&gt;
 &lt;!-- 導入 Brython 標準程式庫 --&gt;

@@ -5,28 +5,28 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>./</loc>
-<lastmod>2017-06-28T01:48:32-00:00</lastmod>
+<lastmod>2017-06-28T11:39:51-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>./archives.html</loc>
-<lastmod>2017-06-28T01:48:32-00:00</lastmod>
+<lastmod>2017-06-28T11:39:51-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>./tags.html</loc>
-<lastmod>2017-06-28T01:48:32-00:00</lastmod>
+<lastmod>2017-06-28T11:39:51-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>./categories.html</loc>
-<lastmod>2017-06-28T01:48:32-00:00</lastmod>
+<lastmod>2017-06-28T11:39:51-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
@@ -60,14 +60,14 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 </url>
 
 <url>
-<loc>./xie-tong-chan-pin-she-ji-shi-xi-w17lian-xi.html</loc>
+<loc>./xie-tong-chan-pin-she-ji-shi-xi-w17zuo-ye.html</loc>
 <lastmod>2017-06-21T12:08:00+08:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>./xie-tong-chan-pin-she-ji-shi-xi-w15lian-xi.html</loc>
+<loc>./xie-tong-chan-pin-she-ji-shi-xi-w15ke-cheng-zuo-ye.html</loc>
 <lastmod>2017-06-01T12:08:00+08:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
